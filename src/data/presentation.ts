@@ -16,7 +16,7 @@ const presentation: Presentation = {
   title: "Hi, I’m Dao 👋",
   // profile: "/profile.webp",
   description:
-    "Hello, i'm Dao - a WordPress developer with over 6 years of web experience. I am currently working with WordPress as a backend role including hosting suggestion, tech support.",
+    "Hello, i'm Dao - **a WordPress developer** with **over 6 years** of web experience. I am currently working with WordPress as a backend role including **hosting & tech support**.",
   socials: [
     {
       label: "Github",
