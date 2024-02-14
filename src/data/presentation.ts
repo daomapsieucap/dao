@@ -16,15 +16,15 @@ const presentation: Presentation = {
   title: "Hi, I’m Dao 👋",
   // profile: "/profile.webp",
   description:
-    "Aliquam et amet vero magna nulla clita ex **diam et at sed magna**. Erat aliquyam ipsum accumsan sadipscing sed ea erat sed diam clita eirmod laoreet feugiat. Tempor feugait sed nisl lorem illum nonumy justo qui sit sanctus vero clita elit clita nonumy accusam amet.",
+    "Hello, i'm Dao - a WordPress developer with over 6 years of web experience. I am currently working with WordPress as a backend role including hosting suggestion, tech support.",
   socials: [
-    {
-      label: "X",
-      link: "https://twitter.com/daomapsieucap",
-    },
     {
       label: "Github",
       link: "https://github.com/daomapsieucap",
+    },
+    {
+      label: "X",
+      link: "https://twitter.com/daomapsieucap",
     },
   ],
 };
