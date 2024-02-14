@@ -7,21 +7,56 @@ export type Project = {
 
 const projects: Project[] = [
   {
-    title: "Dictionary App",
-    techs: ["ReactJS (NextJS)", "react-query", "zod"],
-    link: "https://github.com/MaeWolff/dictionary-app",
+    title: "Southern Star",
+    techs: ["Shopify", "Fullstack", "Theme Customization"],
+    link: "https://southernstarus.com/",
   },
   {
-    title: "Portfolio / Lina BLIDI",
-    techs: ["ReactJS (NextJS)", "TypeScript"],
-    link: "https://www.linablidi.fr/",
+    title: "B-RISE",
+    techs: ["WordPress", "Backend", "Build from scratch"],
+    link: "https://b-rise.asia/",
   },
   {
-    title: "Portfolio / Template",
-    techs: ["Astro"],
-    link: "/",
-    isComingSoon: true,
+    title: "Benkon",
+    techs: ["WordPress", "Fullstack", "Build from scratch"],
+    link: "https://benkon.io/",
   },
+  {
+    title: "AnyAlterations",
+    techs: ["WordPress", "Fullstack", "Theme Customization"],
+    link: "https://anyalterations.com/",
+  },
+  {
+    title: "Là Nhà",
+    techs: ["WordPress", "Backend", "Theme Customization"],
+    link: "https://www.lanha.vn/",
+  },
+  {
+    title: "Decor Là Nhà",
+    techs: ["WordPress", "Woocommerce", "Backend", "Theme Customization"],
+    link: "https://decor.lanha.vn/",
+  },
+  {
+    title: "Vizulize",
+    techs: ["WordPress", "Fullstack", "Theme Customization"],
+    link: "https://vizulize.vn/",
+  },
+  {
+    title: "SNKRS Nation",
+    techs: ["HTML", "Fullstack", "Just for fun"],
+    link: "https://snkrsnation.daochau.com/",
+  },
+  {
+    title: "GomGom",
+    techs: ["WordPress", "Woocommerce", "Fullstack", "Theme Customization"],
+    link: "https://www.thanhlygomgom.com/",
+  },
+  // {
+  //   title: "Portfolio / Template",
+  //   techs: ["Astro"],
+  //   link: "/",
+  //   isComingSoon: true,
+  // },
 ];
 
 export default projects;
