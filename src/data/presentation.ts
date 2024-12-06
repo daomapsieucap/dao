@@ -16,7 +16,7 @@ const presentation: Presentation = {
   title: "Hi, I’m Dao 👋",
   // profile: "/profile.webp",
   description:
-    "Hello, i'm **a WordPress developer** with **over 6 years** of web experience. I am currently working with WordPress as a backend role including **hosting & tech support**.",
+    "I am a seasoned PHP backend developer with **9 years of experience** specializing in WordPress development. As the **Backend Lead at ViiVue**, I have expertise in creating and maintaining corporate websites and eCommerce platforms powered by WooCommerce. While my primary focus is on WordPress, I also have some experience working with Shopify, enabling me to adapt to diverse project requirements. My goal is to **deliver robust, scalable, and efficient solutions tailored** to client needs.",
   socials: [
     {
       label: "Github",
