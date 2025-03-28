@@ -16,15 +16,15 @@ const presentation: Presentation = {
   title: "Hi, I’m Dao 👋",
   // profile: "/profile.webp",
   description:
-    "I am a seasoned PHP backend developer with **9 years of experience** specializing in WordPress development. As the **Backend Lead at ViiVue**, I have expertise in creating and maintaining corporate websites and eCommerce platforms powered by WooCommerce. While my primary focus is on WordPress, I also have some experience working with Shopify, enabling me to adapt to diverse project requirements. My goal is to **deliver robust, scalable, and efficient solutions tailored** to client needs.",
+    "I'm a PHP backend developer with **9 years of experience** specializing in WordPress. As **Backend Lead at ViiVue**, I build and optimize corporate websites and eCommerce platforms using WooCommerce, with some experience in Shopify.",
   socials: [
     {
       label: "Github",
       link: "https://github.com/daomapsieucap",
     },
     {
-      label: "X",
-      link: "https://twitter.com/daomapsieucap",
+      label: "Linkedin",
+      link: "https://www.linkedin.com/in/dao-chau",
     },
   ],
 };
