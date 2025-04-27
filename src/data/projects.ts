@@ -7,6 +7,11 @@ export type Project = {
 
 const projects: Project[] = [
   {
+    title: "SleepyPants",
+    techs: ["Shopify", "Backend", "Theme Customization"],
+    link: "https://sleepypants.co.uk/",
+  },
+  {
     title: "Là Nhà Academy",
     techs: ["WordPress", "Backend", "Build from scratch"],
     link: "https://lanhaacademy.vn/",
@@ -20,11 +25,6 @@ const projects: Project[] = [
     title: "B-RISE",
     techs: ["WordPress", "Backend", "Build from scratch"],
     link: "https://b-rise.asia/",
-  },
-  {
-    title: "Benkon",
-    techs: ["WordPress", "Fullstack", "Build from scratch"],
-    link: "https://benkon.io/",
   },
   {
     title: "AnyAlterations",
