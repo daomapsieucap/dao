@@ -9,28 +9,4 @@ const pathname = removeTrailingSlash(Astro.url.pathname);
   <a href={`mailto:${presentation.mail}`} class="hover:text-orange-500"
     >{presentation.mail}</a
   >
-
-  <nav role="navigation">
-    <ul role="list" class="flex flex-row gap-2">
-      <li>
-        <a
-          href="/"
-          class:list={{
-            ["hover:text-orange-500"]: true,
-            ["text-orange-500"]: pathname === "/",
-          }}>Home</a
-        >
-      </li>
-      <li>/</li>
-      <li>
-        <a
-          href="/posts"
-          class:list={{
-            ["hover:text-orange-500"]: true,
-            ["text-orange-500"]: pathname === "/posts",
-          }}>Posts</a
-        >
-      </li>
-    </ul>
-  </nav>
 </header>
