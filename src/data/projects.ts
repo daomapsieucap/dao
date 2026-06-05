@@ -1,67 +1,68 @@
 export type Project = {
   title: string;
-  techs: string[];
+  platform: string;
+  role: string;
+  type: string;
   link: string;
-  isComingSoon?: boolean;
 };
 
 const projects: Project[] = [
   {
     title: "SleepyPants",
-    techs: ["Shopify", "Backend", "Theme Customization"],
+    platform: "shopify",
+    role: "backend",
+    type: "theme customization",
     link: "https://sleepypants.co.uk/",
   },
   {
     title: "Là Nhà Academy",
-    techs: ["WordPress", "Backend", "Build from scratch"],
+    platform: "wordpress",
+    role: "backend",
+    type: "built from scratch",
     link: "https://lanhaacademy.vn/",
   },
   {
     title: "Southern Star",
-    techs: ["Shopify", "Fullstack", "Theme Customization"],
+    platform: "shopify",
+    role: "fullstack",
+    type: "theme customization",
     link: "https://southernstarus.com/",
   },
   {
     title: "B-RISE",
-    techs: ["WordPress", "Backend", "Build from scratch"],
+    platform: "wordpress",
+    role: "backend",
+    type: "built from scratch",
     link: "https://b-rise.asia/",
   },
   {
     title: "AnyAlterations",
-    techs: ["WordPress", "Fullstack", "Theme Customization"],
+    platform: "wordpress",
+    role: "fullstack",
+    type: "theme customization",
     link: "https://anyalterations.com/",
   },
   {
     title: "Là Nhà",
-    techs: ["WordPress", "Backend", "Theme Customization"],
+    platform: "wordpress",
+    role: "backend",
+    type: "theme customization",
     link: "https://www.lanha.vn/",
   },
   {
-    title: "Decor Là Nhà",
-    techs: ["WordPress", "Woocommerce", "Backend", "Theme Customization"],
-    link: "https://decor.lanha.vn/",
-  },
-  {
     title: "Vizulize",
-    techs: ["WordPress", "Fullstack", "Theme Customization"],
+    platform: "wordpress",
+    role: "fullstack",
+    type: "theme customization",
     link: "https://vizulize.vn/",
   },
   {
     title: "SNKRS Nation",
-    techs: ["HTML", "Fullstack", "Just for fun"],
+    platform: "html",
+    role: "fullstack",
+    type: "just for fun",
     link: "https://snkrsnation.daochau.com/",
   },
-  {
-    title: "GomGom",
-    techs: ["WordPress", "Woocommerce", "Fullstack", "Theme Customization"],
-    link: "https://www.thanhlygomgom.com/",
-  },
-  // {
-  //   title: "Portfolio / Template",
-  //   techs: ["Astro"],
-  //   link: "/",
-  //   isComingSoon: true,
-  // },
 ];
 
 export default projects;

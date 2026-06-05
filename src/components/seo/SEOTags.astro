@@ -1,6 +1,5 @@
 ---
 import { SEO } from "astro-seo";
-import { AstroFont } from "astro-font";
 import { SITE_URL } from "@/data/config";
 import type { HeadTags } from "@/utils/types/HeadTags";
 
@@ -8,9 +7,9 @@ type Props = HeadTags;
 
 const { title, description, noindex, og } = Astro.props;
 
-const DEFAULT_TITLE_PAGE = "Dao Chau";
+const DEFAULT_TITLE_PAGE = "dao chau · backend";
 const DEFAULT_DESCRIPTION_PAGE =
-  "Senior WordPress Developer";
+  "writes the half of the web you never see. behind the curtain, keeping things running.";
 const DEFAULT_URL_SITE = SITE_URL;
 
 const openGraph = {
@@ -46,14 +45,17 @@ const openGraph = {
       link: [
         { rel: "icon", href: "/favicon.svg" },
         { rel: "sitemap", href: "/sitemap-index.xml" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap",
+        },
       ],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "generator", content: Astro.generator },
-        {
-          name: "twitter:image",
-          content: openGraph.image,
-        },
+        { name: "twitter:image", content: openGraph.image },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: openGraph.title },
         { name: "twitter:description", content: openGraph.description },
@@ -61,28 +63,12 @@ const openGraph = {
       ],
     }}
   />
-  <AstroFont
-    config={[
-      {
-        src: [],
-        preload: false,
-        display: "swap",
-        selector: "html",
-        name: "Open Sans",
-        fallback: "sans-serif",
-        cssVariable: "font-open-sans",
-        googleFontsURL:
-          "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap",
-      },
-    ]}
-  />
   <!-- Google tag (gtag.js) -->
   <script is:inline type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X"></script>
   <script is:inline type="text/partytown">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-SDQ2PWY76X');
   </script>
 </head>

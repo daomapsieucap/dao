@@ -1,77 +1,149 @@
 ---
-import { getCollection } from "astro:content";
-import { Image } from "astro:assets"
-
 import Layout from "@/layouts/Layout.astro";
-import SocialLinks from "@/components/SocialLinks.astro";
-import PostCard from "@/components/PostCard.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import Link from "@/components/shared/Link.astro";
-import convertAsteriskToStrongTag from "@/utils/convertAsteriskToStrongTag";
-
-import presentation from "@/data/presentation";
 import projects from "@/data/projects";
 ---
 
 <Layout>
-  <main class="flex flex-col gap-20">
-    <article
-      class="flex flex-col gap-8 md:flex-row-reverse md:justify-end md:gap-12"
-    >
-      {
-        presentation.profile && (
-          <Image
-            src={presentation.profile}
-            class="w-1/4 self-center rounded-full"
-            alt="Your Profile"
-            width="200"
-            height="200"
-          />
-        )
-      }
+  <main class="shell" data-screen-label="home">
 
-      <div class="flex flex-col gap-8">
-        <h1 class="text-3xl text-slate-950">
-          {presentation.title}
-        </h1>
+    <!-- identity rail -->
+    <aside class="rail">
+      <svg class="mark" viewBox="0 0 132 64" role="img" aria-label="Goggle mark">
+        <rect x="0" y="27" width="30" height="11" rx="3" fill="#f3c02c"/>
+        <rect x="102" y="27" width="30" height="11" rx="3" fill="#f3c02c"/>
+        <circle cx="66" cy="32" r="29" fill="#1d3450"/>
+        <circle cx="66" cy="32" r="24" fill="#f7f8fa"/>
+        <circle cx="66" cy="32" r="13" fill="#3a5a8c"/>
+        <circle cx="66" cy="32" r="6" fill="#161616"/>
+        <circle cx="62.5" cy="28.5" r="2.6" fill="#f7f8fa"/>
+      </svg>
 
-        <h2
-          class="w-auto max-w-[60ch] leading-6"
-          set:html={convertAsteriskToStrongTag(presentation.description)}
-        />
-
-        <SocialLinks />
+      <div class="id-block">
+        <h1 class="id-name">dao<br/>chau</h1>
+        <p class="id-role">backend developer</p>
       </div>
-    </article>
 
-    <article class="flex flex-col gap-8">
-      <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="text-lg text-slate-950">
-          Featured projects ({projects.length})
+      <div class="rail-divider"></div>
+
+      <nav aria-label="Sections">
+        <ul class="nav">
+          <li><a href="#desc"><span class="n">01</span><span class="t">description</span></a></li>
+          <li><a href="#projects"><span class="n">02</span><span class="t">echo</span></a></li>
+          <li><a href="#now"><span class="n">03</span><span class="t">now</span></a></li>
+          <li><a href="#notes"><span class="n">04</span><span class="t">notes</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="rail-foot">
+        <div class="rail-links">
+          <a href="mailto:bichdao.chau@gmail.com">
+            <span class="ic">@</span><span class="lbl">bichdao.chau@gmail.com</span>
+          </a>
+          <a href="https://github.com/daomapsieucap" target="_blank" rel="noopener">
+            <span class="ic">↗</span><span class="lbl">github</span>
+          </a>
+          <a href="https://www.linkedin.com/in/dao-chau" target="_blank" rel="noopener">
+            <span class="ic">↗</span><span class="lbl">linkedin</span>
+          </a>
+        </div>
+        <p class="status">
+          <span class="pulse"></span>
+          based in saigon · idle, mostly · powered by cà phê sữa đá
+        </p>
+      </div>
+    </aside>
+
+    <!-- content column -->
+    <div class="content">
+
+      <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd">dao --help</span><span class="cur" aria-hidden="true"></span></p>
+
+      <h2 class="hero">behind the curtain, <em>keeping things running.</em></h2>
+      <p class="hero-sub">writes the half of the web you never see.</p>
+
+      <!-- DESCRIPTION -->
+      <section id="desc" aria-labelledby="s-desc">
+        <h3 class="sec" id="s-desc">
+          <span class="dot"></span>
+          <span class="lab"><span class="php">&lt;?</span>DESCRIPTION</span>
+          <span class="line"></span>
+          <span class="num">01</span>
         </h3>
-      </header>
-      {projects.length === 0 && <p>Oops, I must work^^^^^</p>}
-
-      <section class="flex flex-col gap-4">
-        {
-          projects.length !== 0 &&
-            projects.map((project) => <ProjectCard {...project} />)
-        }
+        <div class="prose">
+          <p>I'm a PHP backend developer who's spent <em>a long while</em> in WordPress. I spend my days in the backend at <em>ViiVue</em>, mostly WordPress work, from corporate sites to WooCommerce, with the occasional Shopify job on the side.</p>
+          <p>off the clock I'm an introvert who reads more than is reasonable. I like fresh air, uncrowded places, and slow days.</p>
+        </div>
+        <div class="chips" style="margin-top:26px;">
+          <span class="chip hl">--php</span>
+          <span class="chip">--wordpress</span>
+          <span class="chip">--woocommerce</span>
+          <span class="chip">--async</span>
+          <span class="chip">--people=few</span>
+          <span class="chip">--reading</span>
+        </div>
       </section>
-    </article>
 
-    <article class="flex flex-col gap-8">
-      <header class="flex w-full flex-row justify-between gap-2">
-        <h3 class="text-lg text-slate-950">Get in touch</h3>
-      </header>
-      <p>
-        Email me at <Link
-          href={`mailto:${presentation.mail}`}
-          label={presentation.mail}
-        /> or follow me via my social links.
-      </p>
+      <!-- ECHO / PROJECTS -->
+      <section id="projects" aria-labelledby="s-proj">
+        <h3 class="sec" id="s-proj">
+          <span class="dot"></span>
+          <span class="lab"><span class="php">&lt;?</span>ECHO</span>
+          <span class="line"></span>
+          <span class="num">02 · {projects.length} featured</span>
+        </h3>
+        <div class="projects">
+          {projects.map((project, i) => (
+            <a class="proj" href={project.link} target="_blank" rel="noopener">
+              <span class="idx">{String(i + 1).padStart(2, "0")}</span>
+              <span class="pname">{project.title}</span>
+              <span class="arrow">↗</span>
+              <span class="ptags">
+                <span class="ptag">{project.platform}</span>
+                <span class="ptag role">{project.role}</span>
+                <span class="ptag">{project.type}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
 
-      <SocialLinks />
-    </article>
+      <!-- NOW -->
+      <section id="now" aria-labelledby="s-now">
+        <h3 class="sec" id="s-now">
+          <span class="dot"></span>
+          <span class="lab"><span class="php">&lt;?</span>NOW</span>
+          <span class="line"></span>
+          <span class="num">03 · june 2026</span>
+        </h3>
+        <dl class="kv">
+          <dt>$ work</dt>
+          <dd>in my element keeping the backend ticking at ViiVue, plus whatever needs fixing underneath.</dd>
+          <dt>$ learning</dt>
+          <dd>1% better is still better. no rush.</dd>
+          <dt>$ reading</dt>
+          <dd><em>deep in a book I won't name.</em></dd>
+        </dl>
+      </section>
+
+      <!-- NOTES -->
+      <section id="notes" aria-labelledby="s-notes">
+        <h3 class="sec" id="s-notes">
+          <span class="dot"></span>
+          <span class="lab"><span class="php">&lt;?</span>NOTES</span>
+          <span class="line"></span>
+          <span class="num">04</span>
+        </h3>
+        <ul class="notes">
+          <li><b>introvert by wiring</b>I recharge somewhere green and quiet, well away from a crowd.</li>
+          <li><b>bookaholic</b>the unread stack is a feature, not a bug.</li>
+          <li><b>minimalist by taste</b>I'd rather be calm and right than loud and sorry.</li>
+          <li><b>private, not secret</b>I stay dim online, on purpose. not hiding, just low-key. the light's still on, though; email finds me best.</li>
+        </ul>
+      </section>
+
+      <p class="colophon"><span class="c">#</span>this site is small on purpose, much like the rest of my life.</p>
+      <p class="exit"><b>dao@chau</b>:~$ <span class="cmd">exit 0</span><span class="cur" aria-hidden="true"></span></p>
+
+    </div>
   </main>
 </Layout>

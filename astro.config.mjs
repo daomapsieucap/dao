@@ -1,31 +1,20 @@
-import {defineConfig} from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
-import {SITE_URL} from "./src/data/config";
-import partytown from '@astrojs/partytown'
+import partytown from "@astrojs/partytown";
+import { SITE_URL } from "./src/data/config";
 
-
-// https://astro.build/config
 export default defineConfig({
-    integrations: [
-        tailwind(),
-        sitemap(),
-        robotsTxt({
-            sitemap: `${SITE_URL}/sitemap.xml`,
-        }),
-        partytown({
-            config: {
-                forward: ["dataLayer.push"],
-            },
-        }),
-    ],
-    site: SITE_URL,
-    markdown: {
-        syntaxHighlight: "shiki",
-        shikiConfig: {
-            theme: "nord",
-            wrap: false
-        }
-    },
+  integrations: [
+    sitemap(),
+    robotsTxt({
+      sitemap: `${SITE_URL}/sitemap.xml`,
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
+  site: SITE_URL,
 });
