@@ -98,8 +98,8 @@ import projects from "@/data/projects";
               <span class="pname">{project.title}</span>
               <span class="arrow">↗</span>
               <span class="ptags">
-                <span class="ptag">{project.platform}</span>
-                <span class="ptag role">{project.role}</span>
+                <span class="ptag" data-tag={project.platform}>{project.platform}</span>
+                <span class="ptag role" data-tag={project.role}>{project.role}</span>
                 <span class="ptag">{project.type}</span>
               </span>
             </a>
