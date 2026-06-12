@@ -63,13 +63,6 @@ const projects: Project[] = [
         type: "built from scratch",
         link: "https://b-rise.asia/",
     },
-    {
-        title: "SNKRS Nation",
-        platform: "html",
-        role: "fullstack",
-        type: "just for fun",
-        link: "https://snkrsnation.daochau.com/",
-    },
 ];
 
 export default projects;
