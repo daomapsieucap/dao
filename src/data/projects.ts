@@ -64,13 +64,6 @@ const projects: Project[] = [
         link: "https://b-rise.asia/",
     },
     {
-        title: "Vizulize",
-        platform: "wordpress",
-        role: "fullstack",
-        type: "theme customization",
-        link: "https://vizulize.vn/",
-    },
-    {
         title: "SNKRS Nation",
         platform: "html",
         role: "fullstack",
