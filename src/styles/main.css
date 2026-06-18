@@ -201,6 +201,17 @@ body {
   line-height: 1.55;
 }
 
+.coffee-link {
+  text-decoration: none;
+  font-weight: inherit;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+.coffee-link:hover {
+  text-decoration: underline;
+}
+
 .status .pulse {
   flex: none;
   margin-top: 4px;
