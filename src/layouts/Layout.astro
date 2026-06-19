@@ -11,7 +11,37 @@ const headTags = Astro.props;
 <!DOCTYPE html>
 <html lang="en">
   <SEOTags {...headTags} />
+  <script is:inline>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+    })();
+  </script>
   <body>
     <slot />
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle color theme"></button>
+    <script>
+      var btn = document.getElementById('theme-toggle') as HTMLButtonElement;
+
+      function setTheme(theme: string) {
+        var root = document.documentElement;
+        root.classList.add('is-switching');
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        setTimeout(function () { root.classList.remove('is-switching'); }, 280);
+      }
+
+      btn.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+    </script>
   </body>
 </html>
