@@ -1,0 +1,121 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+const allEntries = await getCollection("til");
+const entries = allEntries.sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const renderedEntries = await Promise.all(
+    entries.map(async (entry) => {
+        const { Content } = await render(entry);
+        return { entry, Content };
+    })
+);
+
+function isoDate(d: Date) {
+    return d.toISOString().slice(0, 10);
+}
+---
+
+<Layout
+        title="dao chau · til"
+        description="short notes on things worth keeping. one thing at a time."
+>
+    <main class="shell" data-screen-label="til">
+
+        <!-- identity rail -->
+        <aside class="rail">
+            <svg class="mark" viewBox="0 0 132 64" role="img" aria-label="Goggle mark">
+                <rect x="0" y="27" width="30" height="11" rx="3" fill="#f3c02c"/>
+                <rect x="102" y="27" width="30" height="11" rx="3" fill="#f3c02c"/>
+                <circle cx="66" cy="32" r="29" fill="#1d3450"/>
+                <circle cx="66" cy="32" r="24" fill="#f7f8fa"/>
+                <circle cx="66" cy="32" r="13" fill="#3a5a8c"/>
+                <circle cx="66" cy="32" r="6" fill="#161616"/>
+                <circle cx="62.5" cy="28.5" r="2.6" fill="#f7f8fa"/>
+            </svg>
+
+            <div class="id-block">
+                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-role">til · patch notes</p>
+            </div>
+
+            <div class="rail-divider"></div>
+
+            <nav aria-label="Sections">
+                <ul class="nav">
+                    <li><a href="/"><span class="n">cd</span><span class="t">~ home</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="rail-foot">
+                <div class="rail-links">
+                    <a href="mailto:bichdao.chau@gmail.com">
+                        <span class="ic">@</span><span class="lbl">bichdao.chau@gmail.com</span>
+                    </a>
+                    <a href="https://github.com/daomapsieucap" target="_blank" rel="noopener">
+                        <span class="ic">↗</span><span class="lbl">github</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/dao-chau" target="_blank" rel="noopener">
+                        <span class="ic">↗</span><span class="lbl">linkedin</span>
+                    </a>
+                </div>
+                <p class="status">
+                    <span class="pulse"></span> based in saigon · idle, mostly · powered by cà phê sữa đá
+                </p>
+            </div>
+        </aside>
+
+        <!-- content column -->
+        <div class="content">
+
+            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd">dao --til</span><span class="cur"
+                                                                                         aria-hidden="true"></span></p>
+
+            <h2 class="hero">patch notes, <em class="ln">personal.</em></h2>
+            <p class="hero-sub">small updates. no rollback.</p>
+
+            <section aria-labelledby="s-til">
+                <h3 class="sec" id="s-til">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php">&lt;?</span>TIL</span>
+                    <span class="line"></span>
+                    <span class="num">{entries.length} {entries.length === 1 ? "entry" : "entries"}</span>
+                </h3>
+
+                {renderedEntries.length === 0 ? (
+                        <p class="til-empty">nothing yet. check back soon.</p>
+                ) : (
+                        <div class="til-feed">
+                            {renderedEntries.map(({ entry, Content }) => (
+                                    <article class="til-entry">
+                                        <time class="til-date" datetime={isoDate(entry.data.date)}>
+                                            {isoDate(entry.data.date)}
+                                        </time>
+                                        <p class="til-title">{entry.data.title}</p>
+                                        <div class="til-body">
+                                            <Content/>
+                                        </div>
+                                        {entry.data.tags && entry.data.tags.length > 0 && (
+                                                <div class="chips til-tags">
+                                                    {entry.data.tags.map(tag => (
+                                                            <span class="chip">{tag}</span>
+                                                    ))}
+                                                </div>
+                                        )}
+                                    </article>
+                            ))}
+                        </div>
+                )}
+            </section>
+
+            <p class="colophon"><span class="c">#</span>add a <code>.md</code> file, commit, done.</p>
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>
