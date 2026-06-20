@@ -741,8 +741,9 @@ section {
   margin: clamp(46px, 6vw, 68px) 0 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  max-width: 52ch;
+  gap: 10px;
+  border-top: 1px solid var(--faint);
+  padding-top: 22px;
 }
 
 .mantra-prompt {
@@ -759,7 +760,7 @@ section {
 
 .mantra-out {
   font-family: var(--mono);
-  font-size: clamp(15px, 2.2vw, 19px);
+  font-size: clamp(15px, 2.2vw, 20px);
   color: var(--ink);
   margin: 0;
   letter-spacing: 0.01em;
