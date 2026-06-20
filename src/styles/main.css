@@ -677,6 +677,10 @@ section {
   border-top: 1px solid var(--faint);
 }
 
+.til-entry:first-child {
+  border-top: none;
+}
+
 .til-entry:last-child {
   border-bottom: none;
 }
