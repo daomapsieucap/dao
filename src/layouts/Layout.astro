@@ -13,9 +13,12 @@ const headTags = Astro.props;
   <SEOTags {...headTags} />
   <script is:inline>
     (function () {
-      var stored = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+      var s = localStorage.getItem('theme');
+      if (s) {
+        document.documentElement.setAttribute('data-theme', s);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
     })();
   </script>
   <body>
@@ -24,22 +27,42 @@ const headTags = Astro.props;
     <script>
       var btn = document.getElementById('theme-toggle') as HTMLButtonElement;
 
-      function setTheme(theme: string) {
+      function applyTheme(theme: string) {
         var root = document.documentElement;
         root.classList.add('is-switching');
         root.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
         setTimeout(function () { root.classList.remove('is-switching'); }, 280);
       }
 
       btn.addEventListener('click', function () {
-        var current = document.documentElement.getAttribute('data-theme');
-        setTheme(current === 'dark' ? 'light' : 'dark');
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (isDark) {
+          if (prefersDark) {
+            // System is dark but user wants light — store override
+            localStorage.setItem('theme', 'light');
+            applyTheme('light');
+          } else {
+            // System is already light — clear stored override, revert to system
+            localStorage.removeItem('theme');
+            applyTheme('light');
+          }
+        } else {
+          if (!prefersDark) {
+            // System is light but user wants dark — store override
+            localStorage.setItem('theme', 'dark');
+          } else {
+            // System is already dark — clear stored override, revert to system
+            localStorage.removeItem('theme');
+          }
+          applyTheme('dark');
+        }
       });
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
         if (!localStorage.getItem('theme')) {
-          setTheme(e.matches ? 'dark' : 'light');
+          applyTheme(e.matches ? 'dark' : 'light');
         }
       });
     </script>
