@@ -13,10 +13,7 @@ const headTags = Astro.props;
   <SEOTags {...headTags} />
   <script is:inline>
     (function () {
-      var s = localStorage.getItem('theme');
-      if (s) {
-        document.documentElement.setAttribute('data-theme', s);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
@@ -36,34 +33,11 @@ const headTags = Astro.props;
 
       btn.addEventListener('click', function () {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (isDark) {
-          if (prefersDark) {
-            // System is dark but user wants light — store override
-            localStorage.setItem('theme', 'light');
-            applyTheme('light');
-          } else {
-            // System is already light — clear stored override, revert to system
-            localStorage.removeItem('theme');
-            applyTheme('light');
-          }
-        } else {
-          if (!prefersDark) {
-            // System is light but user wants dark — store override
-            localStorage.setItem('theme', 'dark');
-          } else {
-            // System is already dark — clear stored override, revert to system
-            localStorage.removeItem('theme');
-          }
-          applyTheme('dark');
-        }
+        applyTheme(isDark ? 'light' : 'dark');
       });
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        if (!localStorage.getItem('theme')) {
-          applyTheme(e.matches ? 'dark' : 'light');
-        }
+        applyTheme(e.matches ? 'dark' : 'light');
       });
     </script>
   </body>
