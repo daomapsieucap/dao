@@ -678,7 +678,7 @@ section {
 }
 
 .til-entry:last-child {
-  border-bottom: 1px solid var(--faint);
+  border-bottom: none;
 }
 
 .til-date {
