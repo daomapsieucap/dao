@@ -1,6 +1,6 @@
 ---
 title: "Người có tam quan tốt"
-date: 2026-06-19
+date: 2026-06-25
 tags: ["human", "inspiration"]
 ---
 
