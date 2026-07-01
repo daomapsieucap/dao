@@ -223,6 +223,11 @@ body {
   text-align: center;
 }
 
+.rail-links a .ic-wide {
+  width: 2.4ch;
+  letter-spacing: -0.02em;
+}
+
 .rail-links a:hover {
   color: var(--blue);
 }
