@@ -13,8 +13,8 @@
   --rule: rgba(29, 52, 80, 0.12);
   --faint: rgba(29, 52, 80, 0.16);
   --faint-2: rgba(29, 52, 80, 0.05);
-  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif: "Newsreader Variable", "Newsreader", Georgia, "Times New Roman", serif;
 }
 
 [data-theme="dark"] {
@@ -424,6 +424,10 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.chips-desc {
+  margin-top: 26px;
 }
 
 .chip {

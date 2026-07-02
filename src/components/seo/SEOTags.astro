@@ -10,14 +10,15 @@ const { title, description, noindex, og } = Astro.props;
 const DEFAULT_TITLE_PAGE = "dao chau · backend";
 const DEFAULT_DESCRIPTION_PAGE =
   "writes the half of the web you never see. behind the curtain, keeping things running.";
-const DEFAULT_URL_SITE = SITE_URL;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
 
 const openGraph = {
   title: title || og?.title || DEFAULT_TITLE_PAGE,
   type: og?.type || "website",
-  image: og?.image || "/opengraph-image.jpg",
+  image: new URL(og?.image || "/opengraph-image.jpg", SITE_URL).href,
   alt: og?.alt || "dao chau's website",
-  url: DEFAULT_URL_SITE,
+  url: canonicalURL,
   description: og?.description || DEFAULT_DESCRIPTION_PAGE,
 };
 ---
@@ -33,6 +34,7 @@ const openGraph = {
         title: openGraph.title,
         type: openGraph.type,
         image: openGraph.image,
+        url: openGraph.url,
       },
       image: {
         alt: openGraph.alt,
@@ -45,12 +47,6 @@ const openGraph = {
       link: [
         { rel: "icon", href: "/favicon.svg" },
         { rel: "sitemap", href: "/sitemap-index.xml" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap",
-        },
       ],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },

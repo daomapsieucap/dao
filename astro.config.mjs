@@ -7,9 +7,7 @@ import { SITE_URL } from "./src/data/config";
 export default defineConfig({
   integrations: [
     sitemap(),
-    robotsTxt({
-      sitemap: `${SITE_URL}/sitemap.xml`,
-    }),
+    robotsTxt(),
     partytown({
       config: {
         forward: ["dataLayer.push"],
