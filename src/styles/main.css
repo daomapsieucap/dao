@@ -155,7 +155,7 @@ body {
 /* rail nav */
 .nav {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 -8px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -860,7 +860,7 @@ section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin-top: 22px;
+    margin: 22px 0 0;
     padding-top: 20px;
     border-top: 1px solid var(--faint);
   }
