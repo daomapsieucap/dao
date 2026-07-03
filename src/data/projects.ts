@@ -43,7 +43,7 @@ const projects: Project[] = [
         link: "https://locnuocxanh247.vn/",
     },
     {
-        title: "Ẩm thực sinh thái Xuân Huơng",
+        title: "Ẩm thực sinh thái Xuân Hương",
         platform: "wordpress",
         role: "backend",
         type: "built from scratch",

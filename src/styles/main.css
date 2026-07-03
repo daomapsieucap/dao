@@ -15,6 +15,7 @@
   --faint-2: rgba(29, 52, 80, 0.05);
   --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --serif: "Newsreader Variable", "Newsreader", Georgia, "Times New Roman", serif;
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="dark"] {
@@ -493,7 +494,7 @@ section {
   color: inherit;
   padding: 16px 12px 16px 12px;
   border-top: 1px solid var(--faint);
-  transition: background 0.16s ease, box-shadow 0.16s ease;
+  transition: background 0.42s var(--ease-smooth), box-shadow 0.42s var(--ease-smooth);
 }
 
 .proj:last-child {
@@ -508,8 +509,6 @@ section {
   color: var(--yellow-deep);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-  background: transparent;
-  transition: background 0.16s ease, color 0.16s ease;
 }
 
 .proj .pname {
@@ -518,13 +517,14 @@ section {
   font-weight: 600;
   color: var(--ink);
   line-height: 1.1;
+  transition: color 0.32s var(--ease-smooth);
 }
 
 .proj .arrow {
   align-self: center;
   color: var(--faint);
   font-size: 16px;
-  transition: color 0.16s ease;
+  transition: color 0.32s var(--ease-smooth), transform 0.42s var(--ease-smooth);
 }
 
 .proj .ptags {
@@ -580,17 +580,13 @@ section {
   box-shadow: inset 3px 0 0 var(--yellow-deep);
 }
 
-.proj:hover .idx {
-  background: var(--yellow-deep);
-  color: var(--paper);
-}
-
 .proj:hover .pname {
   color: var(--yellow-deep);
 }
 
 .proj:hover .arrow {
   color: var(--yellow-deep);
+  transform: translateX(2px);
 }
 
 .proj:focus-visible {
