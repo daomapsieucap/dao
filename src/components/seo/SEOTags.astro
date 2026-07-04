@@ -30,9 +30,11 @@ const openGraph = {
   description: og?.description || DEFAULT_DESCRIPTION_PAGE,
 };
 
-// Loaded via media="print" swap below so none of them block first paint.
-const stylesheets = [
-  mainCssHref,
+// Font-only bundles are safe to defer via the media="print" swap below —
+// they don't affect layout, so a late swap is invisible. main.css controls
+// actual element sizing (e.g. the unsized inline SVG logo), so it stays a
+// normal blocking stylesheet to avoid a flash of oversized/unstyled content.
+const deferredStylesheets = [
   jetbrainsMonoCssHref,
   newsreaderOpszCssHref,
   newsreaderOpszItalicCssHref,
@@ -47,12 +49,12 @@ const stylesheets = [
   <link rel="preload" as="font" type="font/woff2" href={newsreaderItalicLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={newsreaderVietnamese} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={jetbrainsMonoVietnamese} crossorigin />
-  <!-- Load every stylesheet (site styles + the three Fontsource font-face
-       bundles) without blocking first paint: the media="print" swap trick
-       fetches each at normal priority but only applies it once ready,
-       instead of holding up rendering like a plain rel="stylesheet" link
-       would. -->
-  {stylesheets.map((href) => (
+  <link rel="stylesheet" href={mainCssHref} />
+  <!-- Load the three Fontsource font-face bundles without blocking first
+       paint: the media="print" swap trick fetches each at normal priority
+       but only applies it once ready, instead of holding up rendering like
+       a plain rel="stylesheet" link would. -->
+  {deferredStylesheets.map((href) => (
     <>
       <link rel="preload" href={href} as="style" />
       <link rel="stylesheet" href={href} media="print" onload="this.media='all'" />
