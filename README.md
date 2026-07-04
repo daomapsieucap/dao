@@ -15,6 +15,7 @@ No utility framework, no client-side JS beyond analytics.
 - `/` — description, echo (featured projects), now, notes
 - `/til` — things I learned, one markdown file at a time
 - `/uses` — the hardware & software I keep around
+- `/reading` — currently reading + recently finished, pulled from goodreads at build time
 
 ## $ cat stack
 
@@ -46,9 +47,14 @@ No utility framework, no client-side JS beyond analytics.
 | Styles & CSS variables | `src/styles/main.css`                      |
 | Meta tags, fonts, GA   | `src/components/seo/SEOTags.astro`         |
 | Favicon (goggle mark)  | `public/favicon.svg`                       |
+| Goodreads user id      | `.env` (`GOODREADS_USER_ID`, gitignored)   |
 
 New TIL post: drop a markdown file in `src/content/til/` with `title`,
 `date`, and optional `tags` frontmatter — schema in `src/content.config.ts`.
+
+`/reading` needs `GOODREADS_USER_ID` set (copy `.env.example` to `.env`
+locally; set the same as a repo secret for the deploy workflow) — the id
+stays out of source since the repo is public.
 
 ---
 

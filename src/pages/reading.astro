@@ -1,0 +1,142 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import LogoMark from "@/components/LogoMark.astro";
+import RailFoot from "@/components/RailFoot.astro";
+import { fetchShelf } from "@/utils/goodreads";
+import { GOODREADS_USER_ID } from "@/data/config";
+
+const [currentlyReading, recentlyRead] = await Promise.all([
+    fetchShelf("currently-reading", 3),
+    fetchShelf("read", 12),
+]);
+
+const currentBook = currentlyReading[0] ?? null;
+const profileUrl = GOODREADS_USER_ID
+    ? `https://www.goodreads.com/user/show/${GOODREADS_USER_ID}`
+    : null;
+
+function isoDate(d: Date | null): string {
+    return d ? d.toISOString().slice(0, 10) : "";
+}
+---
+
+<Layout
+        title="dao chau · reading"
+        description="whatever's open on the nightstand, plus what's already shelved."
+>
+    <main class="shell" data-screen-label="reading">
+
+        <!-- identity rail -->
+        <aside class="rail">
+            <LogoMark />
+
+            <div class="id-block">
+                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-role">reading · the shelf</p>
+            </div>
+
+            <div class="rail-divider"></div>
+
+            <nav aria-label="Sections">
+                <ul class="nav">
+                    <li><a href="/"><span class="n">cd</span><span class="t">~ home</span></a></li>
+                    <li><a href="#now"><span class="n">01</span><span class="t">now</span></a></li>
+                    <li><a href="#shelf"><span class="n">02</span><span class="t">shelf</span></a></li>
+                </ul>
+            </nav>
+
+            <RailFoot />
+        </aside>
+
+        <!-- content column -->
+        <div class="content">
+
+            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd">dao --reading</span><span class="cur"
+                                                                                          aria-hidden="true"></span></p>
+
+            <h2 class="hero">off the clock, <em class="ln">mostly reading.</em></h2>
+            <p class="hero-sub">whatever's open on the nightstand, plus what's already shelved.</p>
+
+            <!-- NOW READING -->
+            <section id="now" aria-labelledby="s-now">
+                <h3 class="sec" id="s-now">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php">&lt;?</span>NOW</span>
+                    <span class="line"></span>
+                    <span class="num">01</span>
+                </h3>
+
+                {currentBook ? (
+                        <a class="now-book" href={currentBook.link} target="_blank" rel="noopener">
+                            <span class="now-cover">
+                                <img
+                                        src={currentBook.coverUrl}
+                                        alt={`cover of ${currentBook.title}`}
+                                        loading="lazy"
+                                        decoding="async"
+                                        width="96"
+                                        height="144"
+                                />
+                            </span>
+                            <span class="now-info">
+                                <span class="now-label">
+                                    {currentBook.dateAdded ? `started ${isoDate(currentBook.dateAdded)}` : "in progress"}
+                                </span>
+                                <span class="now-title">{currentBook.title}</span>
+                                <span class="now-author">by {currentBook.author}</span>
+                                <span class="now-link"><span class="ic">↗</span><span class="lbl">on goodreads</span></span>
+                            </span>
+                        </a>
+                ) : (
+                        <p class="til-empty">nothing open right now. probably between books.</p>
+                )}
+            </section>
+
+            <!-- SHELF -->
+            <section id="shelf" aria-labelledby="s-shelf">
+                <h3 class="sec" id="s-shelf">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php">&lt;?</span>SHELF</span>
+                    <span class="line"></span>
+                    <span class="num">02 · last {recentlyRead.length} read</span>
+                </h3>
+
+                {recentlyRead.length === 0 ? (
+                        <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>
+                ) : (
+                        <div class="shelf-grid">
+                            {recentlyRead.map((book) => (
+                                    <a class="shelf-book" href={book.link} target="_blank" rel="noopener">
+                                        <span class="shelf-cover">
+                                            <img
+                                                    src={book.coverUrl}
+                                                    alt={`cover of ${book.title}`}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    width="96"
+                                                    height="144"
+                                            />
+                                        </span>
+                                        <span class="shelf-title">{book.title}</span>
+                                        <span class="shelf-author">{book.author}</span>
+                                        {book.dateRead && (
+                                                <time class="shelf-date" datetime={isoDate(book.dateRead)}>
+                                                    {isoDate(book.dateRead)}
+                                                </time>
+                                        )}
+                                    </a>
+                            ))}
+                        </div>
+                )}
+            </section>
+
+            <p class="colophon"><span class="c">#</span>pulled from goodreads on every rebuild{profileUrl && (
+                    <> · <a href={profileUrl} target="_blank" rel="noopener" class="cmd coffee-link">full shelf ↗</a></>
+            )}</p>
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>
