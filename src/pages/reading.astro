@@ -7,7 +7,7 @@ import { GOODREADS_USER_ID } from "@/data/config";
 
 const [currentlyReading, recentlyRead] = await Promise.all([
     fetchShelf("currently-reading", 3),
-    fetchShelf("read", 12),
+    fetchShelf("read", 24),
 ]);
 
 const currentBook = currentlyReading[0] ?? null;
