@@ -930,6 +930,7 @@ section {
 }
 
 .shelf-cover {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -939,6 +940,18 @@ section {
   border: 1px solid var(--faint);
   margin-bottom: 9px;
   transition: border-color 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
+}
+
+.shelf-fav-mark {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--paper);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
 .shelf-book:hover .shelf-cover {

@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import LogoMark from "@/components/LogoMark.astro";
 import RailFoot from "@/components/RailFoot.astro";
-import { fetchShelf } from "@/utils/goodreads";
+import { fetchShelf, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
 const [currentlyReading, favorites, recentlyRead] = await Promise.all([
@@ -10,6 +10,21 @@ const [currentlyReading, favorites, recentlyRead] = await Promise.all([
     fetchShelf("favorites", 24),
     fetchShelf("read", 24),
 ]);
+
+// merge read + favorites into one list so every favorite always shows up here,
+// even if goodreads hasn't marked it "read" or it fell outside the read-shelf window
+const shelfById = new Map<number, Book & { isFavorite: boolean }>();
+for (const book of recentlyRead) shelfById.set(book.id, { ...book, isFavorite: false });
+for (const book of favorites) {
+    const existing = shelfById.get(book.id);
+    if (existing) existing.isFavorite = true;
+    else shelfById.set(book.id, { ...book, isFavorite: true });
+}
+const shelfBooks = [...shelfById.values()].sort((a, b) => {
+    const at = (a.dateRead ?? a.dateAdded)?.getTime() ?? 0;
+    const bt = (b.dateRead ?? b.dateAdded)?.getTime() ?? 0;
+    return bt - at;
+});
 
 const currentBook = currentlyReading[0] ?? null;
 const profileUrl = GOODREADS_USER_ID
@@ -42,8 +57,7 @@ function isoDate(d: Date | null): string {
                 <ul class="nav">
                     <li><a href="/"><span class="n">cd</span><span class="t">~ home</span></a></li>
                     <li><a href="#now"><span class="n">01</span><span class="t">now</span></a></li>
-                    <li><a href="#favorites"><span class="n">02</span><span class="t">favorites</span></a></li>
-                    <li><a href="#shelf"><span class="n">03</span><span class="t">shelf</span></a></li>
+                    <li><a href="#shelf"><span class="n">02</span><span class="t">shelf</span></a></li>
                 </ul>
             </nav>
 
@@ -94,53 +108,20 @@ function isoDate(d: Date | null): string {
                 )}
             </section>
 
-            <!-- FAVORITES -->
-            <section id="favorites" aria-labelledby="s-favorites">
-                <h3 class="sec" id="s-favorites">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php">&lt;?</span>FAVORITES</span>
-                    <span class="line"></span>
-                    <span class="num">02 · {favorites.length} picks</span>
-                </h3>
-
-                {favorites.length === 0 ? (
-                        <p class="til-empty">no favorites shelved yet.</p>
-                ) : (
-                        <div class="shelf-grid">
-                            {favorites.map((book) => (
-                                    <a class="shelf-book" href={book.link} target="_blank" rel="noopener">
-                                        <span class="shelf-cover">
-                                            <img
-                                                    src={book.coverUrl}
-                                                    alt={`cover of ${book.title}`}
-                                                    loading="lazy"
-                                                    decoding="async"
-                                                    width="96"
-                                                    height="144"
-                                            />
-                                        </span>
-                                        <span class="shelf-title">{book.title}</span>
-                                        <span class="shelf-author">{book.author}</span>
-                                    </a>
-                            ))}
-                        </div>
-                )}
-            </section>
-
             <!-- SHELF -->
             <section id="shelf" aria-labelledby="s-shelf">
                 <h3 class="sec" id="s-shelf">
                     <span class="dot"></span>
                     <span class="lab"><span class="php">&lt;?</span>SHELF</span>
                     <span class="line"></span>
-                    <span class="num">03 · last {recentlyRead.length} read</span>
+                    <span class="num">02 · {shelfBooks.length} books · {favorites.length} favorites</span>
                 </h3>
 
-                {recentlyRead.length === 0 ? (
+                {shelfBooks.length === 0 ? (
                         <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>
                 ) : (
                         <div class="shelf-grid">
-                            {recentlyRead.map((book) => (
+                            {shelfBooks.map((book) => (
                                     <a class="shelf-book" href={book.link} target="_blank" rel="noopener">
                                         <span class="shelf-cover">
                                             <img
@@ -151,6 +132,9 @@ function isoDate(d: Date | null): string {
                                                     width="96"
                                                     height="144"
                                             />
+                                            {book.isFavorite && (
+                                                    <span class="shelf-fav-mark" title="favorite" aria-label="favorite"></span>
+                                            )}
                                         </span>
                                         <span class="shelf-title">{book.title}</span>
                                         <span class="shelf-author">{book.author}</span>
