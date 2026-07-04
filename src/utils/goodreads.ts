@@ -28,6 +28,14 @@ function primaryTitle(title: string): string {
     return head.trim();
 }
 
+// goodreads' cover urls carry a size token (e.g. "._SY475_.") that the image CDN
+// honors on request; bump it up so covers stay crisp on retina displays. the CDN
+// clamps to the source image's real resolution, so this is safe even if the
+// original is smaller than requested.
+function upscaleCoverUrl(url: string): string {
+    return url.replace(/\.(_S[XY]\d+_)\./, "._SY600_.");
+}
+
 export async function fetchShelf(shelf: Shelf, perPage = 12): Promise<Book[]> {
     if (!GOODREADS_USER_ID) return [];
 
@@ -50,7 +58,9 @@ export async function fetchShelf(shelf: Shelf, perPage = 12): Promise<Book[]> {
             id: Number(item.book_id),
             title: primaryTitle(String(item.title ?? "")),
             author: String(item.author_name ?? ""),
-            coverUrl: String(item.book_medium_image_url ?? item.book_image_url ?? ""),
+            coverUrl: upscaleCoverUrl(
+                String(item.book_large_image_url ?? item.book_medium_image_url ?? item.book_image_url ?? ""),
+            ),
             link: String(item.link ?? ""),
             publishedYear: item.book_published ? Number(item.book_published) : null,
             dateAdded: toDate(item.user_date_added),
