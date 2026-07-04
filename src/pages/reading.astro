@@ -5,8 +5,9 @@ import RailFoot from "@/components/RailFoot.astro";
 import { fetchShelf } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
-const [currentlyReading, recentlyRead] = await Promise.all([
+const [currentlyReading, favorites, recentlyRead] = await Promise.all([
     fetchShelf("currently-reading", 3),
+    fetchShelf("favorites", 24),
     fetchShelf("read", 24),
 ]);
 
@@ -22,7 +23,7 @@ function isoDate(d: Date | null): string {
 
 <Layout
         title="dao chau · reading"
-        description="whatever's open on the nightstand, plus what's already shelved."
+        description="one book open right now, the rest pulled from the shelf."
 >
     <main class="shell" data-screen-label="reading">
 
@@ -41,7 +42,8 @@ function isoDate(d: Date | null): string {
                 <ul class="nav">
                     <li><a href="/"><span class="n">cd</span><span class="t">~ home</span></a></li>
                     <li><a href="#now"><span class="n">01</span><span class="t">now</span></a></li>
-                    <li><a href="#shelf"><span class="n">02</span><span class="t">shelf</span></a></li>
+                    <li><a href="#favorites"><span class="n">02</span><span class="t">favorites</span></a></li>
+                    <li><a href="#shelf"><span class="n">03</span><span class="t">shelf</span></a></li>
                 </ul>
             </nav>
 
@@ -55,7 +57,7 @@ function isoDate(d: Date | null): string {
                                                                                           aria-hidden="true"></span></p>
 
             <h2 class="hero">off the clock, <em class="ln">mostly reading.</em></h2>
-            <p class="hero-sub">whatever's open on the nightstand, plus what's already shelved.</p>
+            <p class="hero-sub">one book open right now, the rest pulled from the shelf.</p>
 
             <!-- NOW READING -->
             <section id="now" aria-labelledby="s-now">
@@ -92,13 +94,46 @@ function isoDate(d: Date | null): string {
                 )}
             </section>
 
+            <!-- FAVORITES -->
+            <section id="favorites" aria-labelledby="s-favorites">
+                <h3 class="sec" id="s-favorites">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php">&lt;?</span>FAVORITES</span>
+                    <span class="line"></span>
+                    <span class="num">02 · {favorites.length} picks</span>
+                </h3>
+
+                {favorites.length === 0 ? (
+                        <p class="til-empty">no favorites shelved yet.</p>
+                ) : (
+                        <div class="shelf-grid">
+                            {favorites.map((book) => (
+                                    <a class="shelf-book" href={book.link} target="_blank" rel="noopener">
+                                        <span class="shelf-cover">
+                                            <img
+                                                    src={book.coverUrl}
+                                                    alt={`cover of ${book.title}`}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    width="96"
+                                                    height="144"
+                                            />
+                                        </span>
+                                        <span class="shelf-title">{book.title}</span>
+                                        <span class="shelf-author">{book.author}</span>
+                                    </a>
+                            ))}
+                        </div>
+                )}
+            </section>
+
             <!-- SHELF -->
             <section id="shelf" aria-labelledby="s-shelf">
                 <h3 class="sec" id="s-shelf">
                     <span class="dot"></span>
                     <span class="lab"><span class="php">&lt;?</span>SHELF</span>
                     <span class="line"></span>
-                    <span class="num">02 · last {recentlyRead.length} read</span>
+                    <span class="num">03 · last {recentlyRead.length} read</span>
                 </h3>
 
                 {recentlyRead.length === 0 ? (

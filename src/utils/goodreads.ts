@@ -1,7 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 import { GOODREADS_USER_ID } from "@/data/config";
 
-export type Shelf = "currently-reading" | "read";
+export type Shelf = "currently-reading" | "read" | "favorites";
 
 export type Book = {
     id: number;
