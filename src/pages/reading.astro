@@ -26,7 +26,6 @@ const shelfBooks = [...shelfById.values()].sort((a, b) => {
     return bt - at;
 });
 
-const currentBook = currentlyReading[0] ?? null;
 const profileUrl = GOODREADS_USER_ID
     ? `https://www.goodreads.com/user/show/${GOODREADS_USER_ID}`
     : null;
@@ -38,7 +37,7 @@ function isoDate(d: Date | null): string {
 
 <Layout
         title="dao chau · reading"
-        description="one book open right now, the rest pulled from the shelf."
+        description="what's open right now, the rest pulled from the shelf."
 >
     <main class="shell" data-screen-label="reading">
 
@@ -71,7 +70,7 @@ function isoDate(d: Date | null): string {
                                                                                           aria-hidden="true"></span></p>
 
             <h2 class="hero">off the clock, <em class="ln">mostly reading.</em></h2>
-            <p class="hero-sub">one book open right now, the rest pulled from the shelf.</p>
+            <p class="hero-sub">what's open right now, the rest pulled from the shelf.</p>
 
             <!-- NOW READING -->
             <section id="now" aria-labelledby="s-now">
@@ -82,29 +81,33 @@ function isoDate(d: Date | null): string {
                     <span class="num">01</span>
                 </h3>
 
-                {currentBook ? (
-                        <a class="now-book" href={currentBook.link} target="_blank" rel="noopener">
-                            <span class="now-cover">
-                                <img
-                                        src={currentBook.coverUrl}
-                                        alt={`cover of ${currentBook.title}`}
-                                        loading="lazy"
-                                        decoding="async"
-                                        width="96"
-                                        height="144"
-                                />
-                            </span>
-                            <span class="now-info">
-                                <span class="now-label">
-                                    {currentBook.dateAdded ? `started ${isoDate(currentBook.dateAdded)}` : "in progress"}
-                                </span>
-                                <span class="now-title">{currentBook.title}</span>
-                                <span class="now-author">by {currentBook.author}</span>
-                                <span class="now-link"><span class="ic">↗</span><span class="lbl">on goodreads</span></span>
-                            </span>
-                        </a>
-                ) : (
+                {currentlyReading.length === 0 ? (
                         <p class="til-empty">nothing open right now. probably between books.</p>
+                ) : (
+                        <div class="now-list">
+                            {currentlyReading.map((book) => (
+                                    <a class="now-book" href={book.link} target="_blank" rel="noopener">
+                                        <span class="now-cover">
+                                            <img
+                                                    src={book.coverUrl}
+                                                    alt={`cover of ${book.title}`}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    width="96"
+                                                    height="144"
+                                            />
+                                        </span>
+                                        <span class="now-info">
+                                            <span class="now-label">
+                                                {book.dateAdded ? `started ${isoDate(book.dateAdded)}` : "in progress"}
+                                            </span>
+                                            <span class="now-title">{book.title}</span>
+                                            <span class="now-author">by {book.author}</span>
+                                            <span class="now-link"><span class="ic">↗</span><span class="lbl">on goodreads</span></span>
+                                        </span>
+                                    </a>
+                            ))}
+                        </div>
                 )}
             </section>
 

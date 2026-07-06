@@ -807,6 +807,12 @@ section {
 }
 
 /* now reading */
+.now-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .now-book {
   display: grid;
   grid-template-columns: 96px 1fr;
