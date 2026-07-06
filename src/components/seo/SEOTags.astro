@@ -2,6 +2,14 @@
 import { SEO } from "astro-seo";
 import { SITE_URL } from "@/data/config";
 import type { HeadTags } from "@/utils/types/HeadTags";
+import newsreaderNormalLatin from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2?url";
+import newsreaderItalicLatin from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2?url";
+import newsreaderVietnamese from "@fontsource-variable/newsreader/files/newsreader-vietnamese-opsz-normal.woff2?url";
+import jetbrainsMonoVietnamese from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-vietnamese-wght-normal.woff2?url";
+import mainCssHref from "@/styles/main.css?url";
+import jetbrainsMonoCssHref from "@fontsource-variable/jetbrains-mono?url";
+import newsreaderOpszCssHref from "@fontsource-variable/newsreader/opsz.css?url";
+import newsreaderOpszItalicCssHref from "@fontsource-variable/newsreader/opsz-italic.css?url";
 
 type Props = HeadTags;
 
@@ -10,19 +18,49 @@ const { title, description, noindex, og } = Astro.props;
 const DEFAULT_TITLE_PAGE = "dao chau · backend";
 const DEFAULT_DESCRIPTION_PAGE =
   "writes the half of the web you never see. behind the curtain, keeping things running.";
-const DEFAULT_URL_SITE = SITE_URL;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
 
 const openGraph = {
   title: title || og?.title || DEFAULT_TITLE_PAGE,
   type: og?.type || "website",
-  image: og?.image || "/opengraph-image.jpg",
+  image: new URL(og?.image || "/opengraph-image.jpg", SITE_URL).href,
   alt: og?.alt || "dao chau's website",
-  url: DEFAULT_URL_SITE,
+  url: canonicalURL,
   description: og?.description || DEFAULT_DESCRIPTION_PAGE,
 };
+
+// Font-only bundles are safe to defer via the media="print" swap below —
+// they don't affect layout, so a late swap is invisible. main.css controls
+// actual element sizing (e.g. the unsized inline SVG logo), so it stays a
+// normal blocking stylesheet to avoid a flash of oversized/unstyled content.
+const deferredStylesheets = [
+  jetbrainsMonoCssHref,
+  newsreaderOpszCssHref,
+  newsreaderOpszItalicCssHref,
+];
 ---
 
 <head>
+  <!-- Preload the font subsets behind the hero heading and the intro
+       paragraph (#desc) so they're in the cache before layout/paint,
+       instead of arriving late. -->
+  <link rel="preload" as="font" type="font/woff2" href={newsreaderNormalLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={newsreaderItalicLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={newsreaderVietnamese} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={jetbrainsMonoVietnamese} crossorigin />
+  <link rel="stylesheet" href={mainCssHref} />
+  <!-- Load the three Fontsource font-face bundles without blocking first
+       paint: the media="print" swap trick fetches each at normal priority
+       but only applies it once ready, instead of holding up rendering like
+       a plain rel="stylesheet" link would. -->
+  {deferredStylesheets.map((href) => (
+    <>
+      <link rel="preload" href={href} as="style" />
+      <link rel="stylesheet" href={href} media="print" onload="this.media='all'" />
+      <noscript><link rel="stylesheet" href={href} /></noscript>
+    </>
+  ))}
   <SEO
     charset="UTF-8"
     title={title || DEFAULT_TITLE_PAGE}
@@ -33,6 +71,7 @@ const openGraph = {
         title: openGraph.title,
         type: openGraph.type,
         image: openGraph.image,
+        url: openGraph.url,
       },
       image: {
         alt: openGraph.alt,
@@ -45,12 +84,6 @@ const openGraph = {
       link: [
         { rel: "icon", href: "/favicon.svg" },
         { rel: "sitemap", href: "/sitemap-index.xml" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap",
-        },
       ],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -64,10 +97,16 @@ const openGraph = {
     }}
   />
   <!-- Google tag (gtag.js) -->
-  <script is:inline type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X"></script>
-  <script is:inline type="text/partytown">
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X"></script>
+  <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'granted',
+  });
   gtag('js', new Date());
   gtag('config', 'G-SDQ2PWY76X');
   </script>

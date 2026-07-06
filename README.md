@@ -1,30 +1,61 @@
 # dao chau · personal site
 
-Personal portfolio site at [daochau.com](https://daochau.com), built with Astro.
+> behind the curtain, keeping things running.
 
-Two-column layout: sticky identity rail on the left, content sections on the right. Pure CSS, no framework.
+The source of [daochau.com](https://daochau.com) — a small terminal-flavored
+corner of the web for a PHP backend developer who writes the half of the web
+you never see. Built with Astro, styled with plain CSS, and small on purpose,
+much like the rest of my life.
 
-## Stack
+Two-column layout: sticky identity rail on the left, content on the right.
+No utility framework, no client-side JS beyond analytics.
+
+## $ ls /pages
+
+- `/` — description, echo (featured projects), now, notes
+- `/til` — things I learned, one markdown file at a time
+- `/uses` — the hardware & software I keep around
+- `/reading` — currently reading + recently finished, pulled from goodreads at build time
+
+## $ cat stack
 
 - [Astro](https://astro.build) — static site generator
-- CSS custom properties — no utility framework
-- JetBrains Mono + Newsreader — typography
-- GitHub Pages — hosting, deployed on push to `master`
+- CSS custom properties — one stylesheet, light/dark theming
+- JetBrains Mono + Newsreader — self-hosted via Fontsource
+- `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo` — SEO plumbing
+- `@astrojs/partytown` — keeps Google Analytics off the main thread
+- GitHub Pages — every push to `master` type-checks and deploys itself
 
-## Commands
+## $ dao --help
 
-| Command           | Action                                       |
-| :---------------- | :------------------------------------------- |
-| `npm install`     | Install dependencies                         |
-| `npm run dev`     | Start local dev server at `localhost:4321`   |
-| `npm run build`   | Build to `./dist/`                           |
-| `npm run preview` | Preview the production build locally         |
-| `npm run check`   | Run Astro type check                         |
+| Command           | Action                                     |
+| :---------------- | :----------------------------------------- |
+| `npm install`     | Install dependencies                       |
+| `npm run dev`     | Start local dev server at `localhost:4321` |
+| `npm run build`   | Build to `./dist/`                         |
+| `npm run preview` | Preview the production build locally       |
+| `npm run check`   | Run Astro type check                       |
 
-## Content
+## $ vim content
 
-- `src/pages/index.astro` — page content (description, now, notes sections)
-- `src/data/projects.ts` — featured projects list
-- `src/styles/main.css` — all styles and CSS variables
-- `src/components/seo/SEOTags.astro` — meta tags, fonts, GA
-- `public/favicon.svg` — goggle mark favicon
+| What                   | Where                                      |
+| :--------------------- | :----------------------------------------- |
+| Page copy              | `src/pages/index.astro`, `uses.astro`      |
+| TIL posts              | `src/content/til/*.md` (title, date, tags) |
+| Featured projects      | `src/data/projects.ts`                     |
+| Site config / URL      | `src/data/config.ts`                       |
+| Styles & CSS variables | `src/styles/main.css`                      |
+| Meta tags, fonts, GA   | `src/components/seo/SEOTags.astro`         |
+| Favicon (goggle mark)  | `public/favicon.svg`                       |
+| Goodreads user id      | `.env` (`GOODREADS_USER_ID`, gitignored)   |
+
+New TIL post: drop a markdown file in `src/content/til/` with `title`,
+`date`, and optional `tags` frontmatter — schema in `src/content.config.ts`.
+
+`/reading` needs `GOODREADS_USER_ID` set (copy `.env.example` to `.env`
+locally; set the same as a repo secret for the deploy workflow) — the id
+stays out of source since the repo is public.
+
+---
+
+`dao@chau:~$ cat mantra` → */You become what you feed your mind./*

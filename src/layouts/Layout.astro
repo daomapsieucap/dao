@@ -1,7 +1,6 @@
 ---
 import SEOTags from "@/components/seo/SEOTags.astro";
 import type { HeadTags } from "@/utils/types/HeadTags";
-import "@/styles/main.css";
 
 export type Props = HeadTags;
 
@@ -13,7 +12,10 @@ const headTags = Astro.props;
   <SEOTags {...headTags} />
   <script is:inline>
     (function () {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (theme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
@@ -33,10 +35,13 @@ const headTags = Astro.props;
 
       btn.addEventListener('click', function () {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        applyTheme(isDark ? 'light' : 'dark');
+        var next = isDark ? 'light' : 'dark';
+        applyTheme(next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
       });
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        try { if (localStorage.getItem('theme')) return; } catch (err) {}
         applyTheme(e.matches ? 'dark' : 'light');
       });
     </script>
