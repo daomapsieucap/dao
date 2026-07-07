@@ -23,7 +23,8 @@ No utility framework, no client-side JS beyond analytics.
 - CSS custom properties: one stylesheet, light/dark theming
 - JetBrains Mono + Newsreader: self-hosted via Fontsource
 - `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo`: SEO plumbing
-- `@astrojs/partytown`: keeps Google Analytics off the main thread
+- `fast-xml-parser`: parses the Goodreads RSS feed at build time for `/reading`
+- Google Analytics: plain async `gtag.js` snippet, no extra tooling
 - GitHub Pages: every push to `master` type-checks and deploys itself
 
 ## $ dao --help
@@ -46,6 +47,7 @@ No utility framework, no client-side JS beyond analytics.
 | Site config / URL      | `src/data/config.ts`                       |
 | Styles & CSS variables | `src/styles/main.css`                      |
 | Meta tags, fonts, GA   | `src/components/seo/SEOTags.astro`         |
+| Goodreads feed parsing | `src/utils/goodreads.ts`                   |
 | Favicon (goggle mark)  | `public/favicon.svg`                       |
 | Goodreads user id      | `.env` (`GOODREADS_USER_ID`, gitignored)   |
 
