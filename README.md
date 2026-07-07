@@ -2,13 +2,11 @@
 
 > behind the curtain, keeping things running.
 
-The source of [daochau.com](https://daochau.com), a small terminal-flavored
-corner of the web for a PHP backend developer who writes the half of the web
-you never see. Built with Astro, styled with plain CSS, and small on purpose,
-much like the rest of my life.
+[daochau.com](https://daochau.com), a small terminal-flavored personal site.
+Built with Astro and plain CSS; no utility framework, no client-side JS
+beyond analytics.
 
-Two-column layout: sticky identity rail on the left, content on the right.
-No utility framework, no client-side JS beyond analytics.
+Small on purpose, much like the rest of my life.
 
 ## $ ls /pages
 
