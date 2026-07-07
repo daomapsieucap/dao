@@ -9,6 +9,9 @@
   --blue: #3a5a8c;
   --yellow: #f3c02c;
   --yellow-deep: #c79412;
+  --yellow-text: #8f6a00;
+  /* large-text (>=24px) needs only 3:1, so the hero keeps a brighter gold */
+  --yellow-large: #ab7e06;
   --rim: #161616;
   --rule: rgba(29, 52, 80, 0.12);
   --faint: rgba(29, 52, 80, 0.16);
@@ -29,6 +32,8 @@
   --blue: #78aad8;
   --yellow: #f3c02c;
   --yellow-deep: #d0a81e;
+  --yellow-text: var(--yellow-deep);
+  --yellow-large: var(--yellow-deep);
   --rim: #e8f0f8;
   --rule: rgba(148, 192, 232, 0.09);
   --faint: rgba(148, 192, 232, 0.12);
@@ -47,6 +52,8 @@
     --blue: #78aad8;
     --yellow: #f3c02c;
     --yellow-deep: #d0a81e;
+    --yellow-text: var(--yellow-deep);
+    --yellow-large: var(--yellow-deep);
     --rim: #e8f0f8;
     --rule: rgba(148, 192, 232, 0.09);
     --faint: rgba(148, 192, 232, 0.12);
@@ -349,6 +356,13 @@ body {
   font-weight: 500;
 }
 
+/* .cmd spans holding a real link can't be aria-hidden, so their
+   text must meet contrast on its own */
+.cmd a,
+a.cmd {
+  color: var(--yellow-text);
+}
+
 .cur {
   display: inline-block;
   width: 0.6ch;
@@ -382,7 +396,7 @@ body {
 
 .hero em {
   font-style: italic;
-  color: var(--yellow-deep);
+  color: var(--yellow-large);
 }
 
 .hero em.ln { display: block; }
@@ -486,7 +500,7 @@ section {
 
 .chip.hl {
   border-color: var(--yellow-deep);
-  color: var(--yellow-deep);
+  color: var(--yellow-text);
   background: rgba(243, 192, 44, 0.08);
 }
 
@@ -602,12 +616,6 @@ section {
   color: #3f7a55;
   border-color: rgba(63, 122, 85, 0.32);
   background: rgba(63, 122, 85, 0.06);
-}
-
-.ptag[data-tag="html"] {
-  color: #a4642e;
-  border-color: rgba(164, 100, 46, 0.32);
-  background: rgba(164, 100, 46, 0.06);
 }
 
 .ptag.role[data-tag="fullstack"] {
@@ -755,7 +763,7 @@ section {
   display: block;
   font-family: var(--mono);
   font-size: 11.5px;
-  color: var(--yellow-deep);
+  color: var(--yellow-text);
   letter-spacing: 0.08em;
   margin-bottom: 9px;
 }
@@ -862,7 +870,7 @@ section {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--yellow-deep);
+  color: var(--yellow-text);
 }
 
 .now-title {
@@ -1003,7 +1011,7 @@ section {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.04em;
-  color: var(--yellow-deep);
+  color: var(--yellow-text);
 }
 
 /* mantra / favourite quote */
@@ -1070,7 +1078,7 @@ section {
   font-weight: 500;
 }
 
-.exit a { color: var(--yellow-deep); text-decoration: none; }
+.exit a { color: var(--yellow-text); text-decoration: none; }
 .exit a:hover { text-decoration: underline; }
 
 /* responsive */
@@ -1212,20 +1220,6 @@ section {
     color: #5aaa76;
     border-color: rgba(90, 170, 118, 0.30);
     background: rgba(90, 170, 118, 0.07);
-  }
-}
-
-[data-theme="dark"] .ptag[data-tag="html"] {
-  color: #d4884c;
-  border-color: rgba(212, 136, 76, 0.30);
-  background: rgba(212, 136, 76, 0.07);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .ptag[data-tag="html"] {
-    color: #d4884c;
-    border-color: rgba(212, 136, 76, 0.30);
-    background: rgba(212, 136, 76, 0.07);
   }
 }
 

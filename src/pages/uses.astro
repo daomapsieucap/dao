@@ -23,10 +23,10 @@ import RailFoot from "@/components/RailFoot.astro";
 
             <nav aria-label="Sections">
                 <ul class="nav">
-                    <li><a href="/"><span class="n">cd</span><span class="t">~ home</span></a></li>
-                    <li><a href="#bin"><span class="n">01</span><span class="t">bin</span></a></li>
-                    <li><a href="#hardware"><span class="n">02</span><span class="t">hardware</span></a></li>
-                    <li><a href="#env"><span class="n">03</span><span class="t">env</span></a></li>
+                    <li><a href="/"><span class="n" aria-hidden="true">cd</span><span class="t">~ home</span></a></li>
+                    <li><a href="#bin"><span class="n" aria-hidden="true">01</span><span class="t">bin</span></a></li>
+                    <li><a href="#hardware"><span class="n" aria-hidden="true">02</span><span class="t">hardware</span></a></li>
+                    <li><a href="#env"><span class="n" aria-hidden="true">03</span><span class="t">env</span></a></li>
                 </ul>
             </nav>
 
@@ -36,7 +36,7 @@ import RailFoot from "@/components/RailFoot.astro";
         <!-- content column -->
         <div class="content">
 
-            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd">dao --uses</span><span class="cur"
+            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --uses</span><span class="cur"
                                                                                           aria-hidden="true"></span></p>
 
             <h2 class="hero">dotfiles, <em class="ln">the personal runtime.</em></h2>
@@ -46,7 +46,7 @@ import RailFoot from "@/components/RailFoot.astro";
             <section id="bin" aria-labelledby="s-bin">
                 <h3 class="sec" id="s-bin">
                     <span class="dot"></span>
-                    <span class="lab"><span class="php">&lt;?</span>BIN</span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>BIN</span>
                     <span class="line"></span>
                     <span class="num">01</span>
                 </h3>
@@ -71,7 +71,7 @@ import RailFoot from "@/components/RailFoot.astro";
             <section id="hardware" aria-labelledby="s-hardware">
                 <h3 class="sec" id="s-hardware">
                     <span class="dot"></span>
-                    <span class="lab"><span class="php">&lt;?</span>HARDWARE</span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>HARDWARE</span>
                     <span class="line"></span>
                     <span class="num">02</span>
                 </h3>
@@ -104,7 +104,7 @@ import RailFoot from "@/components/RailFoot.astro";
             <section id="env" aria-labelledby="s-env">
                 <h3 class="sec" id="s-env">
                     <span class="dot"></span>
-                    <span class="lab"><span class="php">&lt;?</span>ENV</span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>ENV</span>
                     <span class="line"></span>
                     <span class="num">03</span>
                 </h3>
@@ -121,7 +121,7 @@ import RailFoot from "@/components/RailFoot.astro";
                 </dl>
             </section>
 
-            <p class="colophon"><span class="c">#</span>nothing here is impressive; all of it is mine.</p>
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>nothing here is impressive; all of it is mine.</p>
             <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
                                                                                                   aria-hidden="true"></span>
             </p>
