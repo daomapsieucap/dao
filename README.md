@@ -2,7 +2,7 @@
 
 > behind the curtain, keeping things running.
 
-The source of [daochau.com](https://daochau.com) — a small terminal-flavored
+The source of [daochau.com](https://daochau.com), a small terminal-flavored
 corner of the web for a PHP backend developer who writes the half of the web
 you never see. Built with Astro, styled with plain CSS, and small on purpose,
 much like the rest of my life.
@@ -12,19 +12,19 @@ No utility framework, no client-side JS beyond analytics.
 
 ## $ ls /pages
 
-- `/` — description, echo (featured projects), now, notes
-- `/til` — things I learned, one markdown file at a time
-- `/uses` — the hardware & software I keep around
-- `/reading` — currently reading + recently finished, pulled from goodreads at build time
+- `/`: description, echo (featured projects), now, notes
+- `/til`: things I learned, one markdown file at a time
+- `/uses`: the hardware & software I keep around
+- `/reading`: currently reading + recently finished, pulled from goodreads at build time
 
 ## $ cat stack
 
-- [Astro](https://astro.build) — static site generator
-- CSS custom properties — one stylesheet, light/dark theming
-- JetBrains Mono + Newsreader — self-hosted via Fontsource
-- `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo` — SEO plumbing
-- `@astrojs/partytown` — keeps Google Analytics off the main thread
-- GitHub Pages — every push to `master` type-checks and deploys itself
+- [Astro](https://astro.build): static site generator
+- CSS custom properties: one stylesheet, light/dark theming
+- JetBrains Mono + Newsreader: self-hosted via Fontsource
+- `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo`: SEO plumbing
+- `@astrojs/partytown`: keeps Google Analytics off the main thread
+- GitHub Pages: every push to `master` type-checks and deploys itself
 
 ## $ dao --help
 
@@ -50,10 +50,10 @@ No utility framework, no client-side JS beyond analytics.
 | Goodreads user id      | `.env` (`GOODREADS_USER_ID`, gitignored)   |
 
 New TIL post: drop a markdown file in `src/content/til/` with `title`,
-`date`, and optional `tags` frontmatter — schema in `src/content.config.ts`.
+`date`, and optional `tags` frontmatter (schema in `src/content.config.ts`).
 
 `/reading` needs `GOODREADS_USER_ID` set (copy `.env.example` to `.env`
-locally; set the same as a repo secret for the deploy workflow) — the id
+locally; set the same as a repo secret for the deploy workflow). The id
 stays out of source since the repo is public.
 
 ---
