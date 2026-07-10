@@ -1,0 +1,44 @@
+media:
+  input: public
+  output: /
+
+content:
+  - name: til
+    label: TIL
+    type: collection
+    path: src/content/til
+    filename: "{fields.title}.md"
+    view:
+      fields: [title, date, tags]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        default: "{{date}}"
+        options:
+          format: "yyyy-MM-dd"
+      - name: tags
+        label: Tags
+        type: select
+        list: true
+        options:
+          creatable: true
+          values:
+            - cloudflare
+            - deployment
+            - devops
+            - human
+            - inspiration
+            - load-balancing
+            - minion
+      - name: body
+        label: Body
+        type: rich-text

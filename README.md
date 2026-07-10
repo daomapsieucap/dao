@@ -51,6 +51,8 @@ Small on purpose, much like the rest of my life.
 
 New TIL post: drop a markdown file in `src/content/til/` with `title`,
 `date`, and optional `tags` frontmatter (schema in `src/content.config.ts`).
+Or edit TIL posts from anywhere, phone included, via
+[app.pagescms.org](https://app.pagescms.org) (config in `.pages.yml`).
 
 `/reading` needs `GOODREADS_USER_ID` set (copy `.env.example` to `.env`
 locally; set the same as a repo secret for the deploy workflow). The id
