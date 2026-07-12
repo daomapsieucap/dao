@@ -364,6 +364,10 @@ a.cmd {
   color: var(--yellow-text);
 }
 
+.cmd.coffee-link {
+  color: var(--yellow);
+}
+
 .cur {
   display: inline-block;
   width: 0.6ch;
