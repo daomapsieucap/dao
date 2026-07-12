@@ -7,8 +7,7 @@
   --prose: #2f3540;
   --muted: #5a6270;
   --blue: #3a5a8c;
-  --yellow: #f3c02c;
-  --yellow-deep: #c79412;
+  --yellow: #c79412;
   --yellow-text: #8f6a00;
   /* large-text (>=24px) needs only 3:1, so the hero keeps a brighter gold */
   --yellow-large: #ab7e06;
@@ -30,10 +29,9 @@
   --prose: #87a3b8;
   --muted: #6f88a3;
   --blue: #78aad8;
-  --yellow: #f3c02c;
-  --yellow-deep: #d0a81e;
-  --yellow-text: var(--yellow-deep);
-  --yellow-large: var(--yellow-deep);
+  --yellow: #d0a81e;
+  --yellow-text: var(--yellow);
+  --yellow-large: var(--yellow);
   --rim: #e8f0f8;
   --rule: rgba(148, 192, 232, 0.09);
   --faint: rgba(148, 192, 232, 0.12);
@@ -50,10 +48,9 @@
     --prose: #87a3b8;
     --muted: #6f88a3;
     --blue: #78aad8;
-    --yellow: #f3c02c;
-    --yellow-deep: #d0a81e;
-    --yellow-text: var(--yellow-deep);
-    --yellow-large: var(--yellow-deep);
+    --yellow: #d0a81e;
+    --yellow-text: var(--yellow);
+    --yellow-large: var(--yellow);
     --rim: #e8f0f8;
     --rule: rgba(148, 192, 232, 0.09);
     --faint: rgba(148, 192, 232, 0.12);
@@ -181,7 +178,7 @@ body {
   display: inline-block;
   width: 16px;
   height: 1px;
-  background: var(--yellow-deep);
+  background: var(--yellow);
   vertical-align: middle;
   margin-right: 9px;
 }
@@ -216,7 +213,7 @@ body {
 }
 
 .nav a .n {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-size: 11px;
   font-variant-numeric: tabular-nums;
 }
@@ -258,7 +255,7 @@ body {
 }
 
 .rail-links a .ic {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-size: 11px;
   width: 1.4ch;
   text-align: center;
@@ -299,6 +296,10 @@ body {
   font-weight: inherit;
   vertical-align: baseline;
   line-height: inherit;
+}
+
+.shelf-link-wrap {
+  white-space: nowrap;
 }
 
 .coffee-link:hover {
@@ -352,7 +353,7 @@ body {
 }
 
 .cmd {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-weight: 500;
 }
 
@@ -367,7 +368,7 @@ a.cmd {
   display: inline-block;
   width: 0.6ch;
   height: 1.02em;
-  background: var(--yellow-deep);
+  background: var(--yellow);
   vertical-align: -0.15em;
   margin-left: 0.15ch;
 }
@@ -446,7 +447,7 @@ section {
 }
 
 .sec .lab .php {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -499,7 +500,7 @@ section {
 }
 
 .chip.hl {
-  border-color: var(--yellow-deep);
+  border-color: var(--yellow);
   color: var(--yellow-text);
   background: rgba(243, 192, 44, 0.08);
 }
@@ -561,7 +562,7 @@ section {
   align-self: start;
   padding: 0.15em 0.4ch 0.05em;
   margin-left: -0.4ch;
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
@@ -619,22 +620,22 @@ section {
 }
 
 .ptag.role[data-tag="fullstack"] {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   border-color: rgba(199, 148, 18, 0.36);
   background: rgba(243, 192, 44, 0.08);
 }
 
 .proj:hover {
   background: var(--paper-2);
-  box-shadow: inset 3px 0 0 var(--yellow-deep);
+  box-shadow: inset 3px 0 0 var(--yellow);
 }
 
 .proj:hover .pname {
-  color: var(--yellow-deep);
+  color: var(--yellow);
 }
 
 .proj:hover .arrow {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   transform: translateX(2px);
 }
 
@@ -681,8 +682,8 @@ section {
 }
 
 .kv dd a:hover {
-  color: var(--yellow-deep);
-  border-color: var(--yellow-deep);
+  color: var(--yellow);
+  border-color: var(--yellow);
 }
 
 @media (max-width: 480px) {
@@ -730,7 +731,7 @@ section {
 
 .notes li b::before {
   content: "//";
-  color: var(--yellow-deep);
+  color: var(--yellow);
   margin-right: 0.6ch;
 }
 
@@ -836,7 +837,7 @@ section {
 
 .now-book:hover {
   background: var(--paper-2);
-  border-color: var(--yellow-deep);
+  border-color: var(--yellow);
 }
 
 .now-cover {
@@ -900,7 +901,7 @@ section {
 }
 
 .now-link .ic {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   transition: transform 0.32s var(--ease-smooth);
 }
 
@@ -969,8 +970,8 @@ section {
 }
 
 .shelf-book:hover .shelf-cover {
-  border-color: var(--yellow-deep);
-  box-shadow: 0 0 0 1px var(--yellow-deep), 0 10px 26px -10px rgba(199, 148, 18, 0.45);
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 1px var(--yellow), 0 10px 26px -10px color-mix(in srgb, var(--yellow) 45%, transparent);
 }
 
 .shelf-cover img {
@@ -994,7 +995,7 @@ section {
 }
 
 .shelf-book:hover .shelf-title {
-  color: var(--yellow-deep);
+  color: var(--yellow);
 }
 
 .shelf-author {
@@ -1045,7 +1046,7 @@ section {
 }
 
 .mantra-slash {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-weight: 500;
 }
 
@@ -1061,7 +1062,7 @@ section {
 }
 
 .colophon .c {
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-weight: 500;
   margin-right: 0.7ch;
 }
@@ -1148,7 +1149,7 @@ section {
   .nav a:hover,
   .nav a:focus-visible {
     background: var(--paper-2);
-    border-color: var(--yellow-deep);
+    border-color: var(--yellow);
   }
   .rail-foot {
     grid-area: foot;
@@ -1257,7 +1258,7 @@ section {
 
 .theme-btn::before {
   content: "./ ";
-  color: var(--yellow-deep);
+  color: var(--yellow);
   font-weight: 500;
 }
 
@@ -1271,11 +1272,11 @@ section {
 
 .theme-btn:hover {
   color: var(--ink);
-  border-color: var(--yellow-deep);
+  border-color: var(--yellow);
   background: var(--paper-2);
 }
 
 .theme-btn:focus-visible {
-  outline: 2px solid var(--yellow-deep);
+  outline: 2px solid var(--yellow);
   outline-offset: 2px;
 }
