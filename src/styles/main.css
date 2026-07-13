@@ -8,7 +8,7 @@
   --muted: #5a6270;
   --blue: #3a5a8c;
   --yellow: #c79412;
-  --yellow-text: #8f6a00;
+  --yellow-text: var(--yellow);
   /* large-text (>=24px) needs only 3:1, so the hero keeps a brighter gold */
   --yellow-large: #ab7e06;
   --rim: #161616;
@@ -216,10 +216,6 @@ body {
   color: var(--yellow);
   font-size: 11px;
   font-variant-numeric: tabular-nums;
-}
-
-.nav a .n.n-home {
-  color: var(--yellow-text);
 }
 
 .nav a .t {
