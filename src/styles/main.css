@@ -218,6 +218,10 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.nav a .n.n-home {
+  color: var(--yellow-text);
+}
+
 .nav a .t {
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -309,7 +313,7 @@ body {
 .status .pulse {
   position: relative;
   flex: none;
-  margin-top: 4px;
+  margin-top: 5.4px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -678,7 +682,7 @@ section {
 }
 
 .kv dd a {
-  color: var(--blue);
+  color: var(--yellow-text);
   text-decoration: none;
   border-bottom: 1px solid var(--faint);
   padding-bottom: 1px;
