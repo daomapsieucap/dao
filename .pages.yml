@@ -27,18 +27,8 @@ content:
           format: "yyyy-MM-dd"
       - name: tags
         label: Tags
-        type: select
+        type: string
         list: true
-        options:
-          creatable: true
-          values:
-            - cloudflare
-            - deployment
-            - devops
-            - human
-            - inspiration
-            - load-balancing
-            - minion
       - name: body
         label: Body
         type: rich-text
