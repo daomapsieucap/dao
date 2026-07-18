@@ -1,6 +1,8 @@
 ---
 title: Goodreads Timezone
 date: 2026-07-18
+tags:
+  - goodread
 ---
 Goodreads stores "Date Read" as a bare date with no time-of-day component (in UTC format).
 
