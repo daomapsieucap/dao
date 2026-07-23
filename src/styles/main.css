@@ -247,7 +247,6 @@ body {
   display: flex;
   align-items: center;
   gap: 9px;
-  transition: color 0.16s ease;
 }
 
 .rail-links a .ic {
@@ -262,18 +261,19 @@ body {
   letter-spacing: -0.02em;
 }
 
-.rail-links a:hover {
-  color: var(--blue);
-}
-
 .rail-links a:hover .lbl {
-  border-color: var(--blue);
+  border-color: transparent;
+  background-size: 100% 1px;
 }
 
 .rail-links a .lbl {
   border-bottom: 1px solid var(--faint);
   padding-bottom: 1px;
-  transition: border-color 0.16s ease;
+  background-image: linear-gradient(var(--yellow), var(--yellow));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: border-color 0.16s ease, background-size 0.35s var(--ease-smooth);
 }
 
 .status {
@@ -926,16 +926,21 @@ section {
 
 .now-link .ic {
   color: var(--yellow);
-  transition: transform 0.32s var(--ease-smooth);
-}
-
-.now-book:hover .now-link .ic {
-  transform: translateX(2px);
 }
 
 .now-link .lbl {
   border-bottom: 1px solid var(--faint);
   padding-bottom: 1px;
+  background-image: linear-gradient(var(--yellow), var(--yellow));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: border-color 0.16s ease, background-size 0.35s var(--ease-smooth);
+}
+
+.now-book:hover .now-link .lbl {
+  border-color: transparent;
+  background-size: 100% 1px;
 }
 
 @media (max-width: 480px) {
