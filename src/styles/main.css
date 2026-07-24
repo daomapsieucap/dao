@@ -828,6 +828,43 @@ section {
   color: var(--blue);
 }
 
+.til-body table {
+  display: block;
+  max-width: 100%;
+  margin: 18px 0 24px;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.til-body th,
+.til-body td {
+  padding: 8px 14px;
+  text-align: left;
+  border: 1px solid var(--faint);
+  white-space: nowrap;
+}
+
+.til-body thead th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--faint-2);
+  border-bottom: 1px solid var(--yellow);
+}
+
+.til-body tbody td {
+  color: var(--prose);
+}
+
+.til-body tbody tr:nth-child(even) td {
+  background: var(--faint-2);
+}
+
 .til-tags {
   margin-top: 14px;
 }
