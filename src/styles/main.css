@@ -516,7 +516,6 @@ section {
   font-size: 18px;
   line-height: 30px;
   color: var(--prose);
-  max-width: 62ch;
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0,
@@ -791,7 +790,6 @@ section {
   font-size: 17px;
   line-height: 1.6;
   color: var(--prose);
-  max-width: 62ch;
 }
 
 .til-body p {
