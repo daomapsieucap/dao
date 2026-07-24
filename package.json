@@ -12,7 +12,8 @@
   },
   "overrides": {
     "esbuild": "^0.28.1",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.0",
+    "svgo": "^4.0.2"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
