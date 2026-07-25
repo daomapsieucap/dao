@@ -655,7 +655,6 @@ section {
   grid-template-columns: max-content 1fr;
   column-gap: 2.6ch;
   row-gap: 13px;
-  max-width: 60ch;
   align-items: baseline;
 }
 
