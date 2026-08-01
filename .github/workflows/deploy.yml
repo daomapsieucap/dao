@@ -7,9 +7,9 @@ on:
     branches: [ master ]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
-  # Rebuild daily so Goodreads shelf data stays fresh even without a code push
+  # Rebuild monthly so Goodreads shelf data stays fresh even without a code push
   schedule:
-    - cron: '0 17 * * *' # 00:00 ICT
+    - cron: '0 17 1 * *' # 00:00 ICT on the 1st of each month
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
