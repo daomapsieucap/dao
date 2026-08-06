@@ -27,7 +27,7 @@
   --prose: #87a3b8;
   --muted: #6f88a3;
   --blue: #78aad8;
-  --yellow: #d0a81e;
+  --yellow: #edc61d;
   --yellow-text: var(--yellow);
   --rim: #e8f0f8;
   --rule: rgba(148, 192, 232, 0.09);
@@ -45,7 +45,7 @@
     --prose: #87a3b8;
     --muted: #6f88a3;
     --blue: #78aad8;
-    --yellow: #d0a81e;
+    --yellow: #edc61d;
     --yellow-text: var(--yellow);
     --rim: #e8f0f8;
     --rule: rgba(148, 192, 232, 0.09);
