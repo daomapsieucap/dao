@@ -22,14 +22,12 @@ const headTags = Astro.props;
   </script>
   <body>
     <!--
-                    __
-                  _/  \_
-                _/  ~~  \_
-              _/  ~~~~~~  \_
-            _/  ~~~~~~~~~~  \
-           (__________________)
+                  _______
+                =(         )=
+                =(   (o)   )=
+                =(_________)=
 
-        you opened view-source for a banana.
+        you opened view-source for a goggle.
         respect.
     -->
     <slot />
@@ -60,16 +58,10 @@ const headTags = Astro.props;
       (function () {
         try {
           console.log(
-            "    __\n" +
-            "  ,'  `--..__\n" +
-            " /            `-.\n" +
-            " \\.___          .'\n" +
-            "      `--------`"
+            "%c◉ dao chau: built by hand, blinking since 2026.",
+            "color: #f3c02c; font-family: 'JetBrains Mono', monospace; font-size: 13px;"
           );
-          console.log(
-            "%cbuilt by hand, curious by default. dig around: https://github.com/daomapsieucap/dao",
-            "color: #f3c02c; font-family: 'JetBrains Mono', monospace;"
-          );
+          console.log("dig around: https://github.com/daomapsieucap/dao");
         } catch (e) {}
       })();
     </script>
