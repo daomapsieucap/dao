@@ -56,5 +56,22 @@ const headTags = Astro.props;
         applyTheme(e.matches ? 'dark' : 'light');
       });
     </script>
+    <script is:inline>
+      (function () {
+        try {
+          console.log(
+            "   _\n" +
+            "  //\\\n" +
+            " ((  \\\\_\n" +
+            "  \\\\_ __)\\\n" +
+            "     \\_____)"
+          );
+          console.log(
+            "%cbuilt by hand, curious by default. dig around: https://github.com/daomapsieucap/dao",
+            "color: #f3c02c; font-family: 'JetBrains Mono', monospace;"
+          );
+        } catch (e) {}
+      })();
+    </script>
   </body>
 </html>
