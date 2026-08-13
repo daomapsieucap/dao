@@ -80,7 +80,7 @@ function isoDate(d: Date) {
                                         {entry.data.tags && entry.data.tags.length > 0 && (
                                                 <div class="chips til-tags">
                                                     {entry.data.tags.map(tag => (
-                                                            <span class="chip">{tag}</span>
+                                                            <span class="chip" data-tag={tag}>{tag}</span>
                                                     ))}
                                                 </div>
                                         )}

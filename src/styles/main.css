@@ -510,6 +510,18 @@ section {
   background: rgba(243, 192, 44, 0.08);
 }
 
+.chip[data-tag="minion"] {
+  border-color: var(--yellow);
+  color: var(--yellow-text);
+  background: rgba(243, 192, 44, 0.08);
+}
+
+.chip[data-tag="minion"]::before {
+  content: "◡";
+  color: var(--yellow);
+  margin-right: 0.6ch;
+}
+
 /* prose - ruled book page */
 .prose {
   font-family: var(--serif);
