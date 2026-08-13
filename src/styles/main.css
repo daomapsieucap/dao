@@ -124,7 +124,7 @@ body {
 
 code {
   font-family: var(--mono);
-  font-size: 0.875em;
+  font-size: 0.75em;
   color: var(--blue);
   background: var(--faint-2);
   border: 1px solid var(--faint);
