@@ -1,0 +1,179 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import LogoMark from "@/components/LogoMark.astro";
+import RailFoot from "@/components/RailFoot.astro";
+---
+
+<Layout
+        title="dao chau · banana"
+        description="the manual page for banana(1). read it before you slip."
+>
+    <main class="shell" data-screen-label="banana">
+
+        <!-- identity rail -->
+        <aside class="rail">
+            <LogoMark />
+
+            <div class="id-block">
+                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-role">banana · section 1</p>
+            </div>
+
+            <div class="rail-divider"></div>
+
+            <nav aria-label="Sections">
+                <ul class="nav">
+                    <li><a href="/"><span class="n" aria-hidden="true">cd</span><span class="t">~ home</span></a></li>
+                    <li><a href="#name"><span class="n" aria-hidden="true">01</span><span class="t">name</span></a></li>
+                    <li><a href="#synopsis"><span class="n" aria-hidden="true">02</span><span class="t">synopsis</span></a></li>
+                    <li><a href="#description"><span class="n" aria-hidden="true">03</span><span class="t">description</span></a></li>
+                    <li><a href="#options"><span class="n" aria-hidden="true">04</span><span class="t">options</span></a></li>
+                    <li><a href="#exit-status"><span class="n" aria-hidden="true">05</span><span class="t">exit status</span></a></li>
+                    <li><a href="#see-also"><span class="n" aria-hidden="true">06</span><span class="t">see also</span></a></li>
+                    <li><a href="#bugs"><span class="n" aria-hidden="true">07</span><span class="t">bugs</span></a></li>
+                </ul>
+            </nav>
+
+            <RailFoot />
+        </aside>
+
+        <!-- content column -->
+        <div class="content">
+
+            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">man banana</span><span class="cur"
+                                                                                          aria-hidden="true"></span></p>
+
+            <h2 class="hero">peel first, <em class="ln">ask questions later.</em></h2>
+            <p class="hero-sub">a manpage for a command that mostly just sits there, ripening.</p>
+
+            <!-- NAME -->
+            <section id="name" aria-labelledby="s-name">
+                <h3 class="sec" id="s-name">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NAME</span>
+                    <span class="line"></span>
+                    <span class="num">01</span>
+                </h3>
+                <p class="sec-note">banana &mdash; a single fruit, formatted for the terminal.</p>
+            </section>
+
+            <!-- SYNOPSIS -->
+            <section id="synopsis" aria-labelledby="s-synopsis">
+                <h3 class="sec" id="s-synopsis">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SYNOPSIS</span>
+                    <span class="line"></span>
+                    <span class="num">02</span>
+                </h3>
+                <p class="sec-note">usage, for the terminally literal.</p>
+                <div class="chips">
+                    <span class="chip hl">banana</span>
+                    <span class="chip">[-r ripeness]</span>
+                    <span class="chip">[-p]</span>
+                    <span class="chip">[--compost]</span>
+                    <span class="chip">[-v]</span>
+                    <span class="chip">[FILE]</span>
+                </div>
+            </section>
+
+            <!-- DESCRIPTION -->
+            <section id="description" aria-labelledby="s-description">
+                <h3 class="sec" id="s-description">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>DESCRIPTION</span>
+                    <span class="line"></span>
+                    <span class="num">03</span>
+                </h3>
+                <div class="prose">
+                    <p><code>banana</code> takes one fruit as implicit input and advances it toward a terminal
+                        state. by default it does <em>nothing</em>: ripening proceeds whether or not the command is
+                        invoked, which is either the point or a known limitation, depending on who you ask.</p>
+                    <p>with no <code>FILE</code> given, <code>banana</code> operates on the nearest banana. if none
+                        is found, it exits quietly rather than inventing one.</p>
+                </div>
+            </section>
+
+            <!-- OPTIONS -->
+            <section id="options" aria-labelledby="s-options">
+                <h3 class="sec" id="s-options">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>OPTIONS</span>
+                    <span class="line"></span>
+                    <span class="num">04</span>
+                </h3>
+                <dl class="kv">
+                    <dt>-r, --ripeness=LEVEL</dt>
+                    <dd>target ripeness: <em>green</em>, <em>yellow</em>, <em>spotted</em>, or <em>regret</em>.</dd>
+                    <dt>-p, --peel</dt>
+                    <dd>peel before use. default is off; results vary.</dd>
+                    <dt>--compost</dt>
+                    <dd>dispose of the peel respectfully, once it stops being useful.</dd>
+                    <dt>-v, --verbose</dt>
+                    <dd>narrate the peeling process. nobody has asked for this.</dd>
+                    <dt>-h, --help</dt>
+                    <dd>print this manual and reconsider.</dd>
+                </dl>
+            </section>
+
+            <!-- EXIT STATUS -->
+            <section id="exit-status" aria-labelledby="s-exit-status">
+                <h3 class="sec" id="s-exit-status">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>EXIT STATUS</span>
+                    <span class="line"></span>
+                    <span class="num">05</span>
+                </h3>
+                <dl class="kv">
+                    <dt>0</dt>
+                    <dd>consumed without incident.</dd>
+                    <dt>1</dt>
+                    <dd>peel gave more resistance than the manual implies.</dd>
+                    <dt>2</dt>
+                    <dd>was, on closer inspection, a plantain.</dd>
+                </dl>
+            </section>
+
+            <!-- SEE ALSO -->
+            <section id="see-also" aria-labelledby="s-see-also">
+                <h3 class="sec" id="s-see-also">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SEE ALSO</span>
+                    <span class="line"></span>
+                    <span class="num">06</span>
+                </h3>
+                <dl class="kv">
+                    <dt>$ home</dt>
+                    <dd><a href="/#desc">dao(1)</a></dd>
+                    <dt>$ til</dt>
+                    <dd><a href="/til#s-til">til(1)</a></dd>
+                    <dt>$ uses</dt>
+                    <dd><a href="/uses#bin">uses(1)</a></dd>
+                    <dt>$ reading</dt>
+                    <dd><a href="/reading#now">reading(1)</a></dd>
+                </dl>
+            </section>
+
+            <!-- BUGS -->
+            <section id="bugs" aria-labelledby="s-bugs">
+                <h3 class="sec" id="s-bugs">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>BUGS</span>
+                    <span class="line"></span>
+                    <span class="num">07</span>
+                </h3>
+                <div class="prose">
+                    <p>ripeness is not observable until it is too late to act on.</p>
+                    <p><code>--compost</code> has been reported to silently succeed on bananas that were, in fact,
+                        still fine.</p>
+                    <p>no known workaround. patches accepted, slowly.</p>
+                </div>
+            </section>
+
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>a manpage for a fruit; the rest of the site is marginally more useful.</p>
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>

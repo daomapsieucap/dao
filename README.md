@@ -14,6 +14,7 @@ Small on purpose, much like the rest of my life.
 - `/til`: things I learned, one markdown file at a time
 - `/uses`: the hardware & software I keep around
 - `/reading`: currently reading + recently finished, pulled from goodreads at build time
+- `/banana`: a fake manpage for a fake command
 
 ## $ cat stack
 
