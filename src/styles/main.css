@@ -122,6 +122,16 @@ body {
   background: rgba(243, 192, 44, 0.34);
 }
 
+code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  color: var(--blue);
+  background: var(--faint-2);
+  border: 1px solid var(--faint);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
 .shell {
   max-width: 1140px;
   margin: 0 auto;

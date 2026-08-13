@@ -5,7 +5,7 @@ import RailFoot from "@/components/RailFoot.astro";
 ---
 
 <Layout
-        title="dao chau · 404"
+        title="dao chau · banana not found"
         description="that page isn't here. have a banana instead."
         noindex={true}
 >
@@ -17,7 +17,7 @@ import RailFoot from "@/components/RailFoot.astro";
 
             <div class="id-block">
                 <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
-                <p class="id-role">404 · route not found</p>
+                <p class="id-role">banana not found</p>
             </div>
 
             <div class="rail-divider"></div>
@@ -26,12 +26,9 @@ import RailFoot from "@/components/RailFoot.astro";
                 <ul class="nav">
                     <li><a href="/"><span class="n" aria-hidden="true">cd</span><span class="t">~ home</span></a></li>
                     <li><a href="#name"><span class="n" aria-hidden="true">01</span><span class="t">name</span></a></li>
-                    <li><a href="#synopsis"><span class="n" aria-hidden="true">02</span><span class="t">synopsis</span></a></li>
-                    <li><a href="#description"><span class="n" aria-hidden="true">03</span><span class="t">description</span></a></li>
-                    <li><a href="#options"><span class="n" aria-hidden="true">04</span><span class="t">options</span></a></li>
-                    <li><a href="#exit-status"><span class="n" aria-hidden="true">05</span><span class="t">exit status</span></a></li>
-                    <li><a href="#see-also"><span class="n" aria-hidden="true">06</span><span class="t">see also</span></a></li>
-                    <li><a href="#bugs"><span class="n" aria-hidden="true">07</span><span class="t">bugs</span></a></li>
+                    <li><a href="#description"><span class="n" aria-hidden="true">02</span><span class="t">description</span></a></li>
+                    <li><a href="#exit-status"><span class="n" aria-hidden="true">03</span><span class="t">exit status</span></a></li>
+                    <li><a href="#see-also"><span class="n" aria-hidden="true">04</span><span class="t">see also</span></a></li>
                 </ul>
             </nav>
 
@@ -58,39 +55,18 @@ import RailFoot from "@/components/RailFoot.astro";
                 <p class="sec-note">banana &mdash; the fruit you get instead of the page you asked for.</p>
             </section>
 
-            <!-- SYNOPSIS -->
-            <section id="synopsis" aria-labelledby="s-synopsis">
-                <h3 class="sec" id="s-synopsis">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SYNOPSIS</span>
-                    <span class="line"></span>
-                    <span class="num">02</span>
-                </h3>
-                <p class="sec-note">usage, for a route that no longer applies.</p>
-                <div class="chips">
-                    <span class="chip hl">banana</span>
-                    <span class="chip">[-r ripeness]</span>
-                    <span class="chip">[-p]</span>
-                    <span class="chip">[--compost]</span>
-                    <span class="chip">[-v]</span>
-                    <span class="chip">[FILE]</span>
-                </div>
-            </section>
-
             <!-- DESCRIPTION -->
             <section id="description" aria-labelledby="s-description">
                 <h3 class="sec" id="s-description">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>DESCRIPTION</span>
                     <span class="line"></span>
-                    <span class="num">03</span>
+                    <span class="num">02</span>
                 </h3>
                 <div class="prose">
-                    <p><code>/banana</code> does not exist. <code>banana</code> does, and it takes one fruit as
-                        implicit input, advancing it toward a terminal state regardless of what you were actually
-                        looking for.</p>
-                    <p>with no <code>FILE</code> given, it operates on the nearest banana. the nearest banana is
-                        below, and it takes the <code>-p</code> flag personally.</p>
+                    <p>the route you tried does not resolve. <code>banana</code>, on the other hand, resolves quite
+                        reliably: fruit in, peel out, no further configuration required.</p>
+                    <p>it does not know where your page went. it was never designed to.</p>
                 </div>
 
                 <div class="nana">
@@ -111,35 +87,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </div>
             </section>
 
-            <!-- OPTIONS -->
-            <section id="options" aria-labelledby="s-options">
-                <h3 class="sec" id="s-options">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>OPTIONS</span>
-                    <span class="line"></span>
-                    <span class="num">04</span>
-                </h3>
-                <dl class="kv">
-                    <dt>-r, --ripeness=LEVEL</dt>
-                    <dd>target ripeness: <em>green</em>, <em>yellow</em>, <em>spotted</em>, or <em>regret</em>.</dd>
-                    <dt>-p, --peel</dt>
-                    <dd>peel before use. demonstrated above, since the page that would explain it is missing.</dd>
-                    <dt>--compost</dt>
-                    <dd>dispose of the peel respectfully, once it stops being useful.</dd>
-                    <dt>-v, --verbose</dt>
-                    <dd>narrate the peeling process. nobody has asked for this.</dd>
-                    <dt>-h, --help</dt>
-                    <dd>print this manual. it is, apparently, the page you get.</dd>
-                </dl>
-            </section>
-
             <!-- EXIT STATUS -->
             <section id="exit-status" aria-labelledby="s-exit-status">
                 <h3 class="sec" id="s-exit-status">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>EXIT STATUS</span>
                     <span class="line"></span>
-                    <span class="num">05</span>
+                    <span class="num">03</span>
                 </h3>
                 <dl class="kv">
                     <dt>0</dt>
@@ -149,7 +103,7 @@ import RailFoot from "@/components/RailFoot.astro";
                     <dt>2</dt>
                     <dd>was, on closer inspection, a plantain.</dd>
                     <dt>404</dt>
-                    <dd>route not found. you are, technically, looking at it.</dd>
+                    <dd>banana not found. you are, technically, looking at it.</dd>
                 </dl>
             </section>
 
@@ -159,7 +113,7 @@ import RailFoot from "@/components/RailFoot.astro";
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SEE ALSO</span>
                     <span class="line"></span>
-                    <span class="num">06</span>
+                    <span class="num">04</span>
                 </h3>
                 <p class="sec-note">paths that do resolve.</p>
                 <dl class="kv">
@@ -172,21 +126,6 @@ import RailFoot from "@/components/RailFoot.astro";
                     <dt>$ tail /reading</dt>
                     <dd>what's <a href="/reading">open on the desk</a> right now.</dd>
                 </dl>
-            </section>
-
-            <!-- BUGS -->
-            <section id="bugs" aria-labelledby="s-bugs">
-                <h3 class="sec" id="s-bugs">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>BUGS</span>
-                    <span class="line"></span>
-                    <span class="num">07</span>
-                </h3>
-                <div class="prose">
-                    <p>ripeness is not observable until it is too late to act on.</p>
-                    <p>the router loses pages faster than fruit turns.</p>
-                    <p>no known workaround. patches accepted, slowly.</p>
-                </div>
             </section>
 
             <p class="colophon"><span class="c" aria-hidden="true">#</span>if you followed a link here, it was probably
