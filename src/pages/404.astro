@@ -5,10 +5,11 @@ import RailFoot from "@/components/RailFoot.astro";
 ---
 
 <Layout
-        title="dao chau · banana"
-        description="the manual page for banana(1). read it before you slip."
+        title="dao chau · 404"
+        description="that page isn't here. have a banana instead."
+        noindex={true}
 >
-    <main class="shell" data-screen-label="banana">
+    <main class="shell" data-screen-label="404">
 
         <!-- identity rail -->
         <aside class="rail">
@@ -16,7 +17,7 @@ import RailFoot from "@/components/RailFoot.astro";
 
             <div class="id-block">
                 <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
-                <p class="id-role">banana · section 1</p>
+                <p class="id-role">404 · route not found</p>
             </div>
 
             <div class="rail-divider"></div>
@@ -40,11 +41,11 @@ import RailFoot from "@/components/RailFoot.astro";
         <!-- content column -->
         <div class="content">
 
-            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">man banana</span><span class="cur"
+            <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">cd /banana</span><span class="cur"
                                                                                           aria-hidden="true"></span></p>
 
-            <h2 class="hero">peel first, <em class="ln">ask questions later.</em></h2>
-            <p class="hero-sub">a manpage for a command that mostly just sits there, ripening.</p>
+            <h2 class="hero">404, <em class="ln">banana not found.</em></h2>
+            <p class="hero-sub">bash: cd: /banana: No such file or directory</p>
 
             <!-- NAME -->
             <section id="name" aria-labelledby="s-name">
@@ -54,7 +55,7 @@ import RailFoot from "@/components/RailFoot.astro";
                     <span class="line"></span>
                     <span class="num">01</span>
                 </h3>
-                <p class="sec-note">banana &mdash; a single fruit, formatted for the terminal.</p>
+                <p class="sec-note">banana &mdash; the fruit you get instead of the page you asked for.</p>
             </section>
 
             <!-- SYNOPSIS -->
@@ -65,7 +66,7 @@ import RailFoot from "@/components/RailFoot.astro";
                     <span class="line"></span>
                     <span class="num">02</span>
                 </h3>
-                <p class="sec-note">usage, for the terminally literal.</p>
+                <p class="sec-note">usage, for a route that no longer applies.</p>
                 <div class="chips">
                     <span class="chip hl">banana</span>
                     <span class="chip">[-r ripeness]</span>
@@ -85,11 +86,28 @@ import RailFoot from "@/components/RailFoot.astro";
                     <span class="num">03</span>
                 </h3>
                 <div class="prose">
-                    <p><code>banana</code> takes one fruit as implicit input and advances it toward a terminal
-                        state. by default it does <em>nothing</em>: ripening proceeds whether or not the command is
-                        invoked, which is either the point or a known limitation, depending on who you ask.</p>
-                    <p>with no <code>FILE</code> given, <code>banana</code> operates on the nearest banana. if none
-                        is found, it exits quietly rather than inventing one.</p>
+                    <p><code>/banana</code> does not exist. <code>banana</code> does, and it takes one fruit as
+                        implicit input, advancing it toward a terminal state regardless of what you were actually
+                        looking for.</p>
+                    <p>with no <code>FILE</code> given, it operates on the nearest banana. the nearest banana is
+                        below, and it takes the <code>-p</code> flag personally.</p>
+                </div>
+
+                <div class="nana">
+                    <button class="nana-btn" id="peel" type="button">
+                        <svg class="nana-svg" viewBox="0 0 140 116" aria-hidden="true">
+                            <rect class="nana-stem" x="32" y="0" width="11" height="16" rx="3"/>
+                            <path class="nana-body"
+                                  d="M30 14 C30 66 68 100 116 92 C122 91 126 87 125 82 C124 77 119 74.5 113 75.5 C74 82 46 52 44 14 Z"/>
+                            <path class="nana-shine" d="M42 24 C46 54 66 76 96 81"/>
+                        </svg>
+                        <span class="nana-cta">./banana -p</span>
+                    </button>
+
+                    <div class="nana-side">
+                        <p class="nana-out" id="peel-out" role="status">$ ./banana --peel</p>
+                        <p class="nana-count">peels this session: <b id="peel-n">0</b></p>
+                    </div>
                 </div>
             </section>
 
@@ -105,13 +123,13 @@ import RailFoot from "@/components/RailFoot.astro";
                     <dt>-r, --ripeness=LEVEL</dt>
                     <dd>target ripeness: <em>green</em>, <em>yellow</em>, <em>spotted</em>, or <em>regret</em>.</dd>
                     <dt>-p, --peel</dt>
-                    <dd>peel before use. default is off; results vary.</dd>
+                    <dd>peel before use. demonstrated above, since the page that would explain it is missing.</dd>
                     <dt>--compost</dt>
                     <dd>dispose of the peel respectfully, once it stops being useful.</dd>
                     <dt>-v, --verbose</dt>
                     <dd>narrate the peeling process. nobody has asked for this.</dd>
                     <dt>-h, --help</dt>
-                    <dd>print this manual and reconsider.</dd>
+                    <dd>print this manual. it is, apparently, the page you get.</dd>
                 </dl>
             </section>
 
@@ -130,6 +148,8 @@ import RailFoot from "@/components/RailFoot.astro";
                     <dd>peel gave more resistance than the manual implies.</dd>
                     <dt>2</dt>
                     <dd>was, on closer inspection, a plantain.</dd>
+                    <dt>404</dt>
+                    <dd>route not found. you are, technically, looking at it.</dd>
                 </dl>
             </section>
 
@@ -141,15 +161,16 @@ import RailFoot from "@/components/RailFoot.astro";
                     <span class="line"></span>
                     <span class="num">06</span>
                 </h3>
+                <p class="sec-note">paths that do resolve.</p>
                 <dl class="kv">
-                    <dt>$ home</dt>
-                    <dd><a href="/#desc">dao(1)</a></dd>
-                    <dt>$ til</dt>
-                    <dd><a href="/til#s-til">til(1)</a></dd>
-                    <dt>$ uses</dt>
-                    <dd><a href="/uses#bin">uses(1)</a></dd>
-                    <dt>$ reading</dt>
-                    <dd><a href="/reading#now">reading(1)</a></dd>
+                    <dt>$ cd ~</dt>
+                    <dd>the <a href="/">front page</a>. projects, now, notes.</dd>
+                    <dt>$ ls /til</dt>
+                    <dd><a href="/til">things I learned</a>, one file at a time.</dd>
+                    <dt>$ cat /uses</dt>
+                    <dd>the <a href="/uses">hardware and software</a> I keep around.</dd>
+                    <dt>$ tail /reading</dt>
+                    <dd>what's <a href="/reading">open on the desk</a> right now.</dd>
                 </dl>
             </section>
 
@@ -163,17 +184,46 @@ import RailFoot from "@/components/RailFoot.astro";
                 </h3>
                 <div class="prose">
                     <p>ripeness is not observable until it is too late to act on.</p>
-                    <p><code>--compost</code> has been reported to silently succeed on bananas that were, in fact,
-                        still fine.</p>
+                    <p>the router loses pages faster than fruit turns.</p>
                     <p>no known workaround. patches accepted, slowly.</p>
                 </div>
             </section>
 
-            <p class="colophon"><span class="c" aria-hidden="true">#</span>a manpage for a fruit; the rest of the site is marginally more useful.</p>
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>if you followed a link here, it was probably
+                mine to break. email finds me.</p>
             <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
                                                                                                   aria-hidden="true"></span>
             </p>
 
         </div>
     </main>
+
+    <script is:inline>
+        (function () {
+            var btn = document.getElementById('peel');
+            var out = document.getElementById('peel-out');
+            var num = document.getElementById('peel-n');
+            if (!btn || !out || !num) return;
+
+            var lines = [
+                'layer gone. the page is still missing.',
+                'searching /var/bananas ... 0 results.',
+                'the goggles help you see, not find.',
+                'this is a 404 with extra steps.',
+                'still potassium. still not the page you wanted.',
+                'fine. go home, the link is right there.'
+            ];
+
+            var count = 0;
+
+            btn.addEventListener('click', function () {
+                out.textContent = lines[count % lines.length];
+                count += 1;
+                num.textContent = String(count);
+                btn.classList.remove('is-peeling');
+                void btn.offsetWidth;
+                btn.classList.add('is-peeling');
+            });
+        })();
+    </script>
 </Layout>

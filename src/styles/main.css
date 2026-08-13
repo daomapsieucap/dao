@@ -1183,6 +1183,117 @@ section {
 }
 .exit a:hover { background-size: 100% 1px; }
 
+/* 404 banana peel easter egg */
+.nana {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-top: 28px;
+}
+
+.nana-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border: 1px solid var(--faint);
+  border-radius: 14px;
+  background: var(--faint-2);
+  cursor: pointer;
+  transition: border-color 0.32s var(--ease-smooth), background 0.32s var(--ease-smooth);
+}
+
+.nana-btn:hover {
+  border-color: var(--yellow);
+  background: var(--paper-2);
+}
+
+.nana-btn:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.nana-svg {
+  width: 96px;
+  height: 80px;
+}
+
+.nana-stem {
+  fill: var(--muted);
+}
+
+.nana-body {
+  fill: var(--yellow);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  transform-origin: 40px 50px;
+}
+
+.nana-shine {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.nana-cta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.16s ease;
+}
+
+.nana-btn:hover .nana-cta {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nana-btn.is-peeling .nana-body {
+    animation: nana-peel 0.5s var(--ease-smooth);
+  }
+  @keyframes nana-peel {
+    0% { transform: rotate(0deg) scale(1); }
+    40% { transform: rotate(-8deg) scale(1.05); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+}
+
+.nana-side {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nana-out {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin: 0;
+  min-height: 1.4em;
+}
+
+.nana-count {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.nana-count b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .nana {
+    gap: 18px;
+  }
+}
+
 /* responsive */
 @media (max-width: 860px) {
   .shell {

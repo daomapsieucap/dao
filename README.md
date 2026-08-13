@@ -4,7 +4,7 @@
 
 [daochau.com](https://daochau.com), a small terminal-flavored personal site.
 Built with Astro and plain CSS; no utility framework, no client-side JS
-beyond analytics.
+beyond analytics and a small easter egg on `/404`.
 
 Small on purpose, much like the rest of my life.
 
@@ -14,7 +14,7 @@ Small on purpose, much like the rest of my life.
 - `/til`: things I learned, one markdown file at a time
 - `/uses`: the hardware & software I keep around
 - `/reading`: currently reading + recently finished, pulled from goodreads at build time
-- `/banana`: a fake manpage for a fake command
+- `/404`: the fake `banana` manpage, doubling as the not-found page
 
 ## $ cat stack
 
