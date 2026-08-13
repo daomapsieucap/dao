@@ -1226,26 +1226,26 @@ section {
 }
 
 .nana-svg {
-  width: 96px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
+  overflow: visible;
+  color: var(--muted);
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.12));
 }
 
-.nana-stem {
-  fill: var(--muted);
+.nana-frame,
+.nana-blueprint {
+  transition: color 0.24s ease;
+}
+
+.nana-btn:hover .nana-frame,
+.nana-btn:hover .nana-blueprint {
+  color: var(--ink);
 }
 
 .nana-body {
-  fill: var(--yellow);
-  stroke: var(--ink);
-  stroke-width: 1.5;
-  transform-origin: 40px 50px;
-}
-
-.nana-shine {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.5);
-  stroke-width: 3;
-  stroke-linecap: round;
+  color: var(--yellow);
+  transform-origin: 17px 4px;
 }
 
 .nana-cta {
@@ -1262,13 +1262,27 @@ section {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .nana-btn:hover .nana-body {
+    transform: rotate(3deg);
+    transition: transform 0.4s var(--ease-smooth);
+  }
+
   .nana-btn.is-peeling .nana-body {
-    animation: nana-peel 0.5s var(--ease-smooth);
+    animation: nana-peel 0.55s var(--ease-smooth);
   }
   @keyframes nana-peel {
     0% { transform: rotate(0deg) scale(1); }
-    40% { transform: rotate(-8deg) scale(1.05); }
+    35% { transform: rotate(-11deg) scale(1.05); }
+    65% { transform: rotate(4deg) scale(0.98); }
     100% { transform: rotate(0deg) scale(1); }
+  }
+
+  .nana-btn.is-peeling .nana-blueprint {
+    animation: nana-scan 0.55s var(--ease-smooth);
+  }
+  @keyframes nana-scan {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 6; }
   }
 }
 
