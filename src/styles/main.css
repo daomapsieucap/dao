@@ -156,7 +156,7 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .mark-lid {
-    animation: mark-blink 9s var(--ease-smooth) infinite;
+    animation: mark-blink 5s var(--ease-smooth) infinite;
   }
   @keyframes mark-blink {
     0%, 92%, 100% { transform: scaleY(0); }
