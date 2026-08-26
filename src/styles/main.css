@@ -1516,3 +1516,34 @@ section {
   outline: 2px solid var(--yellow);
   outline-offset: 2px;
 }
+
+/* ── cross-document view transitions ─────────────────────────── */
+
+@view-transition {
+  navigation: auto;
+}
+
+.mark {
+  view-transition-name: logo-mark;
+}
+
+.rail {
+  view-transition-name: rail;
+}
+
+.id-name {
+  view-transition-name: id-name;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
