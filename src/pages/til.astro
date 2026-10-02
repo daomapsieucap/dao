@@ -16,6 +16,11 @@ const renderedEntries = await Promise.all(
     })
 );
 
+/* Returns the anchor id for a TIL entry, so the slug is defined in one place. */
+function entryAnchor(id: string) {
+    return id.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 function isoDate(d: Date) {
     return d.toISOString().slice(0, 10);
 }
@@ -67,11 +72,11 @@ function isoDate(d: Date) {
                 ) : (
                         <div class="til-feed">
                             {renderedEntries.map(({ entry, Content }) => (
-                                    <article class="til-entry">
+                                    <article class="til-entry" id={entryAnchor(entry.id)}>
                                         <time class="til-date" datetime={isoDate(entry.data.date)}>
                                             {isoDate(entry.data.date)}
                                         </time>
-                                        <p class="til-title">{entry.data.title}</p>
+                                        <p class="til-title">{entry.data.title}<a class="til-permalink" href={`#${entryAnchor(entry.id)}`} aria-label={`link to ${entry.data.title}`}>#</a></p>
                                         <div class="til-body">
                                             <Content/>
                                         </div>

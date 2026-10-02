@@ -828,6 +828,7 @@ section {
 .til-entry {
   padding: 22px 0;
   border-top: 1px solid var(--faint);
+  scroll-margin-top: 30px;
 }
 
 .til-entry:first-child {
@@ -854,6 +855,19 @@ section {
   color: var(--ink);
   margin: 0 0 10px;
   line-height: 1.25;
+}
+
+.til-permalink {
+  margin-left: 0.5em;
+  font-family: var(--mono);
+  color: var(--yellow-text);
+  text-decoration: none;
+  opacity: 0;
+}
+
+.til-entry:hover .til-permalink,
+.til-permalink:focus-visible {
+  opacity: 1;
 }
 
 .til-body {
