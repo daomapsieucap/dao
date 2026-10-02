@@ -1,5 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
-import { GOODREADS_USER_ID } from "@/data/config";
+import { GOODREADS_USER_ID, GOODREADS_RSS_KEY } from "@/data/config";
 
 export type Shelf = "currently-reading" | "read" | "favorites";
 
@@ -36,16 +36,25 @@ function upscaleCoverUrl(url: string): string {
     return url.replace(/\.(_S[XY]\d+_)\./, "._SY600_.");
 }
 
+/* Fetches one Goodreads shelf at build time; returns [] and warns on any failure so a feed problem never breaks the build. */
 export async function fetchShelf(shelf: Shelf, perPage = 12): Promise<Book[]> {
-    if (!GOODREADS_USER_ID) return [];
+    if (!GOODREADS_USER_ID) {
+        console.warn(`[goodreads] GOODREADS_USER_ID not set, skipping shelf "${shelf}"`);
+        return [];
+    }
 
-    const url = `https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=${shelf}&per_page=${perPage}&sort=date_updated`;
+    let url = `https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=${shelf}&per_page=${perPage}&sort=date_updated`;
+    if (GOODREADS_RSS_KEY) url += `&key=${encodeURIComponent(GOODREADS_RSS_KEY)}`;
 
     try {
         const res = await fetch(url, {
             headers: { "User-Agent": "Mozilla/5.0 (compatible; daochau-site-build/1.0)" },
+            signal: AbortSignal.timeout(10_000),
         });
-        if (!res.ok) return [];
+        if (!res.ok) {
+            console.warn(`[goodreads] shelf "${shelf}" returned HTTP ${res.status}, using empty result`);
+            return [];
+        }
 
         const xml = await res.text();
         const parsed = parser.parse(xml);
@@ -66,7 +75,9 @@ export async function fetchShelf(shelf: Shelf, perPage = 12): Promise<Book[]> {
             dateAdded: toDate(item.user_date_added),
             dateRead: toDate(item.user_read_at),
         }));
-    } catch {
+    } catch (err) {
+        const reason = err instanceof Error ? err.name : "unknown error";
+        console.warn(`[goodreads] shelf "${shelf}" failed (${reason}), using empty result`);
         return [];
     }
 }

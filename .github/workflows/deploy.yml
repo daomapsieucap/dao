@@ -7,15 +7,18 @@ on:
     branches: [ master ]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
-  # Rebuild monthly so Goodreads shelf data stays fresh even without a code push
+  # Rebuild nightly so Goodreads shelf data stays fresh even without a code push
+  # GitHub cron is best effort and can be delayed under load
   schedule:
-    - cron: '0 17 1 * *' # 00:00 ICT on the 1st of each month
+    - cron: "0 22 * * *" # 05:00 Vietnam time
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -31,10 +34,14 @@ jobs:
         # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
         env:
           GOODREADS_USER_ID: ${{ secrets.GOODREADS_USER_ID }}
+          GOODREADS_RSS_KEY: ${{ secrets.GOODREADS_RSS_KEY }}
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ fromJSON(steps.deployment.outputs.outputs).page_url }}
