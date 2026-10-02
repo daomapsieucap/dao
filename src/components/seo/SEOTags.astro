@@ -30,7 +30,7 @@ const openGraph = {
   description: og?.description || DEFAULT_DESCRIPTION_PAGE,
 };
 
-// Font-only bundles are safe to defer via the media="print" swap below —
+// Font-only bundles are safe to defer via the media="print" swap below:
 // they don't affect layout, so a late swap is invisible. main.css controls
 // actual element sizing (e.g. the unsized inline SVG logo), so it stays a
 // normal blocking stylesheet to avoid a flash of oversized/unstyled content.

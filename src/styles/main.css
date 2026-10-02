@@ -1,14 +1,12 @@
 :root {
   --paper: #f7f8fa;
   --paper-2: #eceef1;
-  --panel: #1d3450;
   --ink: #1d3450;
   --ink-2: #24272d;
   --prose: #2f3540;
   --muted: #5a6270;
   --blue: #3a5a8c;
   --yellow: #c79412;
-  --rim: #161616;
   --rule: rgba(29, 52, 80, 0.12);
   --faint: rgba(29, 52, 80, 0.16);
   --faint-2: rgba(29, 52, 80, 0.05);
@@ -22,14 +20,12 @@
   color-scheme: dark;
   --paper: #0d1421;
   --paper-2: #141f32;
-  --panel: #b8d0e8;
   --ink: #c2d8ee;
   --ink-2: #a8bfcf;
   --prose: #87a3b8;
   --muted: #6f88a3;
   --blue: #78aad8;
   --yellow: #edc61d;
-  --rim: #e8f0f8;
   --rule: rgba(148, 192, 232, 0.09);
   --faint: rgba(148, 192, 232, 0.12);
   --faint-2: rgba(148, 192, 232, 0.05);
@@ -40,14 +36,12 @@
     color-scheme: dark;
     --paper: #0d1421;
     --paper-2: #141f32;
-    --panel: #b8d0e8;
     --ink: #c2d8ee;
     --ink-2: #a8bfcf;
     --prose: #87a3b8;
     --muted: #6f88a3;
     --blue: #78aad8;
     --yellow: #edc61d;
-    --rim: #e8f0f8;
     --rule: rgba(148, 192, 232, 0.09);
     --faint: rgba(148, 192, 232, 0.12);
     --faint-2: rgba(148, 192, 232, 0.05);
