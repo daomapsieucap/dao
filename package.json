@@ -21,14 +21,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/sitemap": "^3.7.3",
-    "@fontsource-variable/jetbrains-mono": "^5.2.8",
-    "@fontsource-variable/newsreader": "^5.2.10",
-    "astro": "^7.2.8",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "astro": "^7.3.5",
     "astro-robots-txt": "^1.0.0",
-    "astro-seo": "0.8.0",
-    "fast-xml-parser": "^5.9.3",
-    "typescript": "^5.8.3"
+    "astro-seo": "1.2.0",
+    "fast-xml-parser": "^5.11.2",
+    "typescript": "^7.0.2"
   },
   "allowScripts": {
     "esbuild@0.28.1": true
