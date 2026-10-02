@@ -8,12 +8,11 @@ import RailFoot from "@/components/RailFoot.astro";
 <Layout>
     <main class="shell" data-screen-label="home">
 
-        <!-- identity rail -->
         <aside class="rail">
             <LogoMark />
 
             <div class="id-block">
-                <h1 class="id-name"><span class="w">dao</span><span class="w">chau</span></h1>
+                <p class="id-name"><span class="w">dao</span><span class="w">chau</span></p>
                 <p class="id-role">backend developer</p>
             </div>
 
@@ -34,23 +33,21 @@ import RailFoot from "@/components/RailFoot.astro";
             <RailFoot />
         </aside>
 
-        <!-- content column -->
-        <div class="content">
+        <div class="content" id="content" tabindex="-1">
 
             <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --help</span><span class="cur"
                                                                                           aria-hidden="true"></span></p>
 
-            <h2 class="hero">behind the curtain, <em>keeping things running.</em></h2>
+            <h1 class="hero">behind the curtain, <em>keeping things running.</em></h1>
             <p class="hero-sub">writes the half of the web you never see.</p>
 
-            <!-- DESCRIPTION -->
             <section id="desc" aria-labelledby="s-desc">
-                <h3 class="sec" id="s-desc">
+                <h2 class="sec" id="s-desc">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>DESCRIPTION</span>
                     <span class="line"></span>
                     <span class="num">01</span>
-                </h3>
+                </h2>
                 <div class="prose">
                     <p>I'm a PHP backend developer who's spent <em>a long while</em> in WordPress. I spend my days in
                         the backend at <em>ViiVue</em>, mostly WordPress work, from corporate sites to WooCommerce, with
@@ -68,14 +65,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </div>
             </section>
 
-            <!-- ECHO / PROJECTS -->
             <section id="projects" aria-labelledby="s-proj">
-                <h3 class="sec" id="s-proj">
+                <h2 class="sec" id="s-proj">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>ECHO</span>
                     <span class="line"></span>
                     <span class="num">02 · {projects.length} featured</span>
-                </h3>
+                </h2>
                 <div class="projects">
                     {projects.map((project, i) => (
                             <a class="proj" href={project.link} target="_blank" rel="noopener">
@@ -92,14 +88,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </div>
             </section>
 
-            <!-- NOW -->
             <section id="now" aria-labelledby="s-now">
-                <h3 class="sec" id="s-now">
+                <h2 class="sec" id="s-now">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NOW</span>
                     <span class="line"></span>
                     <span class="num">03 · june 2026</span>
-                </h3>
+                </h2>
                 <dl class="kv">
                     <dt>$ work</dt>
                     <dd>in my element keeping the backend ticking at ViiVue, plus whatever needs fixing underneath.</dd>
@@ -110,14 +105,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </dl>
             </section>
 
-            <!-- NOTES -->
             <section id="notes" aria-labelledby="s-notes">
-                <h3 class="sec" id="s-notes">
+                <h2 class="sec" id="s-notes">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NOTES</span>
                     <span class="line"></span>
                     <span class="num">04</span>
-                </h3>
+                </h2>
                 <ul class="notes">
                     <li><b>introvert by wiring</b>I recharge somewhere green and quiet, well away from a crowd.</li>
                     <li><b>bookaholic</b>the unread stack is a feature, not a bug.</li>
@@ -128,7 +122,6 @@ import RailFoot from "@/components/RailFoot.astro";
                 </ul>
             </section>
 
-            <!-- MANTRA -->
             <div class="mantra">
                 <p class="mantra-prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">cat mantra</span></p>
                 <p class="mantra-out"><span class="mantra-slash" aria-hidden="true">/</span>You become what you feed your mind.<span class="mantra-slash" aria-hidden="true">/</span></p>

@@ -27,12 +27,11 @@ function isoDate(d: Date) {
 >
     <main class="shell" data-screen-label="til">
 
-        <!-- identity rail -->
         <aside class="rail">
             <LogoMark />
 
             <div class="id-block">
-                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></p>
                 <p class="id-role">til · patch notes</p>
             </div>
 
@@ -47,22 +46,21 @@ function isoDate(d: Date) {
             <RailFoot />
         </aside>
 
-        <!-- content column -->
-        <div class="content">
+        <div class="content" id="content" tabindex="-1">
 
             <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --til</span><span class="cur"
                                                                                          aria-hidden="true"></span></p>
 
-            <h2 class="hero">patch notes, <em class="ln">personal.</em></h2>
+            <h1 class="hero">patch notes, <em class="ln">personal.</em></h1>
             <p class="hero-sub">small updates. no rollback.</p>
 
             <section aria-labelledby="s-til">
-                <h3 class="sec" id="s-til">
+                <h2 class="sec" id="s-til">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>TIL</span>
                     <span class="line"></span>
                     <span class="num">{entries.length} {entries.length === 1 ? "entry" : "entries"}</span>
-                </h3>
+                </h2>
 
                 {renderedEntries.length === 0 ? (
                         <p class="til-empty">nothing yet. check back soon.</p>

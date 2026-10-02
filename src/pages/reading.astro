@@ -41,12 +41,11 @@ function isoDate(d: Date | null): string {
 >
     <main class="shell" data-screen-label="reading">
 
-        <!-- identity rail -->
         <aside class="rail">
             <LogoMark />
 
             <div class="id-block">
-                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></p>
                 <p class="id-role">reading · the shelf</p>
             </div>
 
@@ -63,23 +62,21 @@ function isoDate(d: Date | null): string {
             <RailFoot />
         </aside>
 
-        <!-- content column -->
-        <div class="content">
+        <div class="content" id="content" tabindex="-1">
 
             <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --reading</span><span class="cur"
                                                                                           aria-hidden="true"></span></p>
 
-            <h2 class="hero">off the clock, <em class="ln">mostly reading.</em></h2>
+            <h1 class="hero">off the clock, <em class="ln">mostly reading.</em></h1>
             <p class="hero-sub">what's open right now, the rest pulled from the shelf.</p>
 
-            <!-- NOW READING -->
             <section id="now" aria-labelledby="s-now">
-                <h3 class="sec" id="s-now">
+                <h2 class="sec" id="s-now">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NOW</span>
                     <span class="line"></span>
                     <span class="num">01</span>
-                </h3>
+                </h2>
 
                 {currentlyReading.length === 0 ? (
                         <p class="til-empty">nothing open right now. probably between books.</p>
@@ -111,14 +108,13 @@ function isoDate(d: Date | null): string {
                 )}
             </section>
 
-            <!-- SHELF -->
             <section id="shelf" aria-labelledby="s-shelf">
-                <h3 class="sec" id="s-shelf">
+                <h2 class="sec" id="s-shelf">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SHELF</span>
                     <span class="line"></span>
                     <span class="num">02 · {shelfBooks.length} books · {favorites.length} favorites</span>
-                </h3>
+                </h2>
 
                 {shelfBooks.length === 0 ? (
                         <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>

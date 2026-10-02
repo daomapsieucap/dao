@@ -11,12 +11,11 @@ import RailFoot from "@/components/RailFoot.astro";
 >
     <main class="shell" data-screen-label="404">
 
-        <!-- identity rail -->
         <aside class="rail">
             <LogoMark />
 
             <div class="id-block">
-                <h1 class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></h1>
+                <p class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></p>
                 <p class="id-role">banana not found</p>
             </div>
 
@@ -35,34 +34,31 @@ import RailFoot from "@/components/RailFoot.astro";
             <RailFoot />
         </aside>
 
-        <!-- content column -->
-        <div class="content">
+        <div class="content" id="content" tabindex="-1">
 
             <p class="prompt"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">cd /banana</span><span class="cur"
                                                                                           aria-hidden="true"></span></p>
 
-            <h2 class="hero">404, <em class="ln">banana not found.</em></h2>
+            <h1 class="hero">404, <em class="ln">banana not found.</em></h1>
             <p class="hero-sub">bash: cd: /banana: No such file or directory</p>
 
-            <!-- NAME -->
             <section id="name" aria-labelledby="s-name">
-                <h3 class="sec" id="s-name">
+                <h2 class="sec" id="s-name">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NAME</span>
                     <span class="line"></span>
                     <span class="num">01</span>
-                </h3>
+                </h2>
                 <p class="sec-note">banana &mdash; the fruit you get instead of the page you asked for.</p>
             </section>
 
-            <!-- DESCRIPTION -->
             <section id="description" aria-labelledby="s-description">
-                <h3 class="sec" id="s-description">
+                <h2 class="sec" id="s-description">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>DESCRIPTION</span>
                     <span class="line"></span>
                     <span class="num">02</span>
-                </h3>
+                </h2>
                 <div class="prose">
                     <p>the route you tried does not resolve. <code>banana</code>, on the other hand, resolves quite
                         reliably: fruit in, peel out, no further configuration required.</p>
@@ -109,14 +105,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </div>
             </section>
 
-            <!-- EXIT STATUS -->
             <section id="exit-status" aria-labelledby="s-exit-status">
-                <h3 class="sec" id="s-exit-status">
+                <h2 class="sec" id="s-exit-status">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>EXIT STATUS</span>
                     <span class="line"></span>
                     <span class="num">03</span>
-                </h3>
+                </h2>
                 <dl class="kv">
                     <dt>0</dt>
                     <dd>consumed without incident.</dd>
@@ -129,14 +124,13 @@ import RailFoot from "@/components/RailFoot.astro";
                 </dl>
             </section>
 
-            <!-- SEE ALSO -->
             <section id="see-also" aria-labelledby="s-see-also">
-                <h3 class="sec" id="s-see-also">
+                <h2 class="sec" id="s-see-also">
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SEE ALSO</span>
                     <span class="line"></span>
                     <span class="num">04</span>
-                </h3>
+                </h2>
                 <p class="sec-note">paths that do resolve.</p>
                 <dl class="kv">
                     <dt>$ cd ~</dt>

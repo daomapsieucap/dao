@@ -42,18 +42,10 @@ const deferredStylesheets = [
 ---
 
 <head>
-  <!-- Preload the font subsets behind the hero heading and the intro
-       paragraph (#desc) so they're in the cache before layout/paint,
-       instead of arriving late. -->
   <link rel="preload" as="font" type="font/woff2" href={newsreaderNormalLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={newsreaderItalicLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={newsreaderVietnamese} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={jetbrainsMonoVietnamese} crossorigin />
-  <link rel="stylesheet" href={mainCssHref} />
-  <!-- Load the three Fontsource font-face bundles without blocking first
-       paint: the media="print" swap trick fetches each at normal priority
-       but only applies it once ready, instead of holding up rendering like
-       a plain rel="stylesheet" link would. -->
   {deferredStylesheets.map((href) => (
     <>
       <link rel="preload" href={href} as="style" />
@@ -61,6 +53,7 @@ const deferredStylesheets = [
       <noscript><link rel="stylesheet" href={href} /></noscript>
     </>
   ))}
+  <link rel="stylesheet" href={mainCssHref} />
   <SEO
     charset="UTF-8"
     title={title || DEFAULT_TITLE_PAGE}
@@ -72,6 +65,9 @@ const deferredStylesheets = [
         type: openGraph.type,
         image: openGraph.image,
         url: openGraph.url,
+      },
+      optional: {
+        description: openGraph.description,
       },
       image: {
         alt: openGraph.alt,
@@ -87,6 +83,8 @@ const deferredStylesheets = [
       ],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#f7f8fa", media: "(prefers-color-scheme: light)" },
+        { name: "theme-color", content: "#0d1421", media: "(prefers-color-scheme: dark)" },
         { name: "generator", content: Astro.generator },
         { name: "twitter:image", content: openGraph.image },
         { name: "twitter:card", content: "summary_large_image" },
@@ -96,7 +94,6 @@ const deferredStylesheets = [
       ],
     }}
   />
-  <!-- Google tag (gtag.js) -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X"></script>
   <script is:inline>
   window.dataLayer = window.dataLayer || [];
@@ -109,5 +106,16 @@ const deferredStylesheets = [
   });
   gtag('js', new Date());
   gtag('config', 'G-SDQ2PWY76X');
+  </script>
+  <noscript><style>.theme-btn { display: none; }</style></noscript>
+  <script is:inline>
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
   </script>
 </head>
