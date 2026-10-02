@@ -8,7 +8,6 @@
   --muted: #5a6270;
   --blue: #3a5a8c;
   --yellow: #c79412;
-  --yellow-text: var(--yellow);
   --rim: #161616;
   --rule: rgba(29, 52, 80, 0.12);
   --faint: rgba(29, 52, 80, 0.16);
@@ -30,7 +29,6 @@
   --muted: #6f88a3;
   --blue: #78aad8;
   --yellow: #edc61d;
-  --yellow-text: var(--yellow);
   --rim: #e8f0f8;
   --rule: rgba(148, 192, 232, 0.09);
   --faint: rgba(148, 192, 232, 0.12);
@@ -49,7 +47,6 @@
     --muted: #6f88a3;
     --blue: #78aad8;
     --yellow: #edc61d;
-    --yellow-text: var(--yellow);
     --rim: #e8f0f8;
     --rule: rgba(148, 192, 232, 0.09);
     --faint: rgba(148, 192, 232, 0.12);
@@ -422,7 +419,7 @@ code {
    text must meet contrast on its own */
 .cmd a,
 a.cmd {
-  color: var(--yellow-text);
+  color: var(--yellow);
 }
 
 .cmd.coffee-link {
@@ -566,13 +563,13 @@ section {
 
 .chip.hl {
   border-color: var(--yellow);
-  color: var(--yellow-text);
+  color: var(--yellow);
   background: rgba(243, 192, 44, 0.08);
 }
 
 .chip[data-tag="minion"] {
   border-color: var(--yellow);
-  color: var(--yellow-text);
+  color: var(--yellow);
   background: rgba(243, 192, 44, 0.08);
 }
 
@@ -749,7 +746,7 @@ section {
 }
 
 .kv dd a {
-  color: var(--yellow-text);
+  color: var(--yellow);
   text-decoration: none;
   padding-bottom: 1px;
   background-image: linear-gradient(currentColor, currentColor);
@@ -843,7 +840,7 @@ section {
   display: block;
   font-family: var(--mono);
   font-size: 11.5px;
-  color: var(--yellow-text);
+  color: var(--yellow);
   letter-spacing: 0.08em;
   margin-bottom: 9px;
 }
@@ -860,7 +857,7 @@ section {
 .til-permalink {
   margin-left: 0.5em;
   font-family: var(--mono);
-  color: var(--yellow-text);
+  color: var(--yellow);
   text-decoration: none;
   opacity: 0;
 }
@@ -886,7 +883,7 @@ section {
 }
 
 .til-body a {
-  color: var(--yellow-text);
+  color: var(--yellow);
   text-decoration: none;
   padding-bottom: 1px;
   background-image: linear-gradient(currentColor, currentColor);
@@ -1015,7 +1012,7 @@ section {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--yellow-text);
+  color: var(--yellow);
 }
 
 .now-title {
@@ -1161,7 +1158,7 @@ section {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.04em;
-  color: var(--yellow-text);
+  color: var(--yellow);
 }
 
 /* mantra / favourite quote */
@@ -1229,7 +1226,7 @@ section {
 }
 
 .exit a {
-  color: var(--yellow-text);
+  color: var(--yellow);
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
