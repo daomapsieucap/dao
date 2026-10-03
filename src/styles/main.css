@@ -373,6 +373,7 @@ code {
 /* content column */
 .content {
   min-width: 0;
+  container-type: inline-size;
 }
 
 .content:focus {
@@ -425,6 +426,36 @@ a.cmd {
 
 .cmd.coffee-link {
   color: var(--yellow);
+}
+
+/* trailing comment after a terminal command: the command is padded to a fixed
+   column so every // lines up, and the comment is dropped when it won't fit */
+.c1 {
+  white-space: nowrap;
+}
+
+.tc {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.tc i {
+  font-style: normal;
+  color: var(--yellow);
+  margin-right: 0.6ch;
+}
+
+@container (min-width: 481px) {
+  .c1 {
+    display: inline-block;
+    min-width: 30ch;
+  }
+}
+
+@container (max-width: 480px) {
+  .tc {
+    display: none;
+  }
 }
 
 .cur {
