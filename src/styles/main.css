@@ -1508,9 +1508,101 @@ section {
 
 /* ── theme toggle button ─────────────────────────────────────── */
 
+/* ── WordPress theme-header comment ──────────────────────────── */
+
+.wpcomment {
+  margin: 0 0 26px;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--muted);
+  overflow-x: auto;
+}
+
+/* sits right under the prompt like the command's output */
+.prompt:has(+ .wpcomment) {
+  margin-bottom: 10px;
+}
+
+.wpcomment .k {
+  color: var(--blue);
+}
+
+.wpcomment .y {
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+/* ── live status bar (sticky bottom) ─────────────────────────── */
+
+.statusbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 190;
+  display: flex;
+  gap: 0 18px;
+  /* inline padding mirrors .shell (max-width 1140px, same side padding) so the
+     text lines up with the page content while the bar background stays full-width */
+  padding: 7px max(clamp(18px, 5vw, 52px), calc((100% - 1140px) / 2 + clamp(18px, 5vw, 52px))) max(7px, env(safe-area-inset-bottom));
+  background: var(--paper);
+  border-top: 1px solid var(--faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.statusbar[hidden] {
+  display: none;
+}
+
+.statusbar b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.statusbar .ok {
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+.statusbar .ok:empty {
+  display: none;
+}
+
+.statusbar .sb-right {
+  display: flex;
+  gap: 0 18px;
+  margin-left: auto;
+}
+
+.statusbar .sb-lang {
+  color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  .statusbar .sb-enc {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .statusbar .sb-dom,
+  .statusbar .sb-right {
+    display: none;
+  }
+}
+
 .theme-btn {
   position: fixed;
-  bottom: max(26px, env(safe-area-inset-bottom));
+  bottom: calc(max(26px, env(safe-area-inset-bottom)) + 28px);
   right: 26px;
   z-index: 200;
   font-family: var(--mono);
