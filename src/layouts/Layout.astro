@@ -89,6 +89,23 @@ const headTags = Astro.props;
       if (document.readyState === 'complete') setTimeout(fillStatusBar, 0);
       else window.addEventListener('load', function () { setTimeout(fillStatusBar, 0); });
 
+      // logo eye follows the pointer (mouse/pen only); the blink animation is untouched
+      const logo = document.querySelector<SVGElement>('.mark');
+      if (logo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const look = function (x: number, y: number) {
+          const r = logo.getBoundingClientRect();
+          const dx = x - (r.left + r.width / 2);
+          const dy = y - (r.top + r.height / 2);
+          const d = Math.hypot(dx, dy) || 1;
+          const k = Math.min(5, d / 40);
+          logo.style.setProperty('--ex', (dx / d * k).toFixed(2) + 'px');
+          logo.style.setProperty('--ey', (dy / d * k).toFixed(2) + 'px');
+        };
+        window.addEventListener('pointermove', function (e) {
+          if (e.pointerType !== 'touch') look(e.clientX, e.clientY);
+        }, { passive: true });
+      }
+
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
         try { if (localStorage.getItem('theme')) return; } catch (err) {}
         applyTheme(e.matches ? 'dark' : 'light');

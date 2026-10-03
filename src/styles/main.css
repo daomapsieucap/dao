@@ -163,6 +163,13 @@ code {
   transform: scaleY(0);
 }
 
+/* iris, pupil and glint shift together; --ex/--ey are set from the pointer
+   position in Layout.astro and stay 0 when reduced motion is on */
+.mark-eye {
+  transform: translate(var(--ex, 0px), var(--ey, 0px));
+  transition: transform 0.18s var(--ease-smooth);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .mark-lid {
     animation: mark-blink 5s var(--ease-smooth) infinite;
