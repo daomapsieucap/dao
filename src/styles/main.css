@@ -1625,6 +1625,124 @@ section {
   color: var(--blue);
 }
 
+.sb-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.sb-i {
+  display: inline-grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font: italic 600 9px/1 var(--serif);
+  color: var(--yellow);
+}
+
+.statusbar .sb-info:hover b,
+.statusbar .sb-info[aria-expanded="true"] b {
+  color: var(--yellow);
+}
+
+.sb-info:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.sb-pop {
+  position: fixed;
+  right: max(clamp(18px, 5vw, 52px), calc((100% - 1140px) / 2 + clamp(18px, 5vw, 52px)));
+  bottom: calc(max(7px, env(safe-area-inset-bottom)) + 40px);
+  z-index: 210;
+  width: min(320px, calc(100vw - 36px));
+  padding: 12px 14px;
+  border: 1px solid var(--faint);
+  border-radius: 8px;
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--prose);
+}
+
+.sb-pop[hidden] {
+  display: none;
+}
+
+.sb-pop-head {
+  margin: 0 0 8px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sb-pop-head b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.sb-pop-note {
+  display: block;
+  color: var(--muted);
+}
+
+.sb-pop-note i {
+  margin-right: 0.6ch;
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.sb-led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--yellow) 24%, transparent);
+  vertical-align: 1px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sb-led {
+    animation: sb-led-blink 3.4s var(--ease-smooth) infinite;
+  }
+
+  @keyframes sb-led-blink {
+    0%, 88%, 100% { opacity: 1; }
+    93% { opacity: 0.15; }
+  }
+}
+
+.sb-pop-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 14px;
+  margin: 0;
+}
+
+.sb-pop-list dt {
+  color: var(--muted);
+}
+
+.sb-pop-list dd {
+  margin: 0;
+  color: var(--ink);
+}
+
+.sb-pop-list dd span {
+  color: var(--muted);
+}
+
 @media (max-width: 640px) {
   .statusbar .sb-enc {
     display: none;

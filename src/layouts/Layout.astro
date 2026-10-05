@@ -1,10 +1,19 @@
 ---
 import SEOTags from "@/components/seo/SEOTags.astro";
 import type { HeadTags } from "@/utils/types/HeadTags";
+import { dependencies } from "../../package.json";
 
 export type Props = HeadTags;
 
 const headTags = Astro.props;
+const major = (range: string) => range.replace(/^\D*/, "").split(".")[0];
+const stack: [string, string, string?][] = [
+  ["framework", "Astro", major(dependencies.astro)],
+  ["language", "TypeScript", major(dependencies.typescript)],
+  ["type", "JetBrains Mono, Newsreader"],
+  ["books", "Goodreads feed", "via fast-xml-parser"],
+  ["seo", "sitemap, robots.txt, astro-seo"],
+];
 ---
 
 <!DOCTYPE html>
@@ -14,17 +23,29 @@ const headTags = Astro.props;
     <a class="skip-link" href="#content">skip to content</a>
     <div class="scroll-progress" aria-hidden="true"></div>
     <slot />
-    <div class="statusbar" id="statusbar" aria-hidden="true" hidden>
-      <span>GET <b id="sb-path">/</b></span>
-      <span class="ok" id="sb-status"></span>
-      <span>ttfb <b id="sb-ttfb">–</b></span>
-      <span class="sb-dom">dom <b id="sb-dom">–</b></span>
-      <span>load <b id="sb-load">–</b></span>
+    <div class="sb-pop" id="sb-pop" role="dialog" aria-label="Built with" hidden>
+      <p class="sb-pop-head"><span class="sb-led" aria-hidden="true"></span><b>ingredients</b><span class="sb-pop-note"><i>//</i>banana-powered by</span></p>
+      <dl class="sb-pop-list">
+        {stack.map(([name, value, extra]) => (
+          <>
+            <dt>{name}</dt>
+            <dd>{value}{extra && <span> {extra}</span>}</dd>
+          </>
+        ))}
+      </dl>
+    </div>
+    <div class="statusbar" id="statusbar" hidden>
+      <span aria-hidden="true">GET <b id="sb-path">/</b></span>
+      <span class="ok" id="sb-status" aria-hidden="true"></span>
+      <span aria-hidden="true">ttfb <b id="sb-ttfb">–</b></span>
+      <span class="sb-dom" aria-hidden="true">dom <b id="sb-dom">–</b></span>
+      <span aria-hidden="true">load <b id="sb-load">–</b></span>
       <span class="sb-right">
-        <span>Ln <b id="sb-ln">1</b></span>
-        <span><b id="sb-pct">0%</b></span>
-        <span class="sb-enc">UTF-8</span>
-        <span class="sb-lang">PHP</span>
+        <span aria-hidden="true">Ln <b id="sb-ln">1</b></span>
+        <span aria-hidden="true"><b id="sb-pct">0%</b></span>
+        <span class="sb-enc" aria-hidden="true">UTF-8</span>
+        <span class="sb-lang" aria-hidden="true">Astro</span>
+        <button class="sb-info" id="sb-info" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sb-pop"><b>Minionese</b><span class="sb-i" aria-hidden="true">i</span></button>
       </span>
     </div>
     <button id="theme-toggle" class="theme-btn" aria-label="Toggle color theme" aria-pressed="false"></button>
@@ -88,6 +109,20 @@ const headTags = Astro.props;
 
       if (document.readyState === 'complete') setTimeout(fillStatusBar, 0);
       else window.addEventListener('load', function () { setTimeout(fillStatusBar, 0); });
+
+      // built-with card: toggled by the Minionese button, closed by Escape or an outside click
+      const infoBtn = document.getElementById('sb-info');
+      const infoPop = document.getElementById('sb-pop');
+      if (infoBtn && infoPop) {
+        /* shows or hides the built-with card and keeps aria-expanded in sync */
+        const setInfo = function (open: boolean) {
+          infoPop.hidden = !open;
+          infoBtn.setAttribute('aria-expanded', String(open));
+        };
+        infoBtn.addEventListener('click', function (e) { e.stopPropagation(); setInfo(infoPop.hidden === true); });
+        document.addEventListener('click', function (e) { if (!infoPop.contains(e.target as Node)) setInfo(false); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setInfo(false); });
+      }
 
       // logo eye follows the pointer (mouse/pen only); the blink animation is untouched
       const logo = document.querySelector<SVGElement>('.mark');
