@@ -10,4 +10,9 @@ export default defineConfig({
 ${content}`,
     })],
   site: SITE_URL,
+  markdown: {
+    shikiConfig: {
+      theme: "css-variables",
+    },
+  },
 });

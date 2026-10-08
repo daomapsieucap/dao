@@ -940,6 +940,36 @@ section {
   color: var(--blue);
 }
 
+.til-body pre.astro-code {
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--faint);
+  border-radius: 6px;
+  background-color: var(--paper-2);
+}
+
+.til-body pre.astro-code code {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+.astro-code {
+  --astro-code-foreground: var(--prose);
+  --astro-code-background: var(--paper-2);
+  --astro-code-token-comment: var(--muted);
+  --astro-code-token-keyword: var(--blue);
+  --astro-code-token-string: var(--yellow);
+  --astro-code-token-string-expression: var(--yellow);
+  --astro-code-token-constant: var(--blue);
+  --astro-code-token-function: var(--ink);
+  --astro-code-token-parameter: var(--prose);
+  --astro-code-token-punctuation: var(--muted);
+  --astro-code-token-link: var(--yellow);
+}
+
 .til-body table {
   display: block;
   max-width: 100%;
