@@ -1,13 +1,16 @@
 ---
 import SEOTags from "@/components/seo/SEOTags.astro";
 import type { HeadTags } from "@/utils/types/HeadTags";
-import { dependencies } from "../../package.json";
+import { dependencies, version } from "../../package.json";
 
 export type Props = HeadTags;
 
 const headTags = Astro.props;
 const major = (range: string) => range.replace(/^\D*/, "").split(".")[0];
 const stack: [string, string, string?][] = [
+  ["theme", "dao", "v" + version],
+  ["author", "dao chau"],
+  ["about", "small on purpose"],
   ["framework", "Astro", major(dependencies.astro)],
   ["language", "TypeScript", major(dependencies.typescript)],
   ["type", "JetBrains Mono, Newsreader"],
