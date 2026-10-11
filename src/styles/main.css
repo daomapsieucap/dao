@@ -286,12 +286,12 @@ code {
 .rail-links a .ic {
   color: var(--yellow);
   font-size: 11px;
-  width: 1.4ch;
+  width: 2.4ch;
+  flex: none;
   text-align: center;
 }
 
 .rail-links a .ic-wide {
-  width: 2.4ch;
   letter-spacing: -0.02em;
 }
 
