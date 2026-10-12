@@ -1,20 +1,21 @@
 ---
 ---
 <div class="rail-foot">
-    <div class="rail-term">
-        <p class="tm-pr" aria-hidden="true">dao@chau:~$ <span class="tm-cmd">open</span><span class="cur"></span></p>
-        <ul class="tm-flags">
-            <li><a href="mailto:bichdao.chau@gmail.com" data-addr="bichdao.chau@gmail.com" class="is-on"><span class="tm-fl"><span aria-hidden="true">--</span>mail</span><span class="tm-url">bichdao.chau@gmail.com</span><span class="tm-go" aria-hidden="true">&rarr;</span></a></li>
-            <li><a href="https://github.com/daomapsieucap" data-addr="github.com/daomapsieucap" target="_blank" rel="noopener"><span class="tm-fl"><span aria-hidden="true">--</span>github</span><span class="tm-url">github.com/<wbr>daomapsieucap</span><span class="tm-go" aria-hidden="true">&nearr;</span></a></li>
-            <li><a href="https://www.linkedin.com/in/dao-chau" data-addr="linkedin.com/in/dao-chau" target="_blank" rel="noopener"><span class="tm-fl"><span aria-hidden="true">--</span>linkedin</span><span class="tm-url">linkedin.com/<wbr>in/dao-chau</span><span class="tm-go" aria-hidden="true">&nearr;</span></a></li>
-            <li><a href="https://buymeacoffee.com/daomapsieucap" data-addr="buymeacoffee.com/daomapsieucap" target="_blank" rel="noopener"><span class="tm-fl"><span aria-hidden="true">--</span>coffee</span><span class="tm-url">buymeacoffee.com/<wbr>daomapsieucap</span><span class="tm-go" aria-hidden="true">&nearr;</span></a></li>
-        </ul>
-        <p class="tm-out" aria-hidden="true"><span class="tm-arrow">&rarr;</span> <span class="tm-addr">bichdao.chau@gmail.com</span></p>
+    <div class="rf-bar" aria-hidden="true"><b>~</b><span class="rf-tty"><span class="pulse"></span>zsh</span></div>
+    <div class="rf-sec">
+        <p class="tm-pr" aria-hidden="true">dao@chau:~$ <span class="tm-cmd">open</span></p>
+        <p class="tm-flags">
+            <a href="mailto:bichdao.chau@gmail.com" title="bichdao.chau@gmail.com"><span aria-hidden="true">--</span>mail</a>
+            <a href="https://github.com/daomapsieucap" target="_blank" rel="noopener" title="github.com/daomapsieucap"><span aria-hidden="true">--</span>github</a>
+            <a href="https://www.linkedin.com/in/dao-chau" target="_blank" rel="noopener" title="linkedin.com/in/dao-chau"><span aria-hidden="true">--</span>linkedin</a>
+            <a href="https://buymeacoffee.com/daomapsieucap" target="_blank" rel="noopener" title="buymeacoffee.com/daomapsieucap"><span aria-hidden="true">--</span>coffee</a>
+        </p>
     </div>
-    <div class="status">
-        <p class="status-hd"><span class="pulse"></span>status</p>
+    <div class="rf-sec">
+        <p class="tm-pr" aria-hidden="true">dao@chau:~$ <span class="tm-cmd">status</span></p>
         <dl class="status-list">
             <div><dt>loc</dt><dd>saigon</dd></div>
+            <div><dt>time</dt><dd id="clock">--:--</dd></div>
             <div><dt>mood</dt><dd class="mood" id="mood">idle, mostly</dd></div>
             <div><dt>fuel</dt><dd><a href="https://buymeacoffee.com/daomapsieucap" target="_blank" rel="noopener" class="cmd coffee-link">cà phê sữa đá</a></dd></div>
         </dl>
@@ -22,19 +23,12 @@
 </div>
 
 <script>
-    /* shows the address of the hovered or focused flag under the open prompt and falls back to the email */
-    const term = document.querySelector<HTMLElement>(".rail-term");
-    const flags = term ? Array.from(term.querySelectorAll<HTMLAnchorElement>(".tm-flags a")) : [];
-    const addr = term?.querySelector<HTMLElement>(".tm-addr");
-    function preview(active: HTMLAnchorElement) {
-        flags.forEach((f) => f.classList.toggle("is-on", f === active));
-        if (addr) addr.textContent = active.dataset.addr ?? "";
+    /* shows the Saigon time and refreshes it every 30 seconds */
+    const clock = document.getElementById("clock");
+    function tick() {
+        if (!clock) return;
+        clock.textContent = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh", timeZoneName: "short" }).format(new Date()).replace(",", "");
     }
-    flags.forEach((f) => {
-        f.addEventListener("mouseenter", () => preview(f));
-        f.addEventListener("focus", () => preview(f));
-    });
-    term?.addEventListener("mouseleave", () => {
-        if (!term.contains(document.activeElement) && flags[0]) preview(flags[0]);
-    });
+    tick();
+    setInterval(tick, 30000);
 </script>
