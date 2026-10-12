@@ -1746,6 +1746,23 @@ section {
   }
 }
 
+@media (min-width: 601px) and (max-width: 860px) {
+  .rail-foot {
+    display: grid;
+    grid-area: links / links / status / status;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 28px;
+    align-items: start;
+    margin-top: 40px;
+  }
+  .rail-term,
+  .status {
+    grid-area: auto;
+    margin-top: 0;
+    max-width: none;
+  }
+}
+
 @media (max-width: 600px) {
   body {
     font-size: 14px;
