@@ -245,15 +245,6 @@ const shortcuts: [string[], string][] = [
         }
       });
 
-      // verbose flag: restore the saved choice and remember changes (the reveal itself is CSS-only)
-      const verbose = document.getElementById('verbose-flag') as HTMLInputElement | null;
-      if (verbose) {
-        try { verbose.checked = localStorage.getItem('verbose') === '1'; } catch (e) {}
-        verbose.addEventListener('change', function () {
-          try { localStorage.setItem('verbose', verbose.checked ? '1' : '0'); } catch (e) {}
-        });
-      }
-
       // rail: mark the link of the in-page section crossing the reading band as the current one
       const hashLinks = document.querySelectorAll<HTMLAnchorElement>('.nav a[href^="#"]');
       if (hashLinks.length && 'IntersectionObserver' in window) {
