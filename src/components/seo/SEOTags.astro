@@ -108,6 +108,18 @@ const deferredStylesheets = [
   gtag('js', new Date());
   gtag('config', 'G-SDQ2PWY76X');
   </script>
+  <script type="speculationrules" is:inline set:html={JSON.stringify({
+    prerender: [{
+      where: {
+        and: [
+          { href_matches: "/*" },
+          { not: { href_matches: "/*\\?*" } },
+          { not: { selector_matches: "[href^='#'], [target=_blank]" } },
+        ],
+      },
+      eagerness: "moderate",
+    }],
+  })} />
   <noscript><style>.theme-btn { display: none; }</style></noscript>
   <script is:inline>
     (function () {

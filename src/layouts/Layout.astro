@@ -78,13 +78,14 @@ const stack: [string, string, string?][] = [
         var nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
         var bar = document.getElementById('statusbar');
         if (!nav || !bar) return;
-        var ms = function (v: number) { return v > 0 ? Math.round(v) + 'ms' : '–'; };
+        var shift = (nav as PerformanceNavigationTiming & { activationStart?: number }).activationStart || 0; // > 0 when prerendered
+        var ms = function (v: number) { return v - shift > 0 ? Math.round(v - shift) + 'ms' : '–'; };
         var set = function (id: string, text: string) {
           var el = document.getElementById(id);
           if (el) el.textContent = text;
         };
         var code = nav.responseStatus;
-        var reasons: Record<number, string> = { 200: 'OK', 404: 'Not Found' };
+        var reasons: Record<number, string> = { 200: shift > 0 ? 'prerendered' : 'OK', 404: 'Not Found' };
         set('sb-path', location.pathname);
         set('sb-status', code ? (code + (reasons[code] ? ' ' + reasons[code] : '')) : '');
         set('sb-ttfb', ms(nav.responseStart));
@@ -125,6 +126,24 @@ const stack: [string, string, string?][] = [
         infoBtn.addEventListener('click', function (e) { e.stopPropagation(); setInfo(infoPop.hidden === true); });
         document.addEventListener('click', function (e) { if (!infoPop.contains(e.target as Node)) setInfo(false); });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setInfo(false); });
+      }
+
+      // rail: mark the link of the in-page section crossing the reading band as the current one
+      const hashLinks = document.querySelectorAll<HTMLAnchorElement>('.nav a[href^="#"]');
+      if (hashLinks.length && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            hashLinks.forEach(function (a) {
+              if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'true');
+              else a.removeAttribute('aria-current');
+            });
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        hashLinks.forEach(function (a) {
+          const section = document.getElementById(a.getAttribute('href')!.slice(1));
+          if (section) spy.observe(section);
+        });
       }
 
       // logo eye follows the pointer (mouse/pen only); the blink animation is untouched
