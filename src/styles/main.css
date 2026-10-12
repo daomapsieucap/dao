@@ -1736,8 +1736,6 @@ section {
   }
   .rail-term {
     grid-area: links;
-    width: 100%;
-    max-width: 420px;
     margin-top: 40px;
   }
   .status {
@@ -1759,7 +1757,6 @@ section {
   .status {
     grid-area: auto;
     margin-top: 0;
-    max-width: none;
   }
 }
 
