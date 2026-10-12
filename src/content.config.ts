@@ -10,4 +10,14 @@ const til = defineCollection({
   }),
 });
 
-export const collections = { til };
+const now = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/now" }),
+  schema: z.object({
+    updated: z.coerce.date(),
+    work: z.string(),
+    learning: z.string(),
+    reading: z.string(),
+  }),
+});
+
+export const collections = { til, now };

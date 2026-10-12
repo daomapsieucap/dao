@@ -32,3 +32,33 @@ content:
       - name: body
         label: Body
         type: rich-text
+  - name: now
+    label: Now
+    type: collection
+    path: src/content/now
+    filename: "{year}-{month}.md"
+    view:
+      fields: [updated, work]
+      default:
+        sort: updated
+        order: desc
+    fields:
+      - name: updated
+        label: Updated
+        type: date
+        required: true
+        default: "{{date}}"
+        options:
+          format: "yyyy-MM-dd"
+      - name: work
+        label: Work
+        type: string
+        required: true
+      - name: learning
+        label: Learning
+        type: string
+        required: true
+      - name: reading
+        label: Reading
+        type: string
+        required: true

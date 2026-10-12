@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Rail from "@/components/Rail.astro";
+import { getCollection } from "astro:content";
+
+const snapshots = (await getCollection("now")).sort(
+    (a, b) => b.data.updated.getTime() - a.data.updated.getTime()
+);
+---
+
+<Layout
+        title="dao chau · now"
+        description="snapshots of the now section, newest first. nothing gets deleted."
+>
+    <main class="shell" data-screen-label="now">
+
+        <Rail
+            role="now · the log"
+            nav={[
+                { href: "/", n: "cd", t: "~ home" },
+            ]}
+        />
+
+        <div class="content" id="content" tabindex="-1">
+
+            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">ls now.d/</span><span class="cur"
+                                                                                          aria-hidden="true"></span></span></p>
+
+            <h1 class="hero">what I was doing, <em class="ln">when I was doing it.</em></h1>
+            <p class="hero-sub">snapshots of the now section, newest first. nothing gets deleted.</p>
+
+            {snapshots.map(({ id, data }) => (
+                <section id={`now-${id}`} aria-labelledby={`s-now-${id}`}>
+                    <h2 class="sec" id={`s-now-${id}`}>
+                        <span class="dot"></span>
+                        <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>{data.updated.toISOString().slice(0, 7)}</span>
+                        <span class="line"></span>
+                        <span class="num"><time datetime={data.updated.toISOString().slice(0, 10)}>{data.updated.toISOString().slice(0, 10)}</time></span>
+                    </h2>
+                    <dl class="kv">
+                        <dt>$ work</dt>
+                        <dd>{data.work}</dd>
+                        <dt>$ learning</dt>
+                        <dd>{data.learning}</dd>
+                        <dt>$ reading</dt>
+                        <dd>{data.reading}</dd>
+                    </dl>
+                </section>
+            ))}
+
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>add a file to <code>now.d/</code>, commit, done.</p>
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>

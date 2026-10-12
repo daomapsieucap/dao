@@ -2,6 +2,14 @@
 import Layout from "@/layouts/Layout.astro";
 import projects from "@/data/projects";
 import Rail from "@/components/Rail.astro";
+import { getCollection } from "astro:content";
+import { relativeDate } from "@/utils/relativeDate";
+
+const [latestNow] = (await getCollection("now")).sort(
+    (a, b) => b.data.updated.getTime() - a.data.updated.getTime()
+);
+const nowAge = relativeDate(latestNow.data.updated);
+const nowDate = latestNow.data.updated.toISOString().slice(0, 10);
 ---
 
 <Layout>
@@ -81,15 +89,15 @@ import Rail from "@/components/Rail.astro";
                     <span class="dot"></span>
                     <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NOW</span>
                     <span class="line"></span>
-                    <span class="num">03 · june 2026</span>
+                    <span class="num">03 · updated <time datetime={nowDate}>{nowAge.label}</time>{nowAge.days > 60 && (<> <span class="stale"><span class="c" aria-hidden="true">#</span>stale</span></>)} <span class="shelf-link-wrap">· <a href="/now" class="cmd coffee-link">log ↗</a></span></span>
                 </h2>
                 <dl class="kv">
                     <dt>$ work</dt>
-                    <dd>in my element keeping the backend ticking at ViiVue, plus whatever needs fixing underneath.</dd>
+                    <dd>{latestNow.data.work}</dd>
                     <dt>$ learning</dt>
-                    <dd>1% better is still better. no rush.</dd>
+                    <dd>{latestNow.data.learning}</dd>
                     <dt>$ reading</dt>
-                    <dd>always mid-book. <span class="shelf-link-wrap"><a href="/reading">full shelf ↗</a>.</span></dd>
+                    <dd>{latestNow.data.reading} <span class="shelf-link-wrap"><a href="/reading">full shelf ↗</a>.</span></dd>
                 </dl>
             </section>
 
