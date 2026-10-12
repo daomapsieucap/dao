@@ -1,6 +1,16 @@
 ---
 ---
 <div class="rail-foot">
+    <div class="rail-term">
+        <p class="tm-pr" aria-hidden="true">dao@chau:~$ <span class="tm-cmd">open</span><span class="cur"></span></p>
+        <ul class="tm-flags">
+            <li><a href="mailto:bichdao.chau@gmail.com" data-addr="bichdao.chau@gmail.com" class="is-on"><span aria-hidden="true">--</span>mail</a></li>
+            <li><a href="https://github.com/daomapsieucap" data-addr="github.com/daomapsieucap" target="_blank" rel="noopener"><span aria-hidden="true">--</span>github</a></li>
+            <li><a href="https://www.linkedin.com/in/dao-chau" data-addr="linkedin.com/in/dao-chau" target="_blank" rel="noopener"><span aria-hidden="true">--</span>linkedin</a></li>
+            <li><a href="https://buymeacoffee.com/daomapsieucap" data-addr="buymeacoffee.com/daomapsieucap" target="_blank" rel="noopener"><span aria-hidden="true">--</span>coffee</a></li>
+        </ul>
+        <p class="tm-out" aria-hidden="true"><span class="tm-arrow">&rarr;</span> <span class="tm-addr">bichdao.chau@gmail.com</span></p>
+    </div>
     <div class="rail-links">
         <a href="mailto:bichdao.chau@gmail.com">
             <span class="ic" aria-hidden="true">@</span><span class="lbl">bichdao.chau@gmail.com</span>
@@ -24,3 +34,21 @@
         </ul>
     </div>
 </div>
+
+<script>
+    /* shows the address of the hovered or focused flag under the open prompt and falls back to the email */
+    const term = document.querySelector<HTMLElement>(".rail-term");
+    const flags = term ? Array.from(term.querySelectorAll<HTMLAnchorElement>(".tm-flags a")) : [];
+    const addr = term?.querySelector<HTMLElement>(".tm-addr");
+    function preview(active: HTMLAnchorElement) {
+        flags.forEach((f) => f.classList.toggle("is-on", f === active));
+        if (addr) addr.textContent = active.dataset.addr ?? "";
+    }
+    flags.forEach((f) => {
+        f.addEventListener("mouseenter", () => preview(f));
+        f.addEventListener("focus", () => preview(f));
+    });
+    term?.addEventListener("mouseleave", () => {
+        if (!term.contains(document.activeElement) && flags[0]) preview(flags[0]);
+    });
+</script>
