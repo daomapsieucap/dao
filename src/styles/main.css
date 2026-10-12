@@ -171,6 +171,24 @@ code {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .mark.is-dizzy {
+    animation: mark-wobble 1.2s ease-in-out;
+  }
+  @keyframes mark-wobble {
+    0%, 100% { rotate: 0deg; }
+    20% { rotate: -5deg; }
+    40% { rotate: 4deg; }
+    60% { rotate: -3deg; }
+    80% { rotate: 2deg; }
+  }
+  .mark.is-dizzy .mark-eye {
+    transform-origin: 66px 26px;
+    animation: mark-dizzy-eye 1.2s ease-in-out;
+  }
+  @keyframes mark-dizzy-eye {
+    from { rotate: 0deg; }
+    to { rotate: 720deg; }
+  }
   .mark-lid {
     animation: mark-blink 5s var(--ease-smooth) infinite;
   }
@@ -1687,6 +1705,12 @@ html:has(#verbose-flag:checked) div.v {
 .statusbar .ok {
   color: var(--yellow);
   font-weight: 500;
+}
+
+.statusbar .ok.is-warn {
+  padding: 0 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--yellow) 18%, transparent);
 }
 
 .statusbar .ok:empty {
