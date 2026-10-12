@@ -11,7 +11,7 @@ from: behind the curtain, keeping things running
 last build: ${buildDate}
 stack: astro, plain css, jetbrains mono, newsreader
 hosting: github pages
-no client-side js beyond analytics and a banana
+client-side js: small, inline, optional. the site works without it.
 `;
   return new Response(body, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },

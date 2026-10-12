@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import LogoMark from "@/components/LogoMark.astro";
-import RailFoot from "@/components/RailFoot.astro";
+import Rail from "@/components/Rail.astro";
 import { fetchShelf, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
@@ -41,26 +40,14 @@ function isoDate(d: Date | null): string {
 >
     <main class="shell" data-screen-label="reading">
 
-        <aside class="rail">
-            <LogoMark />
-
-            <div class="id-block">
-                <p class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></p>
-                <p class="id-role">reading · the shelf</p>
-            </div>
-
-            <div class="rail-divider"></div>
-
-            <nav aria-label="Sections">
-                <ul class="nav">
-                    <li><a href="/"><span class="n" aria-hidden="true">cd</span><span class="t">~ home</span></a></li>
-                    <li><a href="#now"><span class="n" aria-hidden="true">01</span><span class="t">now</span></a></li>
-                    <li><a href="#shelf"><span class="n" aria-hidden="true">02</span><span class="t">shelf</span></a></li>
-                </ul>
-            </nav>
-
-            <RailFoot />
-        </aside>
+        <Rail
+            role="reading · the shelf"
+            nav={[
+            { href: "/", n: "cd", t: "~ home" },
+            { href: "#now", n: "01", t: "now" },
+            { href: "#shelf", n: "02", t: "shelf" },
+            ]}
+        />
 
         <div class="content" id="content" tabindex="-1">
 

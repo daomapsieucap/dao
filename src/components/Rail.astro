@@ -1,0 +1,39 @@
+---
+import LogoMark from "@/components/LogoMark.astro";
+import RailFoot from "@/components/RailFoot.astro";
+
+interface Props {
+    role: string;
+    nav: { href: string; n: string; t: string }[];
+    linkName?: boolean;
+}
+
+const { role, nav, linkName = true } = Astro.props;
+---
+
+<aside class="rail">
+    <LogoMark />
+
+    <div class="id-block">
+        <p class="id-name">
+            {linkName ? (
+                <a href="/"><span class="w">dao</span><span class="w">chau</span></a>
+            ) : (
+                <><span class="w">dao</span><span class="w">chau</span></>
+            )}
+        </p>
+        <p class="id-role">{role}</p>
+    </div>
+
+    <div class="rail-divider"></div>
+
+    <nav aria-label="Sections">
+        <ul class="nav">
+            {nav.map(({ href, n, t }) => (
+                <li><a href={href}><span class="n" aria-hidden="true">{n}</span><span class="t">{t}</span></a></li>
+            ))}
+        </ul>
+    </nav>
+
+    <RailFoot />
+</aside>

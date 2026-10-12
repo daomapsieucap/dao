@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import LogoMark from "@/components/LogoMark.astro";
-import RailFoot from "@/components/RailFoot.astro";
+import Rail from "@/components/Rail.astro";
 import { getCollection, render } from "astro:content";
 
 const allEntries = await getCollection("til");
@@ -32,24 +31,12 @@ function isoDate(d: Date) {
 >
     <main class="shell" data-screen-label="til">
 
-        <aside class="rail">
-            <LogoMark />
-
-            <div class="id-block">
-                <p class="id-name"><a href="/"><span class="w">dao</span><span class="w">chau</span></a></p>
-                <p class="id-role">til · patch notes</p>
-            </div>
-
-            <div class="rail-divider"></div>
-
-            <nav aria-label="Sections">
-                <ul class="nav">
-                    <li><a href="/"><span class="n" aria-hidden="true">cd</span><span class="t">~ home</span></a></li>
-                </ul>
-            </nav>
-
-            <RailFoot />
-        </aside>
+        <Rail
+            role="til · patch notes"
+            nav={[
+            { href: "/", n: "cd", t: "~ home" },
+            ]}
+        />
 
         <div class="content" id="content" tabindex="-1">
 
