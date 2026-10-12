@@ -546,6 +546,62 @@ section {
   max-width: 52ch;
 }
 
+/* verbose flag: rail chip that reveals the .v asides */
+.verbose {
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin-top: 22px;
+  cursor: pointer;
+}
+
+.verbose input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.verbose:has(input:checked) {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(243, 192, 44, 0.08);
+}
+
+.verbose:has(input:focus-visible) {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.v {
+  display: none;
+  font-family: var(--mono);
+  font-style: italic;
+  font-size: 0.85em;
+  color: var(--muted);
+}
+
+.v i {
+  margin-right: 0.6ch;
+  font-style: normal;
+  color: var(--yellow);
+}
+
+div.v {
+  margin: 0 0 30px;
+}
+
+html:has(#verbose-flag:checked) span.v {
+  display: inline;
+}
+
+html:has(#verbose-flag:checked) div.v {
+  display: block;
+}
+
 /* synopsis chips */
 .chips {
   display: flex;
@@ -1446,7 +1502,7 @@ section {
     position: static;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas: "mark" "id" "nav" "foot";
+    grid-template-areas: "mark" "id" "nav" "verbose" "foot";
     gap: 0;
     align-items: start;
   }
@@ -1505,6 +1561,10 @@ section {
   .nav a[aria-current="true"] {
     background: var(--paper-2);
     border-color: var(--yellow);
+  }
+  .verbose {
+    grid-area: verbose;
+    margin-top: 16px;
   }
   .rail-foot {
     grid-area: foot;
