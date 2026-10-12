@@ -834,6 +834,32 @@ section {
   scroll-margin-top: 30px;
 }
 
+.til-entry {
+  position: relative;
+}
+
+.til-entry:target::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: -18px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--yellow) 24%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .til-entry:target {
+    animation: til-breakpoint 1.6s var(--ease-smooth) both;
+  }
+  @keyframes til-breakpoint {
+    from { background: color-mix(in srgb, var(--yellow) 14%, transparent); }
+    to { background: transparent; }
+  }
+}
+
 .til-entry:first-child {
   border-top: none;
 }

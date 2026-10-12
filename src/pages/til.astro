@@ -63,7 +63,7 @@ function isoDate(d: Date) {
                                         <time class="til-date" datetime={isoDate(entry.data.date)}>
                                             {isoDate(entry.data.date)}
                                         </time>
-                                        <p class="til-title">{entry.data.title}<a class="til-permalink" href={`#${entryAnchor(entry.id)}`} aria-label={`link to ${entry.data.title}`}>#</a></p>
+                                        <h3 class="til-title">{entry.data.title}<a class="til-permalink" href={`#${entryAnchor(entry.id)}`} aria-label={`link to ${entry.data.title}`}>#</a></h3>
                                         <div class="til-body">
                                             <Content/>
                                         </div>
