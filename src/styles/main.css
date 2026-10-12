@@ -1557,21 +1557,24 @@ section {
 /* responsive */
 @media (max-width: 860px) {
   .shell {
-    grid-template-columns: 1fr;
-    gap: 34px;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "mark id" "nav nav" "links links" "content content" "status status";
+    gap: 0 18px;
+    align-items: center;
   }
-  .rail {
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas: "mark" "id" "nav" "foot";
-    gap: 0;
-    align-items: start;
+  .rail,
+  .rail-foot {
+    display: contents;
+  }
+  .content {
+    grid-area: content;
+    align-self: start;
+    margin-top: 34px;
   }
   .mark {
     grid-area: mark;
-    margin: 0 0 16px -2px;
-    width: 70px;
+    margin: 0;
+    width: 60px;
   }
   .id-block {
     grid-area: id;
@@ -1586,29 +1589,32 @@ section {
     margin-left: .3ch;
   }
   .id-role {
-    margin-top: 7px;
+    margin-top: 8px;
+    font-size: 11px;
+    letter-spacing: .14em;
   }
   .rail-divider {
     display: none;
   }
-  .nav {
+  .rail nav {
     grid-area: nav;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  }
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 8px;
-    margin: 22px 0 0;
-    padding-top: 20px;
+    margin: 24px 0 0;
+    padding-top: 22px;
     border-top: 1px solid var(--faint);
   }
   .nav li {
     display: contents;
   }
   .nav a {
-    justify-content: center;
     align-items: center;
     gap: 8px;
-    min-height: 46px;
-    padding: 10px 8px;
+    min-height: 40px;
+    padding: 8px 13px;
     border: 1px solid var(--faint);
     border-radius: 9px;
     background: var(--faint-2);
@@ -1624,21 +1630,36 @@ section {
     background: var(--paper-2);
     border-color: var(--yellow);
   }
-  .rail-foot {
-    grid-area: foot;
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 26px;
-  }
   .rail-links {
+    grid-area: links;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--faint);
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px 22px;
+  }
+  .rail-links a:first-child {
+    flex-basis: 100%;
   }
   .status {
-    margin-top: 0;
+    grid-area: status;
+    margin-top: 40px;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .status .pulse {
+    margin-top: 6.5px;
+  }
+  .status-list {
+    gap: 4px;
+  }
+  .status-list li:first-child {
+    color: var(--ink);
+  }
+  .status-list .mood::before {
+    content: "~ ";
+    color: var(--yellow);
   }
 }
 
@@ -1650,15 +1671,24 @@ section {
     padding-left: 18px;
     padding-right: 18px;
   }
+  .mark {
+    width: 52px;
+  }
   .id-name {
     font-size: 27px;
   }
   .nav {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
   }
   .nav a {
-    justify-content: flex-start;
-    padding: 10px 14px;
+    padding: 8px 12px;
+  }
+  .rail-links {
+    gap: 10px 16px;
+  }
+  .rail-links a {
+    font-size: 12.5px;
+    gap: 7px;
   }
 }
 
