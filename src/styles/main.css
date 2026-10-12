@@ -148,6 +148,10 @@ code {
   align-self: start;
 }
 
+.rail.is-tall {
+  position: static;
+}
+
 .mark {
   display: block;
   width: 96px;
@@ -269,6 +273,34 @@ code {
 .nav a .t {
   text-transform: uppercase;
   letter-spacing: 0.12em;
+}
+
+.nav-label {
+  margin: 14px 0 3px 8px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.nav-label:first-child {
+  margin-top: 0;
+}
+
+.nav a {
+  position: relative;
+}
+
+.nav a[aria-current="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--yellow);
 }
 
 .nav a:hover,
@@ -1631,6 +1663,10 @@ section {
   }
   .nav li {
     display: contents;
+  }
+  .nav li.nav-label,
+  .nav a[aria-current="true"]::before {
+    display: none;
   }
   .nav a {
     flex: none;

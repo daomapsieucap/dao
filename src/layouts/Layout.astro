@@ -165,6 +165,22 @@ const shortcuts: [string[], string][] = [
       updateMood();
       setInterval(updateMood, 600000);
 
+      /* drops the sticky rail to normal flow when it is taller than the window, so its bottom is reachable by scrolling */
+      const rail = document.querySelector('.rail') as HTMLElement | null;
+      function updateRailFit() {
+        if (!rail) return;
+        const shell = rail.parentElement as HTMLElement;
+        const bar = document.getElementById('statusbar');
+        const top = parseFloat(getComputedStyle(shell).paddingTop) || 0;
+        const barH = bar ? bar.offsetHeight || 28 : 0; // 28px fallback while the bar is still hidden
+        rail.classList.toggle('is-tall', rail.offsetHeight > 0 && top + rail.offsetHeight + barH > window.innerHeight);
+      }
+      if (rail) {
+        updateRailFit();
+        window.addEventListener('resize', updateRailFit);
+        new ResizeObserver(updateRailFit).observe(rail);
+      }
+
       // away tab title: looks like a job suspended with Ctrl+Z while the tab is hidden (nbsp, since browsers collapse plain spaces)
       let awayTitle = '';
       document.addEventListener('visibilitychange', function () {

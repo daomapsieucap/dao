@@ -9,6 +9,17 @@ interface Props {
 }
 
 const { role, nav, linkName = true } = Astro.props;
+
+/* tells the in-page anchors apart from the other pages; the group labels only show when both kinds exist */
+const anchors = nav.filter((i) => i.href.startsWith("#"));
+const pages = nav.filter((i) => !i.href.startsWith("#") && i.href !== "/");
+const home = nav.filter((i) => i.href === "/");
+const grouped = anchors.length > 0 && pages.length > 0;
+const groups = [
+    { label: "", items: home },
+    { label: grouped ? "on this page" : "", items: anchors },
+    { label: grouped ? "elsewhere" : "", items: pages },
+].filter((g) => g.items.length > 0);
 ---
 
 <aside class="rail">
@@ -29,8 +40,13 @@ const { role, nav, linkName = true } = Astro.props;
 
     <nav aria-label="Sections">
         <ul class="nav">
-            {nav.map(({ href, n, t }) => (
-                <li><a href={href}><span class="n" aria-hidden="true">{n}</span><span class="t">{t}</span></a></li>
+            {groups.map((g) => (
+                <>
+                    {g.label && <li class="nav-label" aria-hidden="true">{g.label}</li>}
+                    {g.items.map(({ href, n, t }) => (
+                        <li><a href={href}><span class="n" aria-hidden="true">{n}</span><span class="t">{t}</span></a></li>
+                    ))}
+                </>
             ))}
         </ul>
     </nav>
