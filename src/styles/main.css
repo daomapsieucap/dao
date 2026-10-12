@@ -1916,6 +1916,7 @@ section {
 
 @media (max-width: 480px) {
   .statusbar .sb-dom,
+  .statusbar .sb-weight,
   .statusbar .sb-right {
     display: none;
   }

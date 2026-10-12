@@ -7,6 +7,7 @@ export type Props = HeadTags;
 
 const headTags = Astro.props;
 const major = (range: string) => range.replace(/^\D*/, "").split(".")[0];
+const pageWeight = import.meta.env.DEV ? "–" : "__PAGE_WEIGHT__"; // filled in at build by src/integrations/page-weight.ts
 const stack: [string, string, string?][] = [
   ["theme", "dao", "v" + version],
   ["author", "dao chau"],
@@ -16,6 +17,7 @@ const stack: [string, string, string?][] = [
   ["type", "JetBrains Mono, Newsreader"],
   ["books", "Goodreads feed", "via fast-xml-parser"],
   ["seo", "sitemap, robots.txt, astro-seo"],
+  ["weight", pageWeight, "gzip, fonts included"],
 ];
 const shortcuts: [string[], string][] = [
   [["t"], "toggle theme"],
@@ -64,6 +66,7 @@ const shortcuts: [string[], string][] = [
       <span aria-hidden="true">ttfb <b id="sb-ttfb">–</b></span>
       <span class="sb-dom" aria-hidden="true">dom <b id="sb-dom">–</b></span>
       <span aria-hidden="true">load <b id="sb-load">–</b></span>
+      <span class="sb-weight" aria-hidden="true">weight <b>{pageWeight}</b></span>
       <span class="sb-say" id="sb-say" aria-hidden="true"></span>
       <span class="sb-right">
         <span aria-hidden="true">Ln <b id="sb-ln">1</b></span>
