@@ -1761,6 +1761,42 @@ html:has(#verbose-flag:checked) div.v {
   outline-offset: 2px;
 }
 
+.sb-say {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--yellow);
+}
+
+.sb-say:empty {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sb-pop kbd {
+  padding: 0 5px;
+  border: 1px solid var(--faint);
+  border-radius: 4px;
+  background: var(--faint-2);
+  font: inherit;
+  color: var(--ink);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .statusbar .sb-keys {
+    display: none;
+  }
+}
+
 .sb-pop {
   position: fixed;
   right: max(clamp(18px, 5vw, 52px), calc((100% - 1140px) / 2 + clamp(18px, 5vw, 52px)));

@@ -17,6 +17,15 @@ const stack: [string, string, string?][] = [
   ["books", "Goodreads feed", "via fast-xml-parser"],
   ["seo", "sitemap, robots.txt, astro-seo"],
 ];
+const shortcuts: [string[], string][] = [
+  [["t"], "toggle theme"],
+  [["?"], "this card"],
+  [["g", "h"], "go home"],
+  [["g", "t"], "go to til"],
+  [["g", "u"], "go to uses"],
+  [["g", "r"], "go to reading"],
+  [["Esc"], "close a card"],
+];
 ---
 
 <!DOCTYPE html>
@@ -37,17 +46,31 @@ const stack: [string, string, string?][] = [
         ))}
       </dl>
     </div>
+    <div class="sb-pop" id="sc-pop" role="dialog" aria-label="Keyboard shortcuts" hidden>
+      <p class="sb-pop-head"><span class="sb-led" aria-hidden="true"></span><b>keys</b><span class="sb-pop-note"><i>//</i>shortcuts, for the keyboard people</span></p>
+      <dl class="sb-pop-list">
+        {shortcuts.map(([keys, what]) => (
+          <>
+            <dt>{keys.map((k, i) => <>{i > 0 && " "}<kbd>{k}</kbd></>)}</dt>
+            <dd>{what}</dd>
+          </>
+        ))}
+      </dl>
+    </div>
+    <div class="sr-only" id="sb-say-live" role="status"></div>
     <div class="statusbar" id="statusbar" hidden>
       <span aria-hidden="true">GET <b id="sb-path">/</b></span>
       <span class="ok" id="sb-status" aria-hidden="true"></span>
       <span aria-hidden="true">ttfb <b id="sb-ttfb">–</b></span>
       <span class="sb-dom" aria-hidden="true">dom <b id="sb-dom">–</b></span>
       <span aria-hidden="true">load <b id="sb-load">–</b></span>
+      <span class="sb-say" id="sb-say" aria-hidden="true"></span>
       <span class="sb-right">
         <span aria-hidden="true">Ln <b id="sb-ln">1</b></span>
         <span aria-hidden="true"><b id="sb-pct">0%</b></span>
         <span class="sb-enc" aria-hidden="true">UTF-8</span>
         <span class="sb-lang" aria-hidden="true">Astro</span>
+        <button class="sb-info sb-keys" id="sb-keys" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sc-pop"><b>? keys</b></button>
         <button class="sb-info" id="sb-info" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sb-pop"><b>Minionese</b><span class="sb-i" aria-hidden="true">i</span></button>
       </span>
     </div>
@@ -152,19 +175,75 @@ const stack: [string, string, string?][] = [
         }
       });
 
-      // built-with card: toggled by the Minionese button, closed by Escape or an outside click
-      const infoBtn = document.getElementById('sb-info');
-      const infoPop = document.getElementById('sb-pop');
-      if (infoBtn && infoPop) {
-        /* shows or hides the built-with card and keeps aria-expanded in sync */
-        const setInfo = function (open: boolean) {
-          infoPop.hidden = !open;
-          infoBtn.setAttribute('aria-expanded', String(open));
-        };
-        infoBtn.addEventListener('click', function (e) { e.stopPropagation(); setInfo(infoPop.hidden === true); });
-        document.addEventListener('click', function (e) { if (!infoPop.contains(e.target as Node)) setInfo(false); });
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setInfo(false); });
+      // cards (built-with and shortcuts): one open at a time, closed by Escape or an outside click
+      const cards = [
+        { btn: document.getElementById('sb-info'), pop: document.getElementById('sb-pop') },
+        { btn: document.getElementById('sb-keys'), pop: document.getElementById('sc-pop') },
+      ];
+      let cardOpener: HTMLElement | null = null;
+      /* opens one card (or none), closes the rest and keeps aria-expanded in sync */
+      function showCard(open: HTMLElement | null, opener?: HTMLElement | null) {
+        if (open) cardOpener = opener || (document.activeElement as HTMLElement | null);
+        cards.forEach(function (c) {
+          if (!c.pop) return;
+          c.pop.hidden = c.pop !== open;
+          if (c.btn) c.btn.setAttribute('aria-expanded', String(c.pop === open));
+        });
       }
+      cards.forEach(function (c) {
+        if (!c.btn || !c.pop) return;
+        c.btn.addEventListener('click', function (e) { e.stopPropagation(); showCard(c.pop!.hidden ? c.pop : null, c.btn); });
+      });
+      document.addEventListener('click', function (e) {
+        cards.forEach(function (c) { if (c.pop && !c.pop.hidden && !c.pop.contains(e.target as Node)) showCard(null); });
+      });
+
+      // minionese easter egg: typing "bello" anywhere gets a reply in the status bar (and a console wink)
+      const sayEl = document.getElementById('sb-say');
+      const sayLive = document.getElementById('sb-say-live');
+      const replies = ['bello! tank yu for visiting.', 'bello! me want banana.', 'poopaye? no. bello.'];
+      let replyIdx = 0;
+      let sayTimer = 0;
+      /* shows the next reply for 3s, then clears it */
+      function sayBello() {
+        const text = replies[replyIdx++ % replies.length];
+        if (sayEl) sayEl.textContent = text;
+        if (sayLive) sayLive.textContent = text;
+        clearTimeout(sayTimer);
+        sayTimer = window.setTimeout(function () {
+          if (sayEl) sayEl.textContent = '';
+          if (sayLive) sayLive.textContent = '';
+        }, 3000);
+        try { console.log('%c' + text, "color: #f3c02c; font-family: 'JetBrains Mono', monospace; font-size: 13px;"); } catch (e) {}
+      }
+
+      // keyboard layer: t theme, ? shortcuts, g then h/t/u/r go to a page, Escape closes cards
+      let goAt = 0;
+      let typed = '';
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          const wasOpen = cards.some(function (c) { return c.pop && !c.pop.hidden; });
+          showCard(null);
+          if (wasOpen && cardOpener) cardOpener.focus();
+          return;
+        }
+        if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+        const el = e.target as HTMLElement | null;
+        if (el && (el.isContentEditable || el.closest('input, textarea, select'))) return;
+        const key = e.key.toLowerCase();
+        if (goAt && Date.now() - goAt < 800) {
+          const pages: Record<string, string> = { h: '/', t: '/til', u: '/uses', r: '/reading' };
+          goAt = 0;
+          if (pages[key]) { location.href = pages[key]; return; }
+        }
+        if (key === 'g') goAt = Date.now();
+        else if (key === 't') btn.click();
+        else if (e.key === '?') showCard(cards[1].pop);
+        if (/^[a-z]$/.test(key)) {
+          typed = (typed + key).slice(-5);
+          if (typed === 'bello') { typed = ''; sayBello(); }
+        }
+      });
 
       // verbose flag: restore the saved choice and remember changes (the reveal itself is CSS-only)
       const verbose = document.getElementById('verbose-flag') as HTMLInputElement | null;
