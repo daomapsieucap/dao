@@ -1,0 +1,59 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Rail from "@/components/Rail.astro";
+import hosts from "@/data/hosts";
+---
+
+<Layout
+        title="dao chau · hosts"
+        description="people and places I read. no algorithm involved."
+>
+    <main class="shell" data-screen-label="hosts">
+
+        <Rail
+            role="hosts · the blogroll"
+            nav={[
+                { href: "/", n: "cd", t: "~ home" },
+            ]}
+        />
+
+        <div class="content" id="content" tabindex="-1">
+
+            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">cat /etc/hosts</span><span class="cur"
+                                                                                          aria-hidden="true"></span></span></p>
+
+            <h1 class="hero">sites I resolve to, <em class="ln">on purpose.</em></h1>
+            <p class="hero-sub">people and places I read. no algorithm involved.</p>
+
+            <section aria-labelledby="s-hosts">
+                <h2 class="sec" id="s-hosts">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>HOSTS</span>
+                    <span class="line"></span>
+                    <span class="num">{hosts.length} {hosts.length === 1 ? "entry" : "entries"}</span>
+                </h2>
+
+                {hosts.length === 0 ? (
+                        <p class="til-empty"># /etc/hosts is empty. resolving soon.</p>
+                ) : (
+                        <ul class="hosts">
+                            <li class="hosts-head"># localhost, but for reading</li>
+                            {hosts.map(({ host, url, note }) => (
+                                    <li>
+                                        <span class="hosts-ip">127.0.0.1</span>
+                                        <a href={url} target="_blank" rel="noopener">{host}</a>
+                                        <span class="hosts-note"># {note}</span>
+                                    </li>
+                            ))}
+                        </ul>
+                )}
+            </section>
+
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>127.0.0.1 means: these feel like home.</p>
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>

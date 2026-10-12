@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Rail from "@/components/Rail.astro";
+---
+
+<Layout
+        title="dao chau · permission denied"
+        description="dao is not in the sudoers file."
+        noindex={true}
+>
+    <main class="shell" data-screen-label="sudo">
+
+        <Rail
+            role="sudo · permission denied"
+            nav={[
+                { href: "/", n: "cd", t: "~ home" },
+            ]}
+        />
+
+        <div class="content" id="content" tabindex="-1">
+
+            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">sudo dao</span><span class="cur"
+                                                                                          aria-hidden="true"></span></span></p>
+
+            <h1 class="hero">permission denied, <em class="ln">politely.</em></h1>
+            <p class="hero-sub">dao is not in the sudoers file. this incident will be reported.</p>
+
+            <section aria-labelledby="s-incident">
+                <h2 class="sec" id="s-incident">
+                    <span class="dot"></span>
+                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>INCIDENT</span>
+                    <span class="line"></span>
+                    <span class="num">01</span>
+                </h2>
+                <dl class="kv">
+                    <dt>$ reported to</dt>
+                    <dd>the goggle. it saw.</dd>
+                    <dt>$ severity</dt>
+                    <dd>low. it's a portfolio.</dd>
+                    <dt>$ privileges</dt>
+                    <dd>read-only. like most of the internet.</dd>
+                    <dt>$ remedy</dt>
+                    <dd><a href="mailto:bichdao.chau@gmail.com">ask nicely</a>.</dd>
+                </dl>
+            </section>
+
+            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
+                                                                                                  aria-hidden="true"></span>
+            </p>
+
+        </div>
+    </main>
+</Layout>

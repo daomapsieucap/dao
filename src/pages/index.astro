@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import projects from "@/data/projects";
+import hosts from "@/data/hosts";
 import Rail from "@/components/Rail.astro";
 import { getCollection } from "astro:content";
 import { relativeDate } from "@/utils/relativeDate";
@@ -25,6 +26,7 @@ const nowDate = latestNow.data.updated.toISOString().slice(0, 10);
             { href: "/uses", n: "05", t: "uses ↗" },
             { href: "/til", n: "06", t: "til ↗" },
             { href: "/reading", n: "07", t: "reading ↗" },
+            ...(hosts.length > 0 ? [{ href: "/etc/hosts", n: "08", t: "hosts ↗" }] : []),
             ]}
             linkName={false}
         />

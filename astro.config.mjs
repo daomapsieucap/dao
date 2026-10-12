@@ -4,7 +4,7 @@ import robotsTxt from "astro-robots-txt";
 import { SITE_URL } from "./src/data/config";
 
 export default defineConfig({
-  integrations: [sitemap(), robotsTxt({
+  integrations: [sitemap({ filter: (page) => new URL(page).pathname !== "/sudo/" }), robotsTxt({
       transform: (content) => `# Disallow: /banana-stand (not really. but you looked.)
 
 ${content}`,
