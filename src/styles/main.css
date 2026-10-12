@@ -371,6 +371,11 @@ code {
   outline: none;
 }
 
+.tm-url,
+.tm-go {
+  display: none;
+}
+
 .tm-out {
   margin: 0;
   padding: 0 12px 10px;
@@ -1737,6 +1742,49 @@ section {
   .rail-term {
     grid-area: links;
     margin-top: 40px;
+  }
+  .tm-flags {
+    display: block;
+    padding: 0;
+  }
+  .tm-flags li + li {
+    border-top: 1px solid var(--faint);
+  }
+  .tm-flags a,
+  .tm-flags a:hover,
+  .tm-flags a:focus-visible,
+  .tm-flags a.is-on {
+    display: grid;
+    grid-template-columns: 11ch 1fr auto;
+    gap: 10px;
+    align-items: center;
+    min-height: 46px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-size: 12px;
+  }
+  .tm-flags a:active,
+  .tm-flags a:focus-visible {
+    background: var(--paper-2);
+  }
+  .tm-fl {
+    color: var(--yellow);
+  }
+  .tm-url {
+    display: block;
+    min-width: 0;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+  .tm-go {
+    display: block;
+    color: var(--muted);
+  }
+  .tm-out {
+    display: none;
   }
   .status {
     grid-area: status;
