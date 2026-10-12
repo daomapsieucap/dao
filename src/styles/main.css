@@ -1698,6 +1698,7 @@ section {
   .shell {
     padding-left: 18px;
     padding-right: 18px;
+    --gutter: 18px;
   }
   .mark {
     width: 52px;
