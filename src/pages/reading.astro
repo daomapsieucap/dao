@@ -1,14 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Rail from "@/components/Rail.astro";
-import { fetchShelf, type Book } from "@/utils/goodreads";
+import { fetchShelf, fetchReadThisYear, readStats, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
-const [currentlyReading, favorites, recentlyRead] = await Promise.all([
+const [currentlyReading, favorites, recentlyRead, thisYear] = await Promise.all([
     fetchShelf("currently-reading", 3),
     fetchShelf("favorites", 24),
     fetchShelf("read", 24),
+    fetchReadThisYear(),
 ]);
+
+const stats = thisYear ? readStats(thisYear.books) : null;
 
 // merge read + favorites into one list so every favorite always shows up here,
 // even if goodreads hasn't marked it "read" or it fell outside the read-shelf window
@@ -102,6 +105,28 @@ function isoDate(d: Date | null): string {
                     <span class="line"></span>
                     <span class="num">02 · {shelfBooks.length} books · {favorites.length} favorites</span>
                 </h2>
+
+                {thisYear && stats && (
+                        <p class="wc">
+                            <span class="wc-cmd"><span class="c" aria-hidden="true">$</span> wc ~/books/{thisYear.year}</span>
+                            {stats.books === 0 ? (
+                                    <span class="wc-cols"><span>0 books. january is for warming up.</span></span>
+                            ) : (
+                                    <span class="wc-cols">
+                                        <span>{stats.books} {stats.books === 1 ? "book" : "books"}</span>
+                                        {stats.withoutPages < stats.books && (
+                                                <>
+                                                    <span>{stats.pages.toLocaleString("en-US")} pages</span>
+                                                    <span>avg {stats.avg.toLocaleString("en-US")}</span>
+                                                </>
+                                        )}
+                                        {stats.withoutPages > 0 && stats.withoutPages < stats.books && (
+                                                <span class="wc-note">({stats.withoutPages} without page counts)</span>
+                                        )}
+                                    </span>
+                            )}
+                        </p>
+                )}
 
                 {shelfBooks.length === 0 ? (
                         <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>
