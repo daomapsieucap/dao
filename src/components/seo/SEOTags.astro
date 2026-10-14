@@ -1,7 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import { SITE_URL } from "@/data/config";
-import type { HeadTags } from "@/utils/types/HeadTags";
+import type { PageMeta } from "@/utils/types/PageMeta";
 import newsreaderNormalLatin from "@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url";
 import newsreaderItalicLatin from "@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2?url";
 import newsreaderVietnamese from "@fontsource-variable/newsreader/files/newsreader-vietnamese-wght-normal.woff2?url";
@@ -11,23 +11,22 @@ import jetbrainsMonoCssHref from "@fontsource-variable/jetbrains-mono?url";
 import newsreaderWghtCssHref from "@fontsource-variable/newsreader/wght.css?url";
 import newsreaderWghtItalicCssHref from "@fontsource-variable/newsreader/wght-italic.css?url";
 
-type Props = HeadTags;
+type Props = PageMeta;
 
-const { title, description, noindex, og } = Astro.props;
+const HANDLE = "@daomapsieucap";
+const FALLBACK = {
+  title: "dao chau · backend",
+  description: "writes the half of the web you never see. behind the curtain, keeping things running.",
+  imageAlt: "dao chau's website",
+};
 
-const DEFAULT_TITLE_PAGE = "dao chau · backend";
-const DEFAULT_DESCRIPTION_PAGE =
-  "writes the half of the web you never see. behind the curtain, keeping things running.";
-
-const canonicalURL = new URL(Astro.url.pathname, SITE_URL).href;
-
-const openGraph = {
-  title: title || og?.title || DEFAULT_TITLE_PAGE,
-  type: og?.type || "website",
-  image: new URL(og?.image || "/opengraph-image.jpg", SITE_URL).href,
-  alt: og?.alt || "dao chau's website",
-  url: canonicalURL,
-  description: og?.description || DEFAULT_DESCRIPTION_PAGE,
+const props = Astro.props;
+const meta = {
+  title: props.title ?? FALLBACK.title,
+  description: props.description ?? FALLBACK.description,
+  imageAlt: props.imageAlt ?? FALLBACK.imageAlt,
+  image: new URL(props.image ?? "/opengraph-image.jpg", SITE_URL).href,
+  url: new URL(Astro.url.pathname, SITE_URL).href,
 };
 
 // Font-only bundles are safe to defer via the media="print" swap below:
@@ -56,26 +55,15 @@ const deferredStylesheets = [
   <link rel="stylesheet" href={mainCssHref} />
   <SEO
     charset="UTF-8"
-    title={title || DEFAULT_TITLE_PAGE}
-    description={description || DEFAULT_DESCRIPTION_PAGE}
-    noindex={noindex || false}
+    title={meta.title}
+    description={meta.description}
+    noindex={props.noindex ?? false}
     openGraph={{
-      basic: {
-        title: openGraph.title,
-        type: openGraph.type,
-        image: openGraph.image,
-        url: openGraph.url,
-      },
-      optional: {
-        description: openGraph.description,
-      },
-      image: {
-        alt: openGraph.alt,
-      },
+      basic: { title: meta.title, type: "website", image: meta.image, url: meta.url },
+      optional: { description: meta.description },
+      image: { alt: meta.imageAlt },
     }}
-    twitter={{
-      creator: "@daomapsieucap",
-    }}
+    twitter={{ creator: HANDLE }}
     extend={{
       link: [
         { rel: "icon", href: "/favicon.svg" },
@@ -87,11 +75,11 @@ const deferredStylesheets = [
         { name: "theme-color", content: "#f7f8fa", media: "(prefers-color-scheme: light)" },
         { name: "theme-color", content: "#0d1421", media: "(prefers-color-scheme: dark)" },
         { name: "generator", content: Astro.generator },
-        { name: "twitter:image", content: openGraph.image },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: openGraph.title },
-        { name: "twitter:description", content: openGraph.description },
-        { name: "twitter:site", content: "@daomapsieucap" },
+        { name: "twitter:site", content: HANDLE },
+        { name: "twitter:title", content: meta.title },
+        { name: "twitter:description", content: meta.description },
+        { name: "twitter:image", content: meta.image },
       ],
     }}
   />

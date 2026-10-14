@@ -1,9 +1,9 @@
 ---
 import SEOTags from "@/components/seo/SEOTags.astro";
-import type { HeadTags } from "@/utils/types/HeadTags";
+import type { PageMeta } from "@/utils/types/PageMeta";
 import { dependencies, version } from "../../package.json";
 
-export type Props = HeadTags;
+export type Props = PageMeta;
 
 const headTags = Astro.props;
 const major = (range: string) => range.replace(/^\D*/, "").split(".")[0];
