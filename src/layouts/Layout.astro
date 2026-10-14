@@ -140,31 +140,6 @@ const shortcuts: [string[], string][] = [
       if (document.readyState === 'complete') setTimeout(fillStatusBar, 0);
       else window.addEventListener('load', function () { setTimeout(fillStatusBar, 0); });
 
-      // saigon day-part mood for the rail status line: generic parts only, never a clock time
-      const mood = document.getElementById('mood');
-      const moodLines: Record<string, string[]> = {
-        morning: ['cà phê first, backend second', 'slow boot: coffee, a chapter, then work'],
-        afternoon: ['heads down, backend humming', 'keeping things running'],
-        evening: ['off the clock: pads, pages, side projects', 'logged off. still compiling something.'],
-        night: ['asleep, probably', 'screen off. back by sunrise.'],
-        weekend: ['idle, mostly', 'weekend mode: no deploys', 'idle. book open, phone face down.'],
-      };
-      /* picks a line for the current Saigon day part, stable for the day */
-      function updateMood() {
-        if (!mood) return;
-        const parts: Record<string, string> = {};
-        new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Ho_Chi_Minh', hourCycle: 'h23', hour: 'numeric', weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' })
-          .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
-        const hour = Number(parts.hour);
-        const weekend = parts.weekday === 'Sat' || parts.weekday === 'Sun';
-        const day = Math.floor(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 86400000);
-        const part = hour >= 23 || hour < 5 ? 'night' : hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening';
-        const lines = moodLines[part === 'night' || !weekend ? part : 'weekend'];
-        mood.textContent = lines[day % lines.length];
-      }
-      updateMood();
-      setInterval(updateMood, 600000);
-
       /* drops the sticky rail to normal flow when it is taller than the window, so its bottom is reachable by scrolling */
       const rail = document.querySelector('.rail') as HTMLElement | null;
       function updateRailFit() {

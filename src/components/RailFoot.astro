@@ -22,13 +22,41 @@
     </div>
 </div>
 
-<script>
-    /* shows the Saigon time and refreshes it every 30 seconds */
-    const clock = document.getElementById("clock");
-    function tick() {
-        if (!clock) return;
-        clock.textContent = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh", timeZoneName: "short" }).format(new Date()).replace(",", "");
-    }
-    tick();
-    setInterval(tick, 30000);
+<script is:inline>
+    (function () {
+        var clock = document.getElementById("clock");
+        var mood = document.getElementById("mood");
+        var moodLines = {
+            morning: ["cà phê first, backend second", "slow boot: coffee, a chapter, then work"],
+            afternoon: ["heads down, backend humming", "keeping things running"],
+            evening: ["off the clock: pads, pages, side projects", "logged off. still compiling something."],
+            night: ["asleep, probably", "screen off. back by sunrise."],
+            weekend: ["idle, mostly", "weekend mode: no deploys", "idle. book open, phone face down."],
+        };
+        var clockFmt = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Ho_Chi_Minh", timeZoneName: "short" });
+        var moodFmt = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Ho_Chi_Minh", hourCycle: "h23", hour: "numeric", weekday: "short", year: "numeric", month: "numeric", day: "numeric" });
+
+        /* shows the Saigon time */
+        function tick() {
+            if (clock) clock.textContent = clockFmt.format(new Date()).replace(",", "");
+        }
+
+        /* picks a line for the current Saigon day part, stable for the day */
+        function updateMood() {
+            if (!mood) return;
+            var parts = {};
+            moodFmt.formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+            var hour = Number(parts.hour);
+            var weekend = parts.weekday === "Sat" || parts.weekday === "Sun";
+            var day = Math.floor(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)) / 86400000);
+            var part = hour >= 23 || hour < 5 ? "night" : hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
+            var lines = moodLines[part === "night" || !weekend ? part : "weekend"];
+            mood.textContent = lines[day % lines.length];
+        }
+
+        tick();
+        updateMood();
+        setInterval(tick, 30000);
+        setInterval(updateMood, 600000);
+    })();
 </script>
