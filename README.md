@@ -59,6 +59,8 @@ Or edit TIL posts from anywhere, phone included, via
 locally; set the same as a repo secret for the deploy workflow). The id
 stays out of source since the repo is public.
 
+Started from [astro-portfolio-template](https://github.com/MaeWolff/astro-portfolio-template) by Maxence WOLFF (MIT).
+
 ---
 
 `dao@chau:~$ cat mantra` → */You become what you feed your mind./*
