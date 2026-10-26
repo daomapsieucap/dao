@@ -13,7 +13,6 @@ const { role, nav, linkName = true } = Astro.props;
 
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siblings = [
-    { href: "/now", t: "now" },
     { href: "/uses", t: "uses" },
     { href: "/til", t: "til" },
     { href: "/reading", t: "reading" },
