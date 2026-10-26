@@ -1,6 +1,7 @@
 ---
 import LogoMark from "@/components/LogoMark.astro";
 import RailFoot from "@/components/RailFoot.astro";
+import hosts from "@/data/hosts";
 
 interface Props {
     role: string;
@@ -10,15 +11,29 @@ interface Props {
 
 const { role, nav, linkName = true } = Astro.props;
 
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const siblings = [
+    { href: "/now", t: "now" },
+    { href: "/uses", t: "uses" },
+    { href: "/til", t: "til" },
+    { href: "/reading", t: "reading" },
+    ...(hosts.length > 0 ? [{ href: "/etc/hosts", t: "hosts" }] : []),
+];
+const listed = new Set(nav.map((i) => i.href));
+const extra = siblings
+    .filter((s) => current !== "/" && s.href !== current && !listed.has(s.href))
+    .map((s, i) => ({ href: s.href, n: String(nav.length + i).padStart(2, "0"), t: `${s.t} ↗` }));
+const all = [...nav, ...extra];
+
 /* tells the in-page anchors apart from the other pages; the group labels only show when both kinds exist */
-const anchors = nav.filter((i) => i.href.startsWith("#"));
-const pages = nav.filter((i) => !i.href.startsWith("#") && i.href !== "/");
-const home = nav.filter((i) => i.href === "/");
+const anchors = all.filter((i) => i.href.startsWith("#"));
+const pages = all.filter((i) => !i.href.startsWith("#") && i.href !== "/");
+const home = all.filter((i) => i.href === "/");
 const grouped = anchors.length > 0 && pages.length > 0;
 const groups = [
     { label: "", items: home },
     { label: grouped ? "on this page" : "", items: anchors },
-    { label: grouped ? "elsewhere" : "", items: pages },
+    { label: pages.length > 0 ? "elsewhere" : "", items: pages },
 ].filter((g) => g.items.length > 0);
 ---
 
