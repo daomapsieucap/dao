@@ -83,7 +83,6 @@ const deferredStylesheets = [
       ],
     }}
   />
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X"></script>
   <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -95,6 +94,15 @@ const deferredStylesheets = [
   });
   gtag('js', new Date());
   gtag('config', 'G-SDQ2PWY76X');
+  addEventListener('load', function () {
+    var load = function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-SDQ2PWY76X';
+      document.head.appendChild(s);
+    };
+    'requestIdleCallback' in window ? requestIdleCallback(load, { timeout: 3000 }) : setTimeout(load, 1000);
+  });
   </script>
   <script type="speculationrules" is:inline set:html={JSON.stringify({
     prerender: [{
