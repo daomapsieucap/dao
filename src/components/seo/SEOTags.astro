@@ -48,7 +48,7 @@ const deferredStylesheets = [
   {deferredStylesheets.map((href) => (
     <>
       <link rel="preload" href={href} as="style" />
-      <link rel="stylesheet" href={href} media="print" onload="this.media='all'" />
+      <link rel="stylesheet" href={href} media="print" onload="this.removeAttribute('media')" />
       <noscript><link rel="stylesheet" href={href} /></noscript>
     </>
   ))}
