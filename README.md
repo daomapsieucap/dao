@@ -13,7 +13,7 @@ Small on purpose, much like the rest of my life.
 - `/`: description, echo (featured projects), now, notes
 - `/til`: things I learned, one markdown file at a time
 - `/uses`: the hardware & software I keep around
-- `/reading`: currently reading + recently finished, pulled from goodreads at build time
+- `/reading`: currently reading + recently finished, pulled live from goodreads at build time (profile page + read widget)
 - `/404`: the fake `banana` manpage, doubling as the not-found page
 
 ## $ cat stack
@@ -22,7 +22,6 @@ Small on purpose, much like the rest of my life.
 - CSS custom properties: one stylesheet, light/dark theming
 - JetBrains Mono + Newsreader: self-hosted via Fontsource
 - `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo`: SEO plumbing
-- `fast-xml-parser`: parses the Goodreads RSS feed at build time for `/reading`
 - Google Analytics: plain async `gtag.js` snippet, no extra tooling
 - GitHub Pages: every push to `master` type-checks and deploys itself
 
@@ -46,7 +45,7 @@ Small on purpose, much like the rest of my life.
 | Site config / URL      | `src/data/config.ts`                       |
 | Styles & CSS variables | `src/styles/main.css`                      |
 | Meta tags, fonts, GA   | `src/components/seo/SEOTags.astro`         |
-| Goodreads feed parsing | `src/utils/goodreads.ts`                   |
+| Goodreads fetching     | `src/utils/goodreads.ts`                   |
 | Favicon (goggle mark)  | `public/favicon.svg`                       |
 | Goodreads user id      | `.env` (`GOODREADS_USER_ID`, gitignored)   |
 

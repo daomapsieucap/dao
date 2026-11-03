@@ -1,20 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Rail from "@/components/Rail.astro";
-import { fetchShelf, fetchReadThisYear, readStats, type Book } from "@/utils/goodreads";
+import { fetchShelf, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
-const [currentlyReading, favorites, recentlyRead, thisYear] = await Promise.all([
+const [currentlyReading, favorites, recentlyRead] = await Promise.all([
     fetchShelf("currently-reading", 3),
     fetchShelf("favorites", 24),
     fetchShelf("read", 24),
-    fetchReadThisYear(),
 ]);
 
-const stats = thisYear ? readStats(thisYear.books) : null;
-
 // merge read + favorites into one list so every favorite always shows up here,
-// even if goodreads hasn't marked it "read" or it fell outside the read-shelf window
+// even if it fell outside the (5 book) recently-read widget
 const shelfById = new Map<number, Book & { isFavorite: boolean }>();
 for (const book of recentlyRead) shelfById.set(book.id, { ...book, isFavorite: false });
 for (const book of favorites) {
@@ -22,19 +19,11 @@ for (const book of favorites) {
     if (existing) existing.isFavorite = true;
     else shelfById.set(book.id, { ...book, isFavorite: true });
 }
-const shelfBooks = [...shelfById.values()].sort((a, b) => {
-    const at = (a.dateRead ?? a.dateAdded)?.getTime() ?? 0;
-    const bt = (b.dateRead ?? b.dateAdded)?.getTime() ?? 0;
-    return bt - at;
-});
+const shelfBooks = [...shelfById.values()];
 
 const profileUrl = GOODREADS_USER_ID
     ? `https://www.goodreads.com/user/show/${GOODREADS_USER_ID}`
     : null;
-
-function isoDate(d: Date | null): string {
-    return d ? d.toISOString().slice(0, 10) : "";
-}
 ---
 
 <Layout
@@ -86,7 +75,7 @@ function isoDate(d: Date | null): string {
                                         </span>
                                         <span class="now-info">
                                             <span class="now-label">
-                                                {book.dateAdded ? `started ${isoDate(book.dateAdded)}` : "in progress"}
+                                                in progress
                                             </span>
                                             <span class="now-title">{book.title}</span>
                                             <span class="now-author">by {book.author}</span>
@@ -105,28 +94,6 @@ function isoDate(d: Date | null): string {
                     <span class="line"></span>
                     <span class="num">02 · {shelfBooks.length} books · {favorites.length} favorites</span>
                 </h2>
-
-                {thisYear && stats && (
-                        <p class="wc">
-                            <span class="wc-cmd"><span class="c" aria-hidden="true">$</span> wc ~/books/{thisYear.year}</span>
-                            {stats.books === 0 ? (
-                                    <span class="wc-cols"><span>0 books. january is for warming up.</span></span>
-                            ) : (
-                                    <span class="wc-cols">
-                                        <span>{stats.books} {stats.books === 1 ? "book" : "books"}</span>
-                                        {stats.withoutPages < stats.books && (
-                                                <>
-                                                    <span>{stats.pages.toLocaleString("en-US")} pages</span>
-                                                    <span>avg {stats.avg.toLocaleString("en-US")}</span>
-                                                </>
-                                        )}
-                                        {stats.withoutPages > 0 && stats.withoutPages < stats.books && (
-                                                <span class="wc-note">({stats.withoutPages} without page counts)</span>
-                                        )}
-                                    </span>
-                            )}
-                        </p>
-                )}
 
                 {shelfBooks.length === 0 ? (
                         <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>
@@ -149,18 +116,13 @@ function isoDate(d: Date | null): string {
                                         </span>
                                         <span class="shelf-title">{book.title}</span>
                                         <span class="shelf-author">{book.author}</span>
-                                        {book.dateRead && (
-                                                <time class="shelf-date" datetime={isoDate(book.dateRead)}>
-                                                    {isoDate(book.dateRead)}
-                                                </time>
-                                        )}
                                     </a>
                             ))}
                         </div>
                 )}
             </section>
 
-            <p class="colophon"><span class="c" aria-hidden="true">#</span>pulled from goodreads on every rebuild{profileUrl && (
+            <p class="colophon"><span class="c" aria-hidden="true">#</span>pulled live from goodreads on every rebuild{profileUrl && (
                     <> <span class="shelf-link-wrap">· <a href={profileUrl} target="_blank" rel="noopener" class="cmd coffee-link">full shelf ↗</a></span></>
             )}</p>
             <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
