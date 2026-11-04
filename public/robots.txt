@@ -1,0 +1,5 @@
+# Disallow: /banana-stand (not really. but you looked.)
+
+User-agent: *
+Allow: /
+Sitemap: https://daochau.com/sitemap-index.xml
