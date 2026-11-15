@@ -518,6 +518,24 @@ a.brand:hover {
   color: var(--muted);
 }
 
+.tags-lead {
+  margin: 0 0 32px !important;
+}
+
+.tags ruby {
+  position: relative;
+  display: inline-block;
+}
+
+.tags rt {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
 .small-link {
   margin-top: 8px !important;
   font-family: var(--sans);
