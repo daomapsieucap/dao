@@ -1,0 +1,12 @@
+---
+interface Props {
+    loc: string | number;
+}
+
+const { loc } = Astro.props;
+---
+
+<section class="highlight" aria-label="Highlight">
+    <p class="meta"><span>&lt;? Highlight · Loc {loc} ?&gt;</span></p>
+    <p class="highlight-text"><span><slot /></span></p>
+</section>

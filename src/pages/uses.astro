@@ -1,113 +1,55 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Rail from "@/components/Rail.astro";
+import Hero from "@/components/Hero.astro";
+import Section from "@/components/Section.astro";
+import Highlight from "@/components/Highlight.astro";
+import Footer from "@/components/Footer.astro";
 ---
 
 <Layout
         title="dao chau · uses"
         description="the tools behind the curtain. pinned, not locked"
 >
-    <main class="shell" data-screen-label="uses">
+    <Hero meta="Loc 1 of 40" title="dotfiles," em="the personal runtime." sub="everything I actually reach for in a day, written down.">
+        <nav class="jump" aria-label="On this page"><span class="top-nav-lab">Jump to</span><a href="#bin">bin</a><a href="#hardware">hardware</a><a href="#env">env</a></nav>
+    </Hero>
 
-        <Rail
-            role="uses · the dotfiles"
-            nav={[
-            { href: "/", n: "cd", t: "~ home" },
-            { href: "#bin", n: "01", t: "bin" },
-            { href: "#hardware", n: "02", t: "hardware" },
-            { href: "#env", n: "03", t: "env" },
-            ]}
-        />
+    <Section id="bin" meta="Loc 4-10 · pinned, not locked" title="bin">
+        <dl class="kv">
+            <div><dt>ide</dt><dd><b><ruby>PhpStorm.<rt>full X-Ray</rt></ruby></b></dd></div>
+            <div><dt>notes</dt><dd><b><ruby>Obsidian.<rt>notes &amp; highlights</rt></ruby></b></dd></div>
+            <div><dt>browser</dt><dd><b><ruby>Brave.<rt>new default</rt></ruby></b></dd></div>
+            <div><dt>ssh</dt><dd><b>Xermius.</b></dd></div>
+            <div><dt>shell</dt><dd><b>PowerShell 7.</b></dd></div>
+            <div><dt>ai</dt><dd><b>Claude.</b></dd></div>
+        </dl>
+    </Section>
 
-        <div class="content" id="content" tabindex="-1">
+    <Section id="hardware" meta="Loc 12-24 · runs until it dies" title="hardware">
+        <dl class="kv">
+            <div><dt>laptop</dt><dd><b><ruby>Lenovo ThinkPad T14.<rt>the company's, technically</rt></ruby></b></dd></div>
+            <div><dt>pc</dt><dd><b><ruby>Dell XPS 8700.<rt>still running</rt></ruby></b></dd></div>
+            <div><dt>display</dt><dd><b>Dell U2417H.</b></dd></div>
+            <div><dt>keyboard</dt><dd><b><ruby>Logitech K120.<rt>simple, but it works</rt></ruby></b></dd></div>
+            <div><dt>mouse</dt><dd><b>Logitech MX Anywhere 3,</b> with a Hyperwork Silentium S01 on quiet duty.</dd></div>
+            <div><dt>phone</dt><dd><b>Samsung S24.</b></dd></div>
+            <div><dt>tablet</dt><dd><b><ruby>Samsung Tab A9.<rt>breakpoint tester</rt></ruby></b></dd></div>
+            <div><dt>ereader</dt><dd><b><ruby>Kindle Paperwhite 4.<rt>where the reading actually happens</rt></ruby></b></dd></div>
+            <div><dt>headphone</dt><dd><b><ruby>Sony WH-1000XM4.<rt>noise cancelling on, world off</rt></ruby></b></dd></div>
+            <div><dt>earphone</dt><dd><b><ruby>Samsung Galaxy Buds 3 FE.<rt>lazy loaded. very lazy</rt></ruby></b></dd></div>
+        </dl>
+    </Section>
 
-            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --uses</span><span class="cur"
-                                                                                          aria-hidden="true"></span></span></p>
+    <Section id="env" meta="Loc 26-32 · day-to-day runtime config" title="env">
+        <dl class="kv">
+            <div><dt>music</dt><dd><b><ruby>Spotify.<rt>on repeat</rt></ruby></b></dd></div>
+            <div><dt>downtime</dt><dd><b><ruby>Netflix.<rt>random picks</rt></ruby></b></dd></div>
+            <div><dt>fuel</dt><dd><b lang="vi">phin sữa đá,</b> or <ruby>hot cappuccino.<rt>random_int(0, 1) decides</rt></ruby></dd></div>
+            <div><dt>noise_level</dt><dd><b>low.</b></dd></div>
+        </dl>
+    </Section>
 
-            <h1 class="hero">dotfiles, <em class="ln">the personal runtime.</em></h1>
-            <p class="hero-sub">everything I actually reach for in a day, written down.</p>
+    <Highlight loc={40}>nothing here is impressive; all of it is mine.</Highlight>
 
-            <section id="bin" aria-labelledby="s-bin">
-                <h2 class="sec" id="s-bin">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>BIN</span>
-                    <span class="line"></span>
-                    <span class="num">01</span>
-                </h2>
-                <p class="sec-note">the current stack. pinned, not locked.</p>
-                <dl class="kv">
-                    <dt>$ ide</dt>
-                    <dd>PhpStorm. <em>knows what clients mean by "small change".</em></dd>
-                    <dt>$ notes</dt>
-                    <dd>Obsidian. <em>write it down, forget it safely.</em></dd>
-                    <dt>$ browser</dt>
-                    <dd>Brave. <em>switched once. no rollback.</em></dd>
-                    <dt>$ ssh</dt>
-                    <dd>Xermius.</dd>
-                    <dt>$ shell</dt>
-                    <dd>PowerShell 7.</dd>
-                    <dt>$ ai</dt>
-                    <dd>Claude.</dd>
-                </dl>
-            </section>
-
-            <section id="hardware" aria-labelledby="s-hardware">
-                <h2 class="sec" id="s-hardware">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>HARDWARE</span>
-                    <span class="line"></span>
-                    <span class="num">02</span>
-                </h2>
-                <p class="sec-note">the hardware half. runs until it dies.</p>
-                <dl class="kv">
-                    <dt>$ laptop</dt>
-                    <dd>Lenovo ThinkPad T14. <em>the company's, technically.</em></dd>
-                    <dt>$ pc</dt>
-                    <dd>Dell XPS 8700. <em>still running.</em></dd>
-                    <dt>$ display</dt>
-                    <dd>Dell U2417H.</dd>
-                    <dt>$ keyboard</dt>
-                    <dd>Logitech K120. <em>simple, but it works.</em></dd>
-                    <dt>$ mouse</dt>
-                    <dd>Logitech MX Anywhere 3, with a Hyperwork Silentium S01 on quiet duty.</dd>
-                    <dt>$ phone</dt>
-                    <dd>Samsung S24.</dd>
-                    <dt>$ tablet</dt>
-                    <dd>Samsung Tab A9. <em>runs Netflix. tests breakpoints.</em></dd>
-                    <dt>$ ereader</dt>
-                    <dd>Kindle Paperwhite 4. <em>where the reading actually happens.</em></dd>
-                    <dt>$ headphone</dt>
-                    <dd>Sony WH-1000XM4. <em>noise cancelling on, world off.</em></dd>
-                    <dt>$ earphone</dt>
-                    <dd>Samsung Galaxy Buds 3 FE. <em>lazy loaded. very lazy.</em></dd>
-                </dl>
-            </section>
-
-            <section id="env" aria-labelledby="s-env">
-                <h2 class="sec" id="s-env">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>ENV</span>
-                    <span class="line"></span>
-                    <span class="num">03</span>
-                </h2>
-                <p class="sec-note">day-to-day runtime config.</p>
-                <dl class="kv">
-                    <dt>$ music</dt>
-                    <dd>Spotify. <em>quiet enough to read over.</em></dd>
-                    <dt>$ downtime</dt>
-                    <dd>Netflix. <em>research, obviously.</em></dd>
-                    <dt>$ fuel</dt>
-                    <dd>phin sữa đá, or hot cappuccino. <em>random_int(0, 1) decides.</em></dd>
-                    <dt>$ noise_level</dt>
-                    <dd>low. <em>somewhere green and quiet, a book doing all the talking.</em></dd>
-                </dl>
-            </section>
-
-            <p class="colophon"><span class="c" aria-hidden="true">#</span>nothing here is impressive; all of it is mine.</p>
-            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
-                                                                                                  aria-hidden="true"></span>
-            </p>
-
-        </div>
-    </main>
+    <Footer><a href="/">back to the front page</a></Footer>
 </Layout>

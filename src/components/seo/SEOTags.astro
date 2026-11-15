@@ -2,14 +2,14 @@
 import { SEO } from "astro-seo";
 import { SITE_URL } from "@/data/config";
 import type { PageMeta } from "@/utils/types/PageMeta";
-import newsreaderNormalLatin from "@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url";
-import newsreaderItalicLatin from "@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2?url";
-import newsreaderVietnamese from "@fontsource-variable/newsreader/files/newsreader-vietnamese-wght-normal.woff2?url";
-import jetbrainsMonoVietnamese from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-vietnamese-wght-normal.woff2?url";
+import literataNormalLatin from "@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url";
+import literataItalicLatin from "@fontsource-variable/literata/files/literata-latin-wght-italic.woff2?url";
+import interNormalLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import mainCssHref from "@/styles/main.css?url";
 import jetbrainsMonoCssHref from "@fontsource-variable/jetbrains-mono?url";
-import newsreaderWghtCssHref from "@fontsource-variable/newsreader/wght.css?url";
-import newsreaderWghtItalicCssHref from "@fontsource-variable/newsreader/wght-italic.css?url";
+import literataWghtCssHref from "@fontsource-variable/literata/wght.css?url";
+import literataWghtItalicCssHref from "@fontsource-variable/literata/wght-italic.css?url";
+import interWghtCssHref from "@fontsource-variable/inter/wght.css?url";
 
 type Props = PageMeta;
 
@@ -35,16 +35,16 @@ const meta = {
 // normal blocking stylesheet to avoid a flash of oversized/unstyled content.
 const deferredStylesheets = [
   jetbrainsMonoCssHref,
-  newsreaderWghtCssHref,
-  newsreaderWghtItalicCssHref,
+  literataWghtCssHref,
+  literataWghtItalicCssHref,
+  interWghtCssHref,
 ];
 ---
 
 <head>
-  <link rel="preload" as="font" type="font/woff2" href={newsreaderNormalLatin} crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href={newsreaderItalicLatin} crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href={newsreaderVietnamese} crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href={jetbrainsMonoVietnamese} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={literataNormalLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={literataItalicLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={interNormalLatin} crossorigin />
   {deferredStylesheets.map((href) => (
     <>
       <link rel="preload" href={href} as="style" />
@@ -72,8 +72,8 @@ const deferredStylesheets = [
       ],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "theme-color", content: "#f7f8fa", media: "(prefers-color-scheme: light)" },
-        { name: "theme-color", content: "#0d1421", media: "(prefers-color-scheme: dark)" },
+        { name: "theme-color", content: "#e9e8e3", media: "(prefers-color-scheme: light)" },
+        { name: "theme-color", content: "#131313", media: "(prefers-color-scheme: dark)" },
         { name: "generator", content: Astro.generator },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:site", content: HANDLE },
@@ -122,9 +122,7 @@ const deferredStylesheets = [
       var stored = null;
       try { stored = localStorage.getItem('theme'); } catch (e) {}
       var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
 </head>

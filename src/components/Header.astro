@@ -1,0 +1,31 @@
+---
+import LogoMark from "@/components/LogoMark.astro";
+import hosts from "@/data/hosts";
+
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isHome = current === "/";
+const pages = [
+    { href: "/til", t: "til" },
+    { href: "/uses", t: "uses" },
+    { href: "/reading", t: "reading" },
+    { href: "/now", t: "now" },
+    ...(hosts.length > 0 ? [{ href: "/etc/hosts", t: "hosts" }] : []),
+];
+---
+
+<header class="top">
+    {isHome ? (
+        <span class="brand"><LogoMark />dao chau</span>
+    ) : (
+        <a class="brand" href="/"><LogoMark />dao chau</a>
+    )}
+    <nav class="top-nav" aria-label="Pages">
+        <span class="top-nav-lab">Go to</span>
+        {pages.map(({ href, t }) => href === current ? (
+            <span class="is-current" aria-current="page">{t}</span>
+        ) : (
+            <a href={href}>{t}</a>
+        ))}
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Toggle dark theme" aria-pressed="false"></button>
+    </nav>
+</header>

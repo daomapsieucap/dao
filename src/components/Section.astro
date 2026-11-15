@@ -1,0 +1,19 @@
+---
+import GhostHeading from "@/components/GhostHeading.astro";
+
+interface Props {
+    id?: string;
+    meta?: string;
+    title: string;
+}
+
+const { id, meta, title } = Astro.props;
+const headingId = id ? `s-${id}` : undefined;
+---
+
+<div class="dither" aria-hidden="true"></div>
+<section class="sec" id={id} aria-labelledby={headingId}>
+    {meta && <p class="meta">&lt;? {meta} ?&gt;</p>}
+    <GhostHeading text={title} id={headingId} />
+    <slot />
+</section>

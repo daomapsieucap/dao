@@ -2,7 +2,7 @@
 
 > behind the curtain, keeping things running.
 
-[daochau.com](https://daochau.com), a small terminal-flavored personal site.
+[daochau.com](https://daochau.com), a small e-reader-flavored personal site, black ink on paper.
 Built with Astro and plain CSS; no utility framework, no client-side JS
 beyond analytics and a small easter egg on `/404`.
 
@@ -14,14 +14,14 @@ Small on purpose, much like the rest of my life.
 - `/til`: things I learned, one markdown file at a time
 - `/uses`: the hardware & software I keep around
 - `/reading`: currently reading + recently finished, pulled live from goodreads at build time (profile page + read widget)
-- `/404`: the fake `banana` manpage, doubling as the not-found page
+- `/404`: banana not found, the goggle stands in for the 0
 
 ## $ cat stack
 
 - [Astro](https://astro.build): static site generator
 - CSS custom properties: one stylesheet, light/dark theming
-- JetBrains Mono + Newsreader: self-hosted via Fontsource
-- `@astrojs/sitemap`, `astro-robots-txt`, `astro-seo`: SEO plumbing
+- Literata + Inter + JetBrains Mono: self-hosted via Fontsource
+- `@astrojs/sitemap`, static `robots.txt`, `astro-seo`: SEO plumbing
 - Google Analytics: plain async `gtag.js` snippet, no extra tooling
 - GitHub Pages: every push to `master` type-checks and deploys itself
 

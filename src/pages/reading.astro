@@ -1,6 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Rail from "@/components/Rail.astro";
+import Hero from "@/components/Hero.astro";
+import Section from "@/components/Section.astro";
+import Highlight from "@/components/Highlight.astro";
+import Footer from "@/components/Footer.astro";
 import { fetchShelf, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
@@ -20,6 +23,7 @@ for (const book of favorites) {
     else shelfById.set(book.id, { ...book, isFavorite: true });
 }
 const shelfBooks = [...shelfById.values()];
+const hasFavorites = shelfBooks.some((b) => b.isFavorite);
 
 const profileUrl = GOODREADS_USER_ID
     ? `https://www.goodreads.com/user/show/${GOODREADS_USER_ID}`
@@ -30,105 +34,76 @@ const profileUrl = GOODREADS_USER_ID
         title="dao chau · reading"
         description="what's open right now, the rest pulled from the shelf."
 >
-    <main class="shell" data-screen-label="reading">
+    <Hero meta="Loc 1 of 60" title="off the clock," em="mostly reading." sub="what's open right now, the rest pulled from the shelf." />
 
-        <Rail
-            role="reading · the shelf"
-            nav={[
-            { href: "/", n: "cd", t: "~ home" },
-            { href: "#now", n: "01", t: "now" },
-            { href: "#shelf", n: "02", t: "shelf" },
-            ]}
-        />
+    <Section id="open" meta="Loc 4-8 · currently reading" title="open">
+        {currentlyReading.length === 0 ? (
+            <p class="empty">nothing open right now. probably between books.</p>
+        ) : (
+            <div class="cols-2 now-books">
+                {currentlyReading.map((book) => (
+                    <a class="book book-row" href={book.link} target="_blank" rel="noopener">
+                        <span class="cover">
+                            <img src={book.coverUrl} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="112" height="168" />
+                        </span>
+                        <span class="book-info">
+                            <span class="meta">in progress</span>
+                            <span class="book-title">{book.title}</span>
+                            <span class="book-author">by {book.author}</span>
+                            <span class="book-link">on goodreads ↗</span>
+                        </span>
+                    </a>
+                ))}
+            </div>
+        )}
+    </Section>
 
-        <div class="content" id="content" tabindex="-1">
-
-            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --reading</span><span class="cur"
-                                                                                          aria-hidden="true"></span></span></p>
-
-            <h1 class="hero">off the clock, <em class="ln">mostly reading.</em></h1>
-            <p class="hero-sub">what's open right now, the rest pulled from the shelf.</p>
-
-            <section id="now" aria-labelledby="s-now">
-                <h2 class="sec" id="s-now">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>NOW</span>
-                    <span class="line"></span>
-                    <span class="num">01</span>
-                </h2>
-
-                {currentlyReading.length === 0 ? (
-                        <p class="til-empty">nothing open right now. probably between books.</p>
-                ) : (
-                        <div class="now-list">
-                            {currentlyReading.map((book) => (
-                                    <a class="now-book" href={book.link} target="_blank" rel="noopener">
-                                        <span class="now-cover">
-                                            <img
-                                                    src={book.coverUrl}
-                                                    alt={`cover of ${book.title}`}
-                                                    loading="lazy"
-                                                    decoding="async"
-                                                    width="96"
-                                                    height="144"
-                                            />
-                                        </span>
-                                        <span class="now-info">
-                                            <span class="now-label">
-                                                in progress
-                                            </span>
-                                            <span class="now-title">{book.title}</span>
-                                            <span class="now-author">by {book.author}</span>
-                                            <span class="now-link"><span class="ic" aria-hidden="true">↗</span><span class="lbl">on goodreads</span></span>
-                                        </span>
-                                    </a>
-                            ))}
-                        </div>
+    <Section id="shelf" meta="Loc 10-58 · on the shelf" title="shelf">
+        {shelfBooks.length === 0 ? (
+            <p class="empty">the shelf is empty here. check back after a rebuild.</p>
+        ) : (
+            <>
+                {hasFavorites && (
+                    <div class="pills" role="group" aria-label="Filter shelf" hidden>
+                        <button class="pill" type="button" aria-pressed="true" data-filter="all">all</button>
+                        <button class="pill" type="button" aria-pressed="false" data-filter="fav">favorites</button>
+                    </div>
                 )}
-            </section>
+                <div class="shelf-grid" id="shelf-grid">
+                    {shelfBooks.map((book) => (
+                        <a class="book" href={book.link} target="_blank" rel="noopener" data-fav={book.isFavorite ? "1" : undefined}>
+                            <span class="cover">
+                                <img src={book.coverUrl} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="140" height="210" />
+                                {book.isFavorite && <span class="fav" title="favorite" aria-label="favorite"></span>}
+                            </span>
+                            <span class="shelf-title">{book.title}</span>
+                            <span class="shelf-author">{book.author}</span>
+                        </a>
+                    ))}
+                </div>
+            </>
+        )}
+    </Section>
 
-            <section id="shelf" aria-labelledby="s-shelf">
-                <h2 class="sec" id="s-shelf">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>SHELF</span>
-                    <span class="line"></span>
-                    <span class="num">02 · on the shelf</span>
-                </h2>
+    <Highlight loc={60}>You become what you feed your mind.</Highlight>
 
-                {shelfBooks.length === 0 ? (
-                        <p class="til-empty">the shelf is empty here. check back after a rebuild.</p>
-                ) : (
-                        <div class="shelf-grid">
-                            {shelfBooks.map((book) => (
-                                    <a class="shelf-book" href={book.link} target="_blank" rel="noopener">
-                                        <span class="shelf-cover">
-                                            <img
-                                                    src={book.coverUrl}
-                                                    alt={`cover of ${book.title}`}
-                                                    loading="lazy"
-                                                    decoding="async"
-                                                    width="96"
-                                                    height="144"
-                                            />
-                                            {book.isFavorite && (
-                                                    <span class="shelf-fav-mark" title="favorite" aria-label="favorite"></span>
-                                            )}
-                                        </span>
-                                        <span class="shelf-title">{book.title}</span>
-                                        <span class="shelf-author">{book.author}</span>
-                                    </a>
-                            ))}
-                        </div>
-                )}
-            </section>
+    <Footer>via goodreads{profileUrl && <> · <a href={profileUrl} target="_blank" rel="noopener">full shelf ↗</a></>}</Footer>
 
-            <p class="colophon"><span class="c" aria-hidden="true">#</span>via goodreads{profileUrl && (
-                    <> <span class="shelf-link-wrap">· <a href={profileUrl} target="_blank" rel="noopener" class="cmd coffee-link">full shelf ↗</a></span></>
-            )}</p>
-            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
-                                                                                                  aria-hidden="true"></span>
-            </p>
-
-        </div>
-    </main>
+    <script is:inline>
+        (function () {
+            var group = document.querySelector('.pills');
+            var grid = document.getElementById('shelf-grid');
+            if (!group || !grid) return;
+            var pills = group.querySelectorAll('.pill');
+            var books = grid.querySelectorAll('.book');
+            group.hidden = false;
+            pills.forEach(function (pill) {
+                pill.addEventListener('click', function () {
+                    var favOnly = pill.getAttribute('data-filter') === 'fav';
+                    pills.forEach(function (p) { p.setAttribute('aria-pressed', String(p === pill)); });
+                    books.forEach(function (b) { b.hidden = favOnly && !b.hasAttribute('data-fav'); });
+                });
+            });
+        })();
+    </script>
 </Layout>

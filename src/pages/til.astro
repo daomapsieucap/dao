@@ -1,21 +1,29 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Rail from "@/components/Rail.astro";
+import Hero from "@/components/Hero.astro";
+import Section from "@/components/Section.astro";
+import Highlight from "@/components/Highlight.astro";
+import Footer from "@/components/Footer.astro";
 import { getCollection, render } from "astro:content";
 
-const allEntries = await getCollection("til");
-const entries = allEntries.sort(
+const entries = (await getCollection("til")).sort(
     (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
-const renderedEntries = await Promise.all(
-    entries.map(async (entry) => {
+const rendered = await Promise.all(
+    entries.map(async (entry, i) => {
         const { Content } = await render(entry);
-        return { entry, Content };
+        return { entry, Content, loc: i + 2 };
     })
 );
 
-/* Returns the anchor id for a TIL entry, so the slug is defined in one place. */
+/* groups rendered entries by year, newest year first */
+const years = [...new Set(rendered.map(({ entry }) => entry.data.date.getUTCFullYear()))].map((year) => ({
+    year,
+    items: rendered.filter(({ entry }) => entry.data.date.getUTCFullYear() === year),
+}));
+
+/* returns the anchor id for a TIL entry, so the slug is defined in one place */
 function entryAnchor(id: string) {
     return id.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
@@ -23,68 +31,42 @@ function entryAnchor(id: string) {
 function isoDate(d: Date) {
     return d.toISOString().slice(0, 10);
 }
+
+const count = `${entries.length} ${entries.length === 1 ? "entry" : "entries"}`;
 ---
 
 <Layout
         title="dao chau · til"
         description="short notes on things worth keeping. one thing at a time."
 >
-    <main class="shell" data-screen-label="til">
+    <Hero meta={`Loc 1 of ${entries.length} · ${count}`} title="patch notes," em="personal." sub="small updates. no rollback." />
 
-        <Rail
-            role="til · patch notes"
-            nav={[
-            { href: "/", n: "cd", t: "~ home" },
-            ]}
-        />
-
-        <div class="content" id="content" tabindex="-1">
-
-            <p class="prompt"><span class="c1"><b>dao@chau</b>:~$ <span class="cmd" aria-hidden="true">dao --til</span><span class="cur"
-                                                                                         aria-hidden="true"></span></span></p>
-
-            <h1 class="hero">patch notes, <em class="ln">personal.</em></h1>
-            <p class="hero-sub">small updates. no rollback.</p>
-
-            <section aria-labelledby="s-til">
-                <h2 class="sec" id="s-til">
-                    <span class="dot"></span>
-                    <span class="lab"><span class="php" aria-hidden="true">&lt;?</span>TIL</span>
-                    <span class="line"></span>
-                    <span class="num">{entries.length} {entries.length === 1 ? "entry" : "entries"}</span>
-                </h2>
-
-                {renderedEntries.length === 0 ? (
-                        <p class="til-empty">nothing yet. check back soon.</p>
-                ) : (
-                        <div class="til-feed">
-                            {renderedEntries.map(({ entry, Content }) => (
-                                    <article class="til-entry" id={entryAnchor(entry.id)}>
-                                        <time class="til-date" datetime={isoDate(entry.data.date)}>
-                                            {isoDate(entry.data.date)}
-                                        </time>
-                                        <h3 class="til-title">{entry.data.title}<a class="til-permalink" href={`#${entryAnchor(entry.id)}`} aria-label={`link to ${entry.data.title}`}>#</a></h3>
-                                        <div class="til-body">
-                                            <Content/>
-                                        </div>
-                                        {entry.data.tags && entry.data.tags.length > 0 && (
-                                                <div class="chips til-tags">
-                                                    {entry.data.tags.map(tag => (
-                                                            <span class="chip" data-tag={tag}>{tag}</span>
-                                                    ))}
-                                                </div>
-                                        )}
-                                    </article>
-                            ))}
+    {years.length === 0 ? (
+        <Section title="til"><p class="empty">nothing yet. check back soon.</p></Section>
+    ) : years.map(({ year, items }) => (
+        <Section title={String(year)}>
+            {items.map(({ entry, Content, loc }) => {
+                const anchor = entryAnchor(entry.id);
+                return (
+                    <article class="til-entry" id={anchor}>
+                        <div class="til-side">
+                            <p class="meta">&lt;? Loc {loc} ?&gt;</p>
+                            <p class="til-date"><time datetime={isoDate(entry.data.date)}>{isoDate(entry.data.date)}</time></p>
                         </div>
-                )}
-            </section>
+                        <div class="til-main">
+                            <h3 class="til-title">{entry.data.title} <a class="til-permalink" href={`#${anchor}`} aria-label={`link to ${entry.data.title}`}>#</a></h3>
+                            <div class="til-body"><Content /></div>
+                            {entry.data.tags && entry.data.tags.length > 0 && (
+                                <p class="tags" lang="en">{entry.data.tags.join(" · ")}</p>
+                            )}
+                        </div>
+                    </article>
+                );
+            })}
+        </Section>
+    ))}
 
-            <p class="colophon"><span class="c" aria-hidden="true">#</span>add a <code>.md</code> file, commit, done.</p>
-            <p class="exit"><b>dao@chau</b>:~$ <span class="cmd"><a href="/">cd ~</a></span><span class="cur"
-                                                                                                  aria-hidden="true"></span>
-            </p>
+    <Highlight loc={entries.length + 1}>add a .md file, commit, done.</Highlight>
 
-        </div>
-    </main>
+    <Footer><a href="/">back to the front page</a></Footer>
 </Layout>

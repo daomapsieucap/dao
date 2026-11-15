@@ -9,7 +9,7 @@ from: behind the curtain, keeping things running
 
 /* SITE */
 last build: ${buildDate}
-stack: astro, plain css, jetbrains mono, newsreader
+stack: astro, plain css, literata, inter, jetbrains mono
 hosting: github pages
 client-side js: small, inline, optional. the site works without it.
 `;

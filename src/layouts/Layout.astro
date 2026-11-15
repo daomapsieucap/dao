@@ -1,24 +1,11 @@
 ---
 import SEOTags from "@/components/seo/SEOTags.astro";
+import Header from "@/components/Header.astro";
 import type { PageMeta } from "@/utils/types/PageMeta";
-import { dependencies, version } from "../../package.json";
 
 export type Props = PageMeta;
 
 const headTags = Astro.props;
-const major = (range: string) => range.replace(/^\D*/, "").split(".")[0];
-const pageWeight = import.meta.env.DEV ? "–" : "__PAGE_WEIGHT__"; // filled in at build by src/integrations/page-weight.ts
-const stack: [string, string, string?][] = [
-  ["theme", "dao", "v" + version],
-  ["author", "dao chau"],
-  ["about", "small on purpose"],
-  ["framework", "Astro", major(dependencies.astro)],
-  ["language", "TypeScript", major(dependencies.typescript)],
-  ["type", "JetBrains Mono, Newsreader"],
-  ["books", "Goodreads", "profile + widget, live"],
-  ["seo", "sitemap, robots.txt, astro-seo"],
-  ["weight", pageWeight, "gzip, fonts included"],
-];
 const shortcuts: [string[], string][] = [
   [["t"], "toggle theme"],
   [["?"], "this card"],
@@ -26,6 +13,7 @@ const shortcuts: [string[], string][] = [
   [["g", "t"], "go to til"],
   [["g", "u"], "go to uses"],
   [["g", "r"], "go to reading"],
+  [["g", "n"], "go to now"],
   [["Esc"], "close a card"],
 ];
 ---
@@ -35,22 +23,15 @@ const shortcuts: [string[], string][] = [
   <SEOTags {...headTags} />
   <body>
     <a class="skip-link" href="#content">skip to content</a>
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <slot />
-    <div class="sb-pop" id="sb-pop" role="dialog" aria-label="Built with" hidden>
-      <p class="sb-pop-head"><span class="sb-led" aria-hidden="true"></span><b>ingredients</b><span class="sb-pop-note"><i>//</i>banana-powered by</span></p>
-      <dl class="sb-pop-list">
-        {stack.map(([name, value, extra]) => (
-          <>
-            <dt>{name}</dt>
-            <dd>{value}{extra && <span> {extra}</span>}</dd>
-          </>
-        ))}
-      </dl>
+    <div class="wrap">
+      <Header />
+      <main id="content" tabindex="-1">
+        <slot />
+      </main>
     </div>
-    <div class="sb-pop" id="sc-pop" role="dialog" aria-label="Keyboard shortcuts" hidden>
-      <p class="sb-pop-head"><span class="sb-led" aria-hidden="true"></span><b>keys</b><span class="sb-pop-note"><i>//</i>shortcuts, for the keyboard people</span></p>
-      <dl class="sb-pop-list">
+    <div class="card" id="sc-pop" role="dialog" aria-label="Keyboard shortcuts" hidden>
+      <p class="meta">&lt;? keys · for the keyboard people ?&gt;</p>
+      <dl class="card-list">
         {shortcuts.map(([keys, what]) => (
           <>
             <dt>{keys.map((k, i) => <>{i > 0 && " "}<kbd>{k}</kbd></>)}</dt>
@@ -59,165 +40,79 @@ const shortcuts: [string[], string][] = [
         ))}
       </dl>
     </div>
-    <div class="sr-only" id="sb-say-live" role="status"></div>
-    <div class="statusbar" id="statusbar" hidden>
-      <span aria-hidden="true">GET <b id="sb-path">/</b></span>
-      <span class="ok" id="sb-status" aria-hidden="true"></span>
-      <span aria-hidden="true">ttfb <b id="sb-ttfb">–</b></span>
-      <span class="sb-dom" aria-hidden="true">dom <b id="sb-dom">–</b></span>
-      <span aria-hidden="true">load <b id="sb-load">–</b></span>
-      <span class="sb-weight" aria-hidden="true">weight <b>{pageWeight}</b></span>
-      <span class="sb-say" id="sb-say" aria-hidden="true"></span>
-      <span class="sb-right">
-        <span aria-hidden="true">Ln <b id="sb-ln">1</b></span>
-        <span aria-hidden="true"><b id="sb-pct">0%</b></span>
-        <span class="sb-enc" aria-hidden="true">UTF-8</span>
-        <span class="sb-lang" aria-hidden="true">Astro</span>
-        <button class="sb-info sb-keys" id="sb-keys" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sc-pop"><b>? keys</b></button>
-        <button class="sb-info" id="sb-info" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="sb-pop"><b>Minionese</b><span class="sb-i" aria-hidden="true">i</span></button>
-      </span>
-    </div>
-    <button id="theme-toggle" class="theme-btn" aria-label="Toggle color theme" aria-pressed="false"></button>
+    <p class="say" id="say" role="status"></p>
     <script>
-      var btn = document.getElementById('theme-toggle') as HTMLButtonElement;
+      var btn = document.getElementById('theme-toggle') as HTMLButtonElement | null;
 
-      btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+      /* reflects the current theme on the toggle button */
+      function syncThemeBtn() {
+        if (btn) btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+      }
 
+      /* switches the theme without animating every color on the page */
       function applyTheme(theme: string) {
         var root = document.documentElement;
         root.classList.add('is-switching');
         root.setAttribute('data-theme', theme);
-        btn.setAttribute('aria-pressed', String(theme === 'dark'));
+        syncThemeBtn();
         setTimeout(function () { root.classList.remove('is-switching'); }, 280);
       }
 
-      btn.addEventListener('click', function () {
-        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        var next = isDark ? 'light' : 'dark';
+      syncThemeBtn();
+      btn?.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         applyTheme(next);
         try { localStorage.setItem('theme', next); } catch (e) {}
       });
 
-      // live status bar: real timings from this page's navigation entry.
-      // Stays hidden if the browser doesn't expose one.
-      function fillStatusBar() {
-        var nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-        var bar = document.getElementById('statusbar');
-        if (!nav || !bar) return;
-        var shift = (nav as PerformanceNavigationTiming & { activationStart?: number }).activationStart || 0; // > 0 when prerendered
-        var ms = function (v: number) { return v - shift > 0 ? Math.round(v - shift) + 'ms' : '–'; };
-        var set = function (id: string, text: string) {
-          var el = document.getElementById(id);
-          if (el) el.textContent = text;
-        };
-        var code = nav.responseStatus;
-        var reasons: Record<number, string> = { 200: shift > 0 ? 'prerendered' : 'OK', 404: 'Not Found' };
-        set('sb-path', location.pathname);
-        set('sb-status', code ? (code + (reasons[code] ? ' ' + reasons[code] : '')) : '');
-        set('sb-ttfb', ms(nav.responseStart));
-        set('sb-dom', ms(nav.domContentLoadedEventEnd));
-        set('sb-load', ms(nav.loadEventEnd));
-        bar.hidden = false;
-      }
-      // editor-style position readout: line (30px rows, like the ruled prose) and scroll %
-      var posTicking = false;
-      function updatePosition() {
-        posTicking = false;
-        var ln = document.getElementById('sb-ln');
-        var pct = document.getElementById('sb-pct');
-        if (!ln || !pct) return;
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        var y = window.scrollY;
-        ln.textContent = String(Math.floor(y / 30) + 1);
-        pct.textContent = (max > 0 ? Math.min(100, Math.round((y / max) * 100)) : 100) + '%';
-      }
-      window.addEventListener('scroll', function () {
-        if (!posTicking) { posTicking = true; requestAnimationFrame(updatePosition); }
-      }, { passive: true });
-      window.addEventListener('resize', updatePosition);
-      updatePosition();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        try { if (localStorage.getItem('theme')) return; } catch (err) {}
+        applyTheme(e.matches ? 'dark' : 'light');
+      });
 
-      if (document.readyState === 'complete') setTimeout(fillStatusBar, 0);
-      else window.addEventListener('load', function () { setTimeout(fillStatusBar, 0); });
-
-      /* drops the sticky rail to normal flow when it is taller than the window, so its bottom is reachable by scrolling */
-      const rail = document.querySelector('.rail') as HTMLElement | null;
-      function updateRailFit() {
-        if (!rail) return;
-        const shell = rail.parentElement as HTMLElement;
-        const bar = document.getElementById('statusbar');
-        const top = parseFloat(getComputedStyle(shell).paddingTop) || 0;
-        const barH = bar ? bar.offsetHeight || 28 : 0; // 28px fallback while the bar is still hidden
-        rail.classList.toggle('is-tall', rail.offsetHeight > 0 && top + rail.offsetHeight + barH > window.innerHeight);
-      }
-      if (rail) {
-        updateRailFit();
-        window.addEventListener('resize', updateRailFit);
-        new ResizeObserver(updateRailFit).observe(rail);
-      }
-
-      // away tab title: looks like a job suspended with Ctrl+Z while the tab is hidden (nbsp, since browsers collapse plain spaces)
       let awayTitle = '';
       document.addEventListener('visibilitychange', function () {
         if ((document as Document & { prerendering?: boolean }).prerendering) return;
         if (document.hidden && !awayTitle) {
           awayTitle = document.title;
-          document.title = '[1]+  Stopped    dao chau';
+          document.title = '[1]+  Stopped    dao chau'; // nbsp, browsers collapse plain spaces
         } else if (!document.hidden && awayTitle) {
           document.title = awayTitle;
           awayTitle = '';
         }
       });
 
-      // cards (built-with and shortcuts): one open at a time, closed by Escape or an outside click
-      const cards = [
-        { btn: document.getElementById('sb-info'), pop: document.getElementById('sb-pop') },
-        { btn: document.getElementById('sb-keys'), pop: document.getElementById('sc-pop') },
-      ];
+      const card = document.getElementById('sc-pop');
       let cardOpener: HTMLElement | null = null;
-      /* opens one card (or none), closes the rest and keeps aria-expanded in sync */
-      function showCard(open: HTMLElement | null, opener?: HTMLElement | null) {
-        if (open) cardOpener = opener || (document.activeElement as HTMLElement | null);
-        cards.forEach(function (c) {
-          if (!c.pop) return;
-          c.pop.hidden = c.pop !== open;
-          if (c.btn) c.btn.setAttribute('aria-expanded', String(c.pop === open));
-        });
+      /* opens or closes the shortcuts card */
+      function showCard(open: boolean) {
+        if (!card) return;
+        if (open) cardOpener = document.activeElement as HTMLElement | null;
+        card.hidden = !open;
       }
-      cards.forEach(function (c) {
-        if (!c.btn || !c.pop) return;
-        c.btn.addEventListener('click', function (e) { e.stopPropagation(); showCard(c.pop!.hidden ? c.pop : null, c.btn); });
-      });
       document.addEventListener('click', function (e) {
-        cards.forEach(function (c) { if (c.pop && !c.pop.hidden && !c.pop.contains(e.target as Node)) showCard(null); });
+        if (card && !card.hidden && !card.contains(e.target as Node)) showCard(false);
       });
 
-      // minionese easter egg: typing "bello" anywhere gets a reply in the status bar (and a console wink)
-      const sayEl = document.getElementById('sb-say');
-      const sayLive = document.getElementById('sb-say-live');
+      const sayEl = document.getElementById('say');
       const replies = ['bello! tank yu for visiting.', 'bello! me want banana.', 'poopaye? no. bello.'];
       let replyIdx = 0;
       let sayTimer = 0;
-      /* shows the next reply for 3s, then clears it */
+      /* shows the next minionese reply for 3s, then clears it */
       function sayBello() {
         const text = replies[replyIdx++ % replies.length];
         if (sayEl) sayEl.textContent = text;
-        if (sayLive) sayLive.textContent = text;
         clearTimeout(sayTimer);
-        sayTimer = window.setTimeout(function () {
-          if (sayEl) sayEl.textContent = '';
-          if (sayLive) sayLive.textContent = '';
-        }, 3000);
-        try { console.log('%c' + text, "color: #f3c02c; font-family: 'JetBrains Mono', monospace; font-size: 13px;"); } catch (e) {}
+        sayTimer = window.setTimeout(function () { if (sayEl) sayEl.textContent = ''; }, 3000);
+        try { console.log('%c' + text, "font-family: 'JetBrains Mono', monospace; font-size: 13px;"); } catch (e) {}
       }
 
-      // keyboard layer: t theme, ? shortcuts, g then h/t/u/r go to a page, Escape closes cards
       let goAt = 0;
       let typed = '';
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-          const wasOpen = cards.some(function (c) { return c.pop && !c.pop.hidden; });
-          showCard(null);
+          const wasOpen = card && !card.hidden;
+          showCard(false);
           if (wasOpen && cardOpener) cardOpener.focus();
           return;
         }
@@ -226,55 +121,33 @@ const shortcuts: [string[], string][] = [
         if (el && (el.isContentEditable || el.closest('input, textarea, select'))) return;
         const key = e.key.toLowerCase();
         if (goAt && Date.now() - goAt < 800) {
-          const pages: Record<string, string> = { h: '/', t: '/til', u: '/uses', r: '/reading' };
+          const pages: Record<string, string> = { h: '/', t: '/til', u: '/uses', r: '/reading', n: '/now' };
           goAt = 0;
           if (pages[key]) { location.href = pages[key]; return; }
         }
         if (key === 'g') goAt = Date.now();
-        else if (key === 't') btn.click();
-        else if (e.key === '?') showCard(cards[1].pop);
+        else if (key === 't') btn?.click();
+        else if (e.key === '?') showCard(true);
         if (/^[a-z]$/.test(key)) {
           typed = (typed + key).slice(-5);
           if (typed === 'bello') { typed = ''; sayBello(); }
         }
       });
 
-      // rail: mark the link of the in-page section crossing the reading band as the current one
-      const hashLinks = document.querySelectorAll<HTMLAnchorElement>('.nav a[href^="#"]');
-      if (hashLinks.length && 'IntersectionObserver' in window) {
-        const spy = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            hashLinks.forEach(function (a) {
-              if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'true');
-              else a.removeAttribute('aria-current');
-            });
-          });
-        }, { rootMargin: '-30% 0px -60% 0px' });
-        hashLinks.forEach(function (a) {
-          const section = document.getElementById(a.getAttribute('href')!.slice(1));
-          if (section) spy.observe(section);
-        });
-      }
-
-      // logo eye follows the pointer (mouse/pen only); the blink animation is untouched
       const logo = document.querySelector<SVGElement>('.mark');
       if (logo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const look = function (x: number, y: number) {
+        window.addEventListener('pointermove', function (e) {
+          if (e.pointerType === 'touch') return;
           const r = logo.getBoundingClientRect();
-          const dx = x - (r.left + r.width / 2);
-          const dy = y - (r.top + r.height / 2);
+          const dx = e.clientX - (r.left + r.width / 2);
+          const dy = e.clientY - (r.top + r.height / 2);
           const d = Math.hypot(dx, dy) || 1;
           const k = Math.min(5, d / 40);
           logo.style.setProperty('--ex', (dx / d * k).toFixed(2) + 'px');
           logo.style.setProperty('--ey', (dy / d * k).toFixed(2) + 'px');
-        };
-        window.addEventListener('pointermove', function (e) {
-          if (e.pointerType !== 'touch') look(e.clientX, e.clientY);
         }, { passive: true });
       }
 
-      // easter egg: 5 logo clicks within 2s make the goggles dizzy (spin is CSS, skipped under reduced motion)
       if (logo) {
         let clickTimes: number[] = [];
         let dizzy = false;
@@ -287,27 +160,15 @@ const shortcuts: [string[], string][] = [
           dizzy = true;
           logo.classList.add('is-dizzy');
           setTimeout(function () { logo.classList.remove('is-dizzy'); dizzy = false; }, 1200);
-          const bar = document.getElementById('statusbar');
-          const status = document.getElementById('sb-status');
-          if (!bar || bar.hidden || !status) return;
-          const prev = status.textContent;
-          status.textContent = 'warn: eye strain';
-          status.classList.add('is-warn');
-          setTimeout(function () { status.textContent = prev; status.classList.remove('is-warn'); }, 2500);
         });
       }
-
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        try { if (localStorage.getItem('theme')) return; } catch (err) {}
-        applyTheme(e.matches ? 'dark' : 'light');
-      });
     </script>
     <script is:inline>
       (function () {
         try {
           console.log(
             "%c◉ dao chau: built by hand, blinking since 2026.",
-            "color: #f3c02c; font-family: 'JetBrains Mono', monospace; font-size: 13px;"
+            "font-family: 'JetBrains Mono', monospace; font-size: 13px;"
           );
           console.log("dig around: https://github.com/daomapsieucap/dao");
         } catch (e) {}

@@ -1,0 +1,17 @@
+---
+interface Props {
+    class?: string;
+}
+
+const { class: extra } = Astro.props;
+---
+
+<footer class:list={["foot", extra]}>
+    <span>&lt;? <slot /> ?&gt;</span>
+    <span class="foot-links">
+        <a href="mailto:bichdao.chau@gmail.com" title="bichdao.chau@gmail.com">mail</a>
+        <a href="https://github.com/daomapsieucap" target="_blank" rel="noopener" title="github.com/daomapsieucap">github</a>
+        <a href="https://www.linkedin.com/in/dao-chau" target="_blank" rel="noopener" title="linkedin.com/in/dao-chau">linkedin</a>
+        <a href="https://buymeacoffee.com/daomapsieucap" target="_blank" rel="noopener" title="buymeacoffee.com/daomapsieucap">coffee</a>
+    </span>
+</footer>

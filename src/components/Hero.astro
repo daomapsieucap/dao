@@ -1,0 +1,19 @@
+---
+import GhostHeading from "@/components/GhostHeading.astro";
+
+interface Props {
+    meta: string;
+    title: string;
+    em: string;
+    sub: string;
+}
+
+const { meta, title, em, sub } = Astro.props;
+---
+
+<section class="hero">
+    <p class="meta">&lt;? {meta} ?&gt;</p>
+    <GhostHeading level="h1" text={title} em={em} />
+    <p class="hero-sub">{sub}</p>
+    <slot />
+</section>
