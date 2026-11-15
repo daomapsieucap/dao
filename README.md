@@ -21,7 +21,7 @@ Small on purpose, much like the rest of my life.
 
 - [Astro](https://astro.build): static site generator
 - CSS custom properties: one stylesheet, light/dark theming, inlined into each page so nothing blocks render
-- Literata + Inter + JetBrains Mono: self-hosted via Fontsource, latin subsets preloaded
+- Literata + Inter + JetBrains Mono: self-hosted via Fontsource; Literata (latin + Vietnamese) and Inter latin preloaded with `font-display: optional`, so text never reflows when fonts arrive (no CLS)
 - `@astrojs/sitemap`, static `robots.txt`, `astro-seo`: SEO plumbing
 - Google Analytics: plain `gtag.js` snippet, loaded at idle after page load
 - `npm run budget`: per-page weight check (runs in CI after the build)
