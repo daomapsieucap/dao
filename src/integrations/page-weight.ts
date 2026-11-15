@@ -4,8 +4,6 @@ import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 
-const TOKEN = "__PAGE_WEIGHT__";
-
 /* Lists every .html file under a directory, recursively. */
 function htmlFiles(dir: string): string[] {
     return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -34,7 +32,7 @@ function weightOf(buf: Buffer, file: string): number {
     return file.endsWith(".woff2") ? buf.length : zlib.gzipSync(buf, { level: 9 }).length;
 }
 
-/* Measures what each built page loads, writes dist/page-weight.json and fills the weight token in the HTML. */
+/* Measures what each built page loads and writes dist/page-weight.json. */
 export default function pageWeight(): AstroIntegration {
     return {
         name: "page-weight",
@@ -45,9 +43,7 @@ export default function pageWeight(): AstroIntegration {
 
                 for (const file of htmlFiles(outDir)) {
                     const raw = fs.readFileSync(file, "utf8");
-                    // measure with a same-width stand-in so the final replacement does not change the size
-                    const html = Buffer.from(raw.replaceAll(TOKEN, "000kB"));
-                    const files = [{ file: "html", bytes: weightOf(html, ".html") }];
+                    const files = [{ file: "html", bytes: weightOf(Buffer.from(raw), ".html") }];
                     for (const asset of pageAssets(raw)) {
                         const assetPath = path.join(outDir, asset);
                         if (!fs.existsSync(assetPath)) continue;
@@ -60,7 +56,6 @@ export default function pageWeight(): AstroIntegration {
                     const pagePath = "/" + rel.replace(/index\.html$/, "");
 
                     pages.push({ path: pagePath, total, nonFont, files });
-                    fs.writeFileSync(file, raw.replaceAll(TOKEN, `${Math.round(total / 1000)}kB`));
                 }
 
                 fs.writeFileSync(path.join(outDir, "page-weight.json"), JSON.stringify(pages, null, 2));

@@ -3,8 +3,8 @@
 > behind the curtain, keeping things running.
 
 [daochau.com](https://daochau.com), a small e-reader-flavored personal site, black ink on paper.
-Built with Astro and plain CSS; no utility framework, no client-side JS
-beyond analytics and a small easter egg on `/404`.
+Built with Astro and plain CSS; no utility framework, and only small inline
+client-side JS (theme toggle, shortcuts, shelf filter, a few easter eggs).
 
 Small on purpose, much like the rest of my life.
 
