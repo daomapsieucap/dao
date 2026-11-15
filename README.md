@@ -20,6 +20,7 @@ Small on purpose, much like the rest of my life.
 ## $ cat stack
 
 - [Astro](https://astro.build): static site generator
+- Theme `dao`: black ink on paper, e-reader style; large light headings with a faint offset shade (`src/components/Heading.astro`)
 - CSS custom properties: one stylesheet, light/dark theming, inlined into each page so nothing blocks render
 - Literata + Inter + JetBrains Mono: self-hosted via Fontsource; Literata (latin + Vietnamese) and Inter latin preloaded with `font-display: optional`, so text never reflows when fonts arrive (no CLS)
 - `@astrojs/sitemap`, static `robots.txt`, `astro-seo`: SEO plumbing

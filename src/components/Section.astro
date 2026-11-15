@@ -1,5 +1,5 @@
 ---
-import GhostHeading from "@/components/GhostHeading.astro";
+import Heading from "@/components/Heading.astro";
 
 interface Props {
     id?: string;
@@ -14,6 +14,6 @@ const headingId = id ? `s-${id}` : undefined;
 <div class="dither" aria-hidden="true"></div>
 <section class="sec" id={id} aria-labelledby={headingId}>
     {meta && <p class="meta">&lt;? {meta} ?&gt;</p>}
-    <GhostHeading text={title} id={headingId} />
+    <Heading text={title} id={headingId} />
     <slot />
 </section>

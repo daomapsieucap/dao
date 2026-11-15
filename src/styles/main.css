@@ -406,7 +406,7 @@ a.brand:hover {
   color: var(--muted);
 }
 
-.gh {
+.heading {
   position: relative;
   margin: 0 0 40px;
   font-weight: 300;
@@ -416,7 +416,7 @@ a.brand:hover {
   color: var(--ink);
 }
 
-.gh .ghost {
+.heading .heading-shade {
   position: absolute;
   left: 0;
   top: 0;
@@ -427,16 +427,16 @@ a.brand:hover {
   user-select: none;
 }
 
-.gh .real {
+.heading .heading-text {
   position: relative;
 }
 
-.gh-xl {
+.heading-xl {
   margin-bottom: 24px;
   font-size: clamp(40px, 7vw, 96px);
 }
 
-.gh-xl .ghost {
+.heading-xl .heading-shade {
   right: 0;
   white-space: normal;
 }
@@ -1171,7 +1171,7 @@ a.brand:hover {
   .hero-sub {
     font-size: 19px;
   }
-  .gh {
+  .heading {
     margin-bottom: 28px;
   }
   .prose-lg {

@@ -1,0 +1,16 @@
+---
+interface Props {
+    level?: "h1" | "h2";
+    text: string;
+    em?: string;
+    id?: string;
+}
+
+const { level = "h2", text, em, id } = Astro.props;
+const Tag = level;
+---
+
+<Tag class:list={["heading", { "heading-xl": level === "h1" }]} id={id}>
+    <span class="heading-shade" aria-hidden="true">{text}{em && <><br /><i>{em}</i></>}</span>
+    <span class="heading-text">{text}{em && <><br /><i>{em}</i></>}</span>
+</Tag>
