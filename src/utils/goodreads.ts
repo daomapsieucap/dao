@@ -45,6 +45,11 @@ function upscaleCoverUrl(url: string): string {
     return url.replace(/\.(_S[XY]\d+_)\./, "._SY600_.");
 }
 
+/* Returns the cover url resized by the Goodreads CDN to the given pixel height. */
+export function coverAt(url: string, height: number): string {
+    return url.replace(/\._S[XY]\d+_\./, `._SY${height}_.`);
+}
+
 function makeBook(id: string, title: string, author: string, cover: string): Book {
     return {
         id: Number(id),

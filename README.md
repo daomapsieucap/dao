@@ -13,16 +13,18 @@ Small on purpose, much like the rest of my life.
 - `/`: description, echo (featured projects), now, notes
 - `/til`: things I learned, one markdown file at a time
 - `/uses`: the hardware & software I keep around
-- `/reading`: currently reading + recently finished, pulled live from goodreads at build time (profile page + read widget)
+- `/reading`: currently reading + recently finished, pulled live from goodreads at build time (profile page + read widget), covers sized per screen via the goodreads CDN
+- `/now`: every snapshot of the home page's now section, one markdown file each
 - `/404`: banana not found, the goggle stands in for the 0
 
 ## $ cat stack
 
 - [Astro](https://astro.build): static site generator
-- CSS custom properties: one stylesheet, light/dark theming
-- Literata + Inter + JetBrains Mono: self-hosted via Fontsource
+- CSS custom properties: one stylesheet, light/dark theming, inlined into each page so nothing blocks render
+- Literata + Inter + JetBrains Mono: self-hosted via Fontsource, latin subsets preloaded
 - `@astrojs/sitemap`, static `robots.txt`, `astro-seo`: SEO plumbing
-- Google Analytics: plain async `gtag.js` snippet, no extra tooling
+- Google Analytics: plain `gtag.js` snippet, loaded at idle after page load
+- `npm run budget`: per-page weight check (runs in CI after the build)
 - GitHub Pages: every push to `master` type-checks and deploys itself
 
 ## $ dao --help
@@ -41,6 +43,7 @@ Small on purpose, much like the rest of my life.
 | :--------------------- | :----------------------------------------- |
 | Page copy              | `src/pages/index.astro`, `uses.astro`      |
 | TIL posts              | `src/content/til/*.md` (title, date, tags) |
+| Now snapshots          | `src/content/now/*.md` (updated, work, learning, reading) |
 | Featured projects      | `src/data/projects.ts`                     |
 | Site config / URL      | `src/data/config.ts`                       |
 | Styles & CSS variables | `src/styles/main.css`                      |

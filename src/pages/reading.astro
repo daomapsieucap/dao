@@ -4,7 +4,7 @@ import Hero from "@/components/Hero.astro";
 import Section from "@/components/Section.astro";
 import Highlight from "@/components/Highlight.astro";
 import Footer from "@/components/Footer.astro";
-import { fetchShelf, type Book } from "@/utils/goodreads";
+import { coverAt, fetchShelf, type Book } from "@/utils/goodreads";
 import { GOODREADS_USER_ID } from "@/data/config";
 
 const [currentlyReading, favorites, recentlyRead] = await Promise.all([
@@ -44,7 +44,7 @@ const profileUrl = GOODREADS_USER_ID
                 {currentlyReading.map((book) => (
                     <a class="book book-row" href={book.link} target="_blank" rel="noopener">
                         <span class="cover">
-                            <img src={book.coverUrl} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="112" height="168" />
+                            <img src={coverAt(book.coverUrl, 180)} srcset={`${coverAt(book.coverUrl, 180)} 1x, ${coverAt(book.coverUrl, 360)} 2x`} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="112" height="168" />
                         </span>
                         <span class="book-info">
                             <span class="meta">in progress</span>
@@ -73,7 +73,7 @@ const profileUrl = GOODREADS_USER_ID
                     {shelfBooks.map((book) => (
                         <a class="book" href={book.link} target="_blank" rel="noopener" data-fav={book.isFavorite ? "1" : undefined}>
                             <span class="cover">
-                                <img src={book.coverUrl} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="140" height="210" />
+                                <img src={coverAt(book.coverUrl, 270)} srcset={`${coverAt(book.coverUrl, 270)} 180w, ${coverAt(book.coverUrl, 405)} 270w, ${coverAt(book.coverUrl, 540)} 360w`} sizes="(max-width: 640px) 30vw, 180px" alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="140" height="210" />
                                 {book.isFavorite && <span class="fav" title="favorite" aria-label="favorite"></span>}
                             </span>
                             <span class="shelf-title">{book.title}</span>

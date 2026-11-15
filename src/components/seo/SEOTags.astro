@@ -5,11 +5,11 @@ import type { PageMeta } from "@/utils/types/PageMeta";
 import literataNormalLatin from "@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url";
 import literataItalicLatin from "@fontsource-variable/literata/files/literata-latin-wght-italic.woff2?url";
 import interNormalLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import mainCssHref from "@/styles/main.css?url";
-import jetbrainsMonoCssHref from "@fontsource-variable/jetbrains-mono?url";
-import literataWghtCssHref from "@fontsource-variable/literata/wght.css?url";
-import literataWghtItalicCssHref from "@fontsource-variable/literata/wght-italic.css?url";
-import interWghtCssHref from "@fontsource-variable/inter/wght.css?url";
+import "@fontsource-variable/literata/wght.css";
+import "@fontsource-variable/literata/wght-italic.css";
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "@/styles/main.css";
 
 type Props = PageMeta;
 
@@ -29,32 +29,16 @@ const meta = {
   url: new URL(Astro.url.pathname, SITE_URL).href,
 };
 
-// Font-only bundles are safe to defer via the media="print" swap below:
-// they don't affect layout, so a late swap is invisible. main.css controls
-// actual element sizing (e.g. the unsized inline SVG logo), so it stays a
-// normal blocking stylesheet to avoid a flash of oversized/unstyled content.
-const deferredStylesheets = [
-  jetbrainsMonoCssHref,
-  literataWghtCssHref,
-  literataWghtItalicCssHref,
-  interWghtCssHref,
-];
+// The font-face rules and main.css are inlined into each page (inlineStylesheets in astro.config.mjs),
+// so nothing blocks render and the preloaded fonts are usable at first paint.
 ---
 
 <head>
+  <meta charset="UTF-8" />
   <link rel="preload" as="font" type="font/woff2" href={literataNormalLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={literataItalicLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={interNormalLatin} crossorigin />
-  {deferredStylesheets.map((href) => (
-    <>
-      <link rel="preload" href={href} as="style" />
-      <link rel="stylesheet" href={href} media="print" onload="this.removeAttribute('media')" />
-      <noscript><link rel="stylesheet" href={href} /></noscript>
-    </>
-  ))}
-  <link rel="stylesheet" href={mainCssHref} />
   <SEO
-    charset="UTF-8"
     title={meta.title}
     description={meta.description}
     noindex={props.noindex ?? false}
