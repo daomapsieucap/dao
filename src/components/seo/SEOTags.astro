@@ -4,10 +4,8 @@ import { SITE_URL } from "@/data/config";
 import type { PageMeta } from "@/utils/types/PageMeta";
 import literataNormalLatin from "@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url";
 import literataItalicLatin from "@fontsource-variable/literata/files/literata-latin-wght-italic.woff2?url";
+import literataVietnamese from "@fontsource-variable/literata/files/literata-vietnamese-wght-normal.woff2?url";
 import interNormalLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import "@fontsource-variable/literata/wght.css";
-import "@fontsource-variable/literata/wght-italic.css";
-import "@fontsource-variable/inter/wght.css";
 import "@fontsource-variable/jetbrains-mono/wght.css";
 import "@/styles/main.css";
 
@@ -29,14 +27,15 @@ const meta = {
   url: new URL(Astro.url.pathname, SITE_URL).href,
 };
 
-// The font-face rules and main.css are inlined into each page (inlineStylesheets in astro.config.mjs),
-// so nothing blocks render and the preloaded fonts are usable at first paint.
+// main.css (with the Literata and Inter font-face rules) is inlined into each page via inlineStylesheets
+// in astro.config.mjs, so nothing blocks render and the preloaded fonts are usable at first paint.
 ---
 
 <head>
   <meta charset="UTF-8" />
   <link rel="preload" as="font" type="font/woff2" href={literataNormalLatin} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={literataItalicLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={literataVietnamese} crossorigin />
   <link rel="preload" as="font" type="font/woff2" href={interNormalLatin} crossorigin />
   <SEO
     title={meta.title}
