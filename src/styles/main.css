@@ -1216,6 +1216,10 @@ a.brand:hover {
 @media (max-width: 480px) {
   .kv > div {
     grid-template-columns: 1fr;
-    gap: 2px;
+    gap: 12px;
+  }
+  .kv rt {
+    line-height: 1.2;
+    margin-bottom: -4px; /* eat the value's half-leading so the gloss hugs it */
   }
 }
