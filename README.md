@@ -23,7 +23,7 @@ Small on purpose, much like the rest of my life.
 - Theme `dao`: black ink on paper, e-reader style; large light headings with a faint offset shade (`src/components/Heading.astro`)
 - CSS custom properties: one stylesheet, light/dark theming, inlined into each page so nothing blocks render
 - Literata + Inter + JetBrains Mono: self-hosted via Fontsource; Literata (latin + Vietnamese) and Inter latin preloaded with `font-display: optional`, so text never reflows when fonts arrive (no CLS)
-- `@astrojs/sitemap`, static `robots.txt`, `astro-seo`: SEO plumbing
+- `@astrojs/sitemap`, static `robots.txt`, hand-written meta tags: SEO plumbing
 - Google Analytics: plain `gtag.js` snippet, loaded at idle after page load
 - `npm run budget`: per-page weight check (runs in CI after the build)
 - GitHub Pages: every push to `master` type-checks and deploys itself
@@ -61,8 +61,6 @@ Or edit TIL posts from anywhere, phone included, via
 `/reading` needs `GOODREADS_USER_ID` set (copy `.env.example` to `.env`
 locally; set the same as a repo secret for the deploy workflow). The id
 stays out of source since the repo is public.
-
-Started from [astro-portfolio-template](https://github.com/MaeWolff/astro-portfolio-template) by Maxence WOLFF (MIT).
 
 ---
 
