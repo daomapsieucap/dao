@@ -87,6 +87,7 @@
   --rule: #c2c0b9;
   --well: #e2e1dc;
   --cover: #dddcd6;
+  --mark: #c9c7c0;
   --serif: "Literata Variable", "Literata", Georgia, "Times New Roman", serif;
   --sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -101,6 +102,7 @@
   --rule: #3a3a3a;
   --well: #1c1c1c;
   --cover: #222222;
+  --mark: #3f3f3d;
   color-scheme: dark;
 }
 
@@ -113,6 +115,7 @@
     --rule: #3a3a3a;
     --well: #1c1c1c;
     --cover: #222222;
+    --mark: #3f3f3d;
     color-scheme: dark;
   }
 }
@@ -153,6 +156,14 @@ body {
 img,
 svg {
   max-width: 100%;
+}
+
+mark {
+  background: var(--mark);
+  color: var(--ink);
+  padding: 0 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 ::selection {
