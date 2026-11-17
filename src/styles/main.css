@@ -90,10 +90,28 @@
 
 @font-face {
   font-family: "Inter Fallback"; /* Arial resized to Inter metrics so the swap does not reflow */
-  src: local("Arial");
+  src: local("Arial"), local("Liberation Sans"), local("Arimo"); /* Liberation Sans and Arimo share Arial's widths */
   size-adjust: 107.61%;
   ascent-override: 90.03%;
   descent-override: 22.42%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Literata Fallback Android"; /* Noto Serif resized to Literata metrics, for devices without Georgia */
+  src: local("Noto Serif"), local("NotoSerif-Regular"), local("Droid Serif");
+  size-adjust: 98.70%;
+  ascent-override: 119.25%;
+  descent-override: 31.21%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback Android"; /* Roboto resized to Inter metrics, for devices without Arial */
+  src: local("Roboto"), local("Roboto-Regular");
+  size-adjust: 107.94%;
+  ascent-override: 89.75%;
+  descent-override: 22.35%;
   line-gap-override: 0%;
 }
 
@@ -106,8 +124,8 @@
   --well: #e2e1dc;
   --cover: #dddcd6;
   --mark: #c9c7c0;
-  --serif: "Literata Variable", "Literata Fallback", Georgia, "Times New Roman", serif;
-  --sans: "Inter Variable", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Literata Variable", "Literata Fallback", "Literata Fallback Android", Georgia, "Times New Roman", serif;
+  --sans: "Inter Variable", "Inter Fallback", "Inter Fallback Android", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   color-scheme: light;
 }

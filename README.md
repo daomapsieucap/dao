@@ -22,7 +22,7 @@ Small on purpose, much like the rest of my life.
 - [Astro](https://astro.build): static site generator
 - Theme `dao`: black ink on paper, e-reader style; large light headings with a faint offset shade (`src/components/Heading.astro`)
 - CSS custom properties: one stylesheet, light/dark theming, inlined into each page so nothing blocks render
-- Literata + Inter + JetBrains Mono: self-hosted via Fontsource; Literata (latin + Vietnamese) and Inter latin preloaded with `font-display: swap`; metric-matched Georgia/Arial fallbacks keep the swap from reflowing text (no CLS)
+- Literata + Inter + JetBrains Mono: self-hosted via Fontsource; Literata (latin + Vietnamese) and Inter latin preloaded with `font-display: swap`; metric-matched Georgia/Arial (Noto Serif/Roboto on Android, Liberation Sans on Linux) fallbacks keep the swap from reflowing text much (CLS well under 0.1)
 - `@astrojs/sitemap`, static `robots.txt`, hand-written meta tags: SEO plumbing
 - Google Analytics: plain `gtag.js` snippet, loaded at idle after page load
 - `npm run budget`: per-page weight check (runs in CI after the build)
