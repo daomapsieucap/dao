@@ -54,7 +54,7 @@ const count = `${entries.length} ${entries.length === 1 ? "entry" : "entries"}`;
                             <p class="til-date"><time datetime={isoDate(entry.data.date)}>{isoDate(entry.data.date)}</time></p>
                         </div>
                         <div class="til-main">
-                            <h3 class="til-title">{entry.data.title} <a class="til-permalink" href={`#${anchor}`} aria-label={`link to ${entry.data.title}`}>#</a></h3>
+                            <h3 class="til-title">{entry.data.title} <a class="til-permalink" href={`#${anchor}`}>#<span class="sr-only"> link to {entry.data.title}</span></a></h3>
                             <div class="til-body"><Content /></div>
                             {entry.data.tags && entry.data.tags.length > 0 && (
                                 <p class="tags" lang="en">{entry.data.tags.join(" · ")}</p>
