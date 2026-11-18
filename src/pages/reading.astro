@@ -44,7 +44,7 @@ const profileUrl = GOODREADS_USER_ID
                 {currentlyReading.map((book) => (
                     <a class="book book-row" href={book.link} target="_blank" rel="noopener">
                         <span class="cover">
-                            <img src={coverAt(book.coverUrl, 180)} srcset={`${coverAt(book.coverUrl, 180)} 1x, ${coverAt(book.coverUrl, 360)} 2x`} alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="112" height="168" />
+                            <img src={coverAt(book.coverUrl, 180)} srcset={`${coverAt(book.coverUrl, 180)} 1x, ${coverAt(book.coverUrl, 360)} 2x`} alt="" loading="lazy" decoding="async" width="112" height="168" />
                         </span>
                         <span class="book-info">
                             <span class="meta">in progress</span>
@@ -69,12 +69,13 @@ const profileUrl = GOODREADS_USER_ID
                         <button class="pill" type="button" aria-pressed="false" data-filter="fav">favorites</button>
                     </div>
                 )}
+                <p class="sr-only" id="shelf-status" role="status"></p>
                 <div class="shelf-grid" id="shelf-grid">
                     {shelfBooks.map((book) => (
                         <a class="book" href={book.link} target="_blank" rel="noopener" data-fav={book.isFavorite ? "1" : undefined}>
                             <span class="cover">
-                                <img src={coverAt(book.coverUrl, 270)} srcset={`${coverAt(book.coverUrl, 270)} 180w, ${coverAt(book.coverUrl, 405)} 270w, ${coverAt(book.coverUrl, 540)} 360w`} sizes="(max-width: 640px) 30vw, 180px" alt={`cover of ${book.title}`} loading="lazy" decoding="async" width="140" height="210" />
-                                {book.isFavorite && <span class="fav" title="favorite" aria-label="favorite"></span>}
+                                <img src={coverAt(book.coverUrl, 270)} srcset={`${coverAt(book.coverUrl, 270)} 180w, ${coverAt(book.coverUrl, 405)} 270w, ${coverAt(book.coverUrl, 540)} 360w`} sizes="(max-width: 640px) 30vw, 180px" alt="" loading="lazy" decoding="async" width="140" height="210" />
+                                {book.isFavorite && <><span class="fav" aria-hidden="true"></span><span class="sr-only">favorite</span></>}
                             </span>
                             <span class="shelf-title">{book.title}</span>
                             <span class="shelf-author">{book.author}</span>
@@ -96,12 +97,18 @@ const profileUrl = GOODREADS_USER_ID
             if (!group || !grid) return;
             var pills = group.querySelectorAll('.pill');
             var books = grid.querySelectorAll('.book');
+            var status = document.getElementById('shelf-status');
             group.hidden = false;
             pills.forEach(function (pill) {
                 pill.addEventListener('click', function () {
                     var favOnly = pill.getAttribute('data-filter') === 'fav';
                     pills.forEach(function (p) { p.setAttribute('aria-pressed', String(p === pill)); });
-                    books.forEach(function (b) { b.hidden = favOnly && !b.hasAttribute('data-fav'); });
+                    var shown = 0;
+                    books.forEach(function (b) {
+                        b.hidden = favOnly && !b.hasAttribute('data-fav');
+                        if (!b.hidden) shown++;
+                    });
+                    if (status) status.textContent = 'showing ' + shown + (favOnly ? ' favorite' : '') + ' book' + (shown === 1 ? '' : 's');
                 });
             });
         })();

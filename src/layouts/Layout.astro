@@ -29,7 +29,7 @@ const shortcuts: [string[], string][] = [
         <slot />
       </main>
     </div>
-    <div class="card" id="sc-pop" role="dialog" aria-label="Keyboard shortcuts" hidden>
+    <div class="card" id="sc-pop" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" tabindex="-1" hidden>
       <p class="meta">&lt;? keys · for the keyboard people ?&gt;</p>
       <dl class="card-list">
         {shortcuts.map(([keys, what]) => (
@@ -39,14 +39,16 @@ const shortcuts: [string[], string][] = [
           </>
         ))}
       </dl>
+      <label class="card-opt"><input type="checkbox" id="sc-on" checked /> single-key shortcuts on</label>
+      <button class="theme-btn card-close" id="sc-close" type="button">close</button>
     </div>
     <p class="say" id="say" role="status"></p>
     <script>
       var btn = document.getElementById('theme-toggle') as HTMLButtonElement | null;
 
-      /* reflects the current theme on the toggle button */
+      /* names the toggle after the theme it switches to */
       function syncThemeBtn() {
-        if (btn) btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+        if (btn) btn.setAttribute('aria-label', document.documentElement.getAttribute('data-theme') === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
       }
 
       /* switches the theme without animating every color on the page */
@@ -83,15 +85,42 @@ const shortcuts: [string[], string][] = [
       });
 
       const card = document.getElementById('sc-pop');
+      const cardBtn = document.getElementById('sc-btn');
+      const keysOn = document.getElementById('sc-on') as HTMLInputElement | null;
       let cardOpener: HTMLElement | null = null;
-      /* opens or closes the shortcuts card */
+      let shortcutsOn = true;
+      try { shortcutsOn = localStorage.getItem('shortcuts') !== 'off'; } catch (e) {}
+      if (keysOn) keysOn.checked = shortcutsOn;
+      keysOn?.addEventListener('change', function () {
+        shortcutsOn = keysOn.checked;
+        try { localStorage.setItem('shortcuts', shortcutsOn ? 'on' : 'off'); } catch (e) {}
+      });
+
+      /* opens or closes the shortcuts card and moves focus in or back out */
       function showCard(open: boolean) {
         if (!card) return;
         if (open) cardOpener = document.activeElement as HTMLElement | null;
         card.hidden = !open;
+        cardBtn?.setAttribute('aria-expanded', String(open));
+        if (open) card.focus();
       }
+      cardBtn?.addEventListener('click', function () { showCard(!!card?.hidden); });
+      document.getElementById('sc-close')?.addEventListener('click', function () {
+        showCard(false);
+        cardOpener?.focus();
+      });
+      card?.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        const items = Array.from(card.querySelectorAll<HTMLElement>('input, button'));
+        const first = items[0];
+        const last = items[items.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || active === card)) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+      });
       document.addEventListener('click', function (e) {
-        if (card && !card.hidden && !card.contains(e.target as Node)) showCard(false);
+        const t = e.target as Node;
+        if (card && !card.hidden && !card.contains(t) && !cardBtn?.contains(t)) showCard(false);
       });
 
       const sayEl = document.getElementById('say');
@@ -116,7 +145,7 @@ const shortcuts: [string[], string][] = [
           if (wasOpen && cardOpener) cardOpener.focus();
           return;
         }
-        if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+        if (e.ctrlKey || e.metaKey || e.altKey || e.repeat || !shortcutsOn) return;
         const el = e.target as HTMLElement | null;
         if (el && (el.isContentEditable || el.closest('input, textarea, select'))) return;
         const key = e.key.toLowerCase();

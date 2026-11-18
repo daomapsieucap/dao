@@ -175,7 +175,7 @@ html.is-switching *::after {
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: 24px;
+  scroll-padding: 24px 0 96px;
 }
 
 body {
@@ -224,7 +224,9 @@ a:hover {
 
 a:focus-visible,
 button:focus-visible,
-main:focus-visible {
+input:focus-visible,
+main:focus-visible,
+.card:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
@@ -270,6 +272,17 @@ kbd {
   border-bottom-width: 2px;
   border-radius: 4px;
   color: var(--ink);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .skip-link {
@@ -359,7 +372,7 @@ a.brand:hover {
 .theme-btn {
   min-height: 32px;
   padding: 0 12px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--muted);
   border-radius: 16px;
   background: transparent;
   color: var(--prose);
@@ -409,11 +422,11 @@ a.brand:hover {
 
 @media (prefers-reduced-motion: no-preference) {
   .mark-lid {
-    animation: blink 5s steps(1) infinite;
+    animation: blink 2.5s steps(1) 2;
   }
   @keyframes blink {
-    0%, 92%, 100% { transform: scaleY(0); }
-    93%, 97% { transform: scaleY(1); }
+    0%, 84%, 100% { transform: scaleY(0); }
+    85%, 93% { transform: scaleY(1); }
   }
   .mark.is-dizzy {
     animation: mark-wobble 1.2s ease-in-out;
@@ -438,6 +451,15 @@ a.brand:hover {
 @media (prefers-reduced-motion: reduce) {
   a:hover {
     animation: none;
+  }
+  .mark-eye,
+  .nf-eye {
+    transition: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 
@@ -718,6 +740,12 @@ a.brand:hover {
   gap: 4px 18px;
 }
 
+.foot-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 /* ── key/value lists (uses, 404) ───────────────────── */
 
 .kv {
@@ -811,6 +839,11 @@ a.brand:hover {
 }
 
 .til-permalink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
   font-family: var(--sans);
   font-size: 16px;
   color: var(--muted);
@@ -1024,7 +1057,7 @@ a.brand:hover {
   min-height: 44px;
   padding: 0 16px;
   border-radius: 22px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--muted);
   background: transparent;
   color: var(--prose);
   font-family: var(--sans);
@@ -1156,11 +1189,35 @@ a.brand:hover {
   color: var(--prose);
 }
 
+.card-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--prose);
+}
+
+.card-opt input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.card-close {
+  margin-top: 14px;
+}
+
 .say {
   position: fixed;
   left: 50%;
   bottom: 24px;
   z-index: 200;
+  width: max-content;
+  max-width: calc(100vw - 32px);
   margin: 0;
   transform: translateX(-50%);
   padding: 8px 14px;
@@ -1168,11 +1225,16 @@ a.brand:hover {
   color: var(--paper);
   font-family: var(--mono);
   font-size: 13px;
-  white-space: nowrap;
+  text-align: center;
 }
 
 .say:empty {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
 }
 
 @view-transition {
