@@ -1,6 +1,6 @@
 # dao chau · personal site
 
-> behind the curtain, keeping things running.
+> backstage, keeping things running.
 
 [daochau.com](https://daochau.com), a small e-reader-flavored personal site, black ink on paper.
 Built with Astro and plain CSS; no utility framework, and only small inline

@@ -5,7 +5,7 @@ export const GET: APIRoute = () => {
   const body = `/* TEAM */
 maker: dao chau
 site: https://daochau.com
-from: behind the curtain, keeping things running
+from: backstage, keeping things running
 
 /* SITE */
 last build: ${buildDate}
